@@ -131,6 +131,8 @@ class View:
         self.mid_title_label.grid(row=0, column=0, columnspan=4)
         self.mid_title_label.configure(text="Enter PIN")
 
+        self.ml9.configure(text="Cancel")
+        
         self.ml6.grid_forget()
         self.ml7.grid_forget()
         self.mid_title_input.grid(row=1, column=1, columnspan=2)
@@ -141,7 +143,7 @@ class View:
 
         self.ml1.configure(text="Account1")
         self.ml5.configure(text="Account2")
-        self.ml9.configure(text="Back")
+        self.ml9.configure(text="Cancel")
 
         self.ml4.configure(text="Account3")
         self.ml8.configure(text="Account4")
@@ -157,7 +159,8 @@ class View:
         self.ml5.configure(text="info")
         self.ml6.configure(text="info")
         self.ml7.configure(text="info")
-        self.ml9.configure(text="Deposit")
+        self.ml8.configure(text="Deposit")
+        self.ml9.configure(text="Cancel")
         self.ml12.configure(text="Withdraw")
 
     def render_page5(self):
@@ -169,6 +172,9 @@ class View:
         self.mid_title_label.grid(row=0, column=0, columnspan=4)
         self.mid_title_label.configure(text="Enter Deposit Amount")
 
+        self.ml12.configure(text="Back")
+        self.ml9.configure(text="Cancel")
+        
         self.ml6.grid_forget()
         self.ml7.grid_forget()
         self.mid_title_input.grid(row=1, column=1, columnspan=2)
@@ -180,8 +186,8 @@ class View:
         self.ml4.configure(text="$500")
         self.ml5.configure(text="$100")
         self.ml8.configure(text="Other")
-        self.ml9.configure(text="Back")
-        self.ml12.configure(text="Cancel")
+        self.ml9.configure(text="Cancel")
+        self.ml12.configure(text="Back")
 
     def render_page7(self):
         self.display_placeholder()
