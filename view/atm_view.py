@@ -169,6 +169,7 @@ class View:
         self.ml1.grid_forget()
         self.ml2.grid_forget()
         self.ml3.grid_forget()
+        self.ml4.grid_forget()
         self.mid_title_label.grid(row=0, column=0, columnspan=4)
         self.mid_title_label.configure(text="Enter Deposit Amount")
 
@@ -195,11 +196,29 @@ class View:
         self.ml1.grid_forget()
         self.ml2.grid_forget()
         self.ml3.grid_forget()
+        self.ml4.grid_forget()
         self.mid_title_label.grid(row=0, column=0, columnspan=4)
         self.mid_title_label.configure(text="Done?")
 
         self.ml9.configure(text="Yes")
         self.ml12.configure(text="No")
+        
+    def render_info_page(self):
+        self.display_placeholder()
+
+        self.ml1.grid_forget()
+        self.ml2.grid_forget()
+        self.ml3.grid_forget()
+        self.ml4.grid_forget()
+        self.mid_title_label.grid(row=0, column=0, columnspan=4)
+        self.mid_title_label.configure(text="TITLE TITLE TITLE TITLE TITLE")
+        
+        self.ml5.configure(text='info')
+        self.ml6.configure(text='info')
+        self.ml7.configure(text='info')
+        self.ml8.configure(text='info')
+        
+        self.ml12.configure(text='Back')
 
     def clear_mid_frame(self):
         self.mid_title_label.configure(text='')
@@ -264,17 +283,20 @@ class TestController:
             self.view.master.title('Account Overview and Select Transaction Page')
             self.view.render_page4()
         elif curr_page == 5:
+            self.view.master.title('Info Page')
+            self.view.render_info_page()
+        elif curr_page == 6:
             self.view.master.title('Enter Deposit Amount Page')
             self.view.render_page5()
-        elif curr_page == 6:
+        elif curr_page == 7:
             self.view.master.title('Select Withdraw Amount Page')
             self.view.render_page6()
-        elif curr_page == 7:
+        elif curr_page == 8:
             self.view.master.title('Done Page')
             self.view.render_page7()
 
         self._PAGE_NUMBER += 1
-        if self._PAGE_NUMBER >= 8:
+        if self._PAGE_NUMBER >= 9:
             self._PAGE_NUMBER = 1
 
 
