@@ -65,6 +65,9 @@ class View:
         # other middle frame widgets
         self.mid_title_label = Label(self.top_middle_frame, text="Title", height=2)
         self.mid_title_input = Entry(self.top_middle_frame, width=20)
+        
+        self.mid_acc_info_title_label = Label(self.top_middle_frame, height=2)
+        self.mid_acc_info_body_label = Label(self.top_middle_frame, height=2)
 
         self.rb1 = Button(self.top_right_side_frame, text="RB1", width=10)
         self.rb2 = Button(self.top_right_side_frame, text="RB2", width=10)
@@ -88,7 +91,7 @@ class View:
         self.lb2.grid(row=1, column=0, columnspan=2, sticky=E, padx=5, pady=5)
         self.lb3.grid(row=2, column=0, columnspan=2, sticky=E, padx=5, pady=5)
 
-        self.display_placeholder()
+        self.display_blank_page()
 
         self.rb1.grid(row=0, column=0, columnspan=2, sticky=W, padx=5, pady=5)
         self.rb2.grid(row=1, column=0, columnspan=2, sticky=W, padx=5, pady=5)
@@ -107,123 +110,37 @@ class View:
         self.npb11.grid(row=3, column=1)
         self.npb12.grid(row=3, column=3)
 
-    def render_page1(self):
-        self.display_placeholder()
+    def render_card_entry(self):
 
-        self.ml1.grid_forget()
-        self.ml2.grid_forget()
-        self.ml3.grid_forget()
-        self.ml4.grid_forget()
-        self.mid_title_label.grid(row=0, column=0, columnspan=4)
-        self.mid_title_label.configure(text="Enter Card", anchor=CENTER)
+        self.display_entry_page("Enter Card Number")
 
-        self.ml6.grid_forget()
-        self.ml7.grid_forget()
-        self.mid_title_input.grid(row=1, column=1, columnspan=2)
-
-    def render_page2(self):
-        self.display_placeholder()
-
-        self.ml1.grid_forget()
-        self.ml2.grid_forget()
-        self.ml3.grid_forget()
-        self.ml4.grid_forget()
-        self.mid_title_label.grid(row=0, column=0, columnspan=4)
-        self.mid_title_label.configure(text="Enter PIN")
-
-        self.ml9.configure(text="Cancel")
+    def render_PIN_entry(self):
         
-        self.ml6.grid_forget()
-        self.ml7.grid_forget()
-        self.mid_title_input.grid(row=1, column=1, columnspan=2)
-        self.mid_title_input.configure(show="*")
+        self.display_entry_page("Enter PIN", True)
 
-    def render_page3(self):
-        self.display_placeholder()
+    def render_acc_selection(self, option1, option2, option3, option4, option5):
+        self.display_options_page(lb1_lab=option1, lb2_lab=option2, lb3_lab="Cancel", rb1_lab=option3, rb2_lab=option4,
+                                  rb3_lab=option5)
+    
+    def render_acc_info_page(self, acc_name, acc_type, acc_number):
+        self.display_acc_info_page(acc_name, acc_type, acc_number)
 
-        self.ml1.configure(text="Account1")
-        self.ml5.configure(text="Account2")
-        self.ml9.configure(text="Cancel")
-
-        self.ml4.configure(text="Account3")
-        self.ml8.configure(text="Account4")
-        self.ml12.configure(text="Other")
-
-    def render_page4(self):
-        self.clear_mid_frame()
-
-        self.ml1.configure(text="info")
-        self.ml2.configure(text="info")
-        self.ml3.configure(text="info")
-        self.ml4.configure(text="Balance")
-        self.ml5.configure(text="info")
-        self.ml6.configure(text="info")
-        self.ml7.configure(text="info")
-        self.ml8.configure(text="Deposit")
-        self.ml9.configure(text="Cancel")
-        self.ml12.configure(text="Withdraw")
-
-    def render_page5(self):
-        self.display_placeholder()
-
-        self.ml1.grid_forget()
-        self.ml2.grid_forget()
-        self.ml3.grid_forget()
-        self.ml4.grid_forget()
-        self.mid_title_label.grid(row=0, column=0, columnspan=4)
-        self.mid_title_label.configure(text="Enter Deposit Amount")
-
-        self.ml12.configure(text="Back")
-        self.ml9.configure(text="Cancel")
+    def render_information_page(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+        self.display_info_page(input_title, input_info, lb3_lab, rb3_lab)
+    
+    def render_deposit_page(self):
+        self.display_entry_page("Enter Deposit Amount", True, True)
         
-        self.ml6.grid_forget()
-        self.ml7.grid_forget()
-        self.mid_title_input.grid(row=1, column=1, columnspan=2)
+    def render_withdraw_page(self):
+        self.display_options_page(lb1_lab="$20", lb2_lab="$100", lb3_lab="Cancel", rb1_lab="$500", rb2_lab="Other",
+                                  rb3_lab="Back")
 
-    def render_page6(self):
-        self.display_placeholder()
-
-        self.ml1.configure(text="$20")
-        self.ml4.configure(text="$500")
-        self.ml5.configure(text="$100")
-        self.ml8.configure(text="Other")
-        self.ml9.configure(text="Cancel")
-        self.ml12.configure(text="Back")
-
-    def render_page7(self):
-        self.display_placeholder()
-
-        self.ml1.grid_forget()
-        self.ml2.grid_forget()
-        self.ml3.grid_forget()
-        self.ml4.grid_forget()
-        self.mid_title_label.grid(row=0, column=0, columnspan=4)
-        self.mid_title_label.configure(text="Done?")
-
-        self.ml9.configure(text="Yes")
-        self.ml12.configure(text="No")
-        
-    def render_info_page(self):
-        self.display_placeholder()
-
-        self.ml1.grid_forget()
-        self.ml2.grid_forget()
-        self.ml3.grid_forget()
-        self.ml4.grid_forget()
-        self.mid_title_label.grid(row=0, column=0, columnspan=4)
-        self.mid_title_label.configure(text="TITLE TITLE TITLE TITLE TITLE")
-        
-        self.ml5.configure(text='info')
-        self.ml6.configure(text='info')
-        self.ml7.configure(text='info')
-        self.ml8.configure(text='info')
-        
-        self.ml12.configure(text='Back')
-
-    def clear_mid_frame(self):
+    def clear_screen(self):
         self.mid_title_label.configure(text='')
         self.mid_title_input.configure(show='')
         self.mid_title_input.delete(0, END)
+        self.mid_acc_info_title_label.configure(text='')
+        self.mid_acc_info_body_label.configure(text='')
 
         self.ml1.configure(text='')
         self.ml2.configure(text='')
@@ -238,11 +155,13 @@ class View:
         self.ml11.configure(text='')
         self.ml12.configure(text='')
 
-    def display_placeholder(self):
-        self.clear_mid_frame()
+    def display_blank_page(self):
+        self.clear_screen()
 
         self.mid_title_label.grid_forget()
         self.mid_title_input.grid_forget()
+        self.mid_acc_info_title_label.grid_forget()
+        self.mid_acc_info_body_label.grid_forget()
         self.ml1.grid(row=0, column=0)
         self.ml2.grid(row=0, column=1)
         self.ml3.grid(row=0, column=2)
@@ -255,7 +174,83 @@ class View:
         self.ml10.grid(row=2, column=1)
         self.ml11.grid(row=2, column=2)
         self.ml12.grid(row=2, column=3)
+        
+    def display_entry_page(self, title='', enable_cancel=False, enable_back=False):
+        self.display_blank_page()
 
+        self.ml1.grid_forget()
+        self.ml2.grid_forget()
+        self.ml3.grid_forget()
+        self.ml4.grid_forget()
+        self.mid_title_label.grid(row=0, column=0, columnspan=4)
+        self.mid_title_label.configure(text=title, anchor=CENTER)
+
+        self.ml6.grid_forget()
+        self.ml7.grid_forget()
+        self.mid_title_input.grid(row=1, column=1, columnspan=2)
+        
+        if enable_cancel:
+            self.ml9.configure(text="Cancel")
+            
+        if enable_back:
+            self.ml12.configure(text="Back")
+            
+    def display_options_page(self, lb1_lab='', lb2_lab='', lb3_lab='', rb1_lab='', rb2_lab='', rb3_lab=''):
+        self.display_blank_page()
+        
+        self.ml1.configure(text=lb1_lab)
+        self.ml5.configure(text=lb2_lab)
+        self.ml9.configure(text=lb3_lab)
+        
+        self.ml4.configure(text=rb1_lab)
+        self.ml8.configure(text=rb2_lab)
+        self.ml12.configure(text=rb3_lab)
+    
+    def display_acc_info_page(self, input_name, input_type, input_number):
+        self.display_blank_page()
+
+        self.ml1.grid_forget()
+        self.ml2.grid_forget()
+        
+        self.ml5.grid_forget()
+        self.ml6.grid_forget()
+        self.ml7.grid_forget()
+        
+        self.mid_acc_info_title_label.configure(text=input_name, anchor=W, justify=LEFT, compound=LEFT)
+        self.mid_acc_info_title_label.grid(row=0, column=0, columnspan=2, sticky=W)
+        
+        self.ml3.configure(text=input_number)
+        
+        self.mid_acc_info_body_label.configure(text=input_type, anchor=E, justify=LEFT, compound=LEFT)
+        self.mid_acc_info_body_label.grid(row=1, column=0, columnspan=3, sticky=W)
+        
+        self.ml9.configure(text="Cancel")
+        
+        self.ml4.configure(text="Balance")
+        self.ml8.configure(text="Deposit")
+        self.ml12.configure(text="Withdraw")
+        
+    def display_info_page(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+        self.display_blank_page()
+        
+        self.ml1.grid_forget()
+        self.ml2.grid_forget()
+        self.ml3.grid_forget()
+        self.ml4.grid_forget()
+        
+        self.mid_title_label.grid(row=0, column=0, columnspan=4)
+        self.mid_title_label.configure(text=input_title)
+        
+        self.ml5.grid_forget()
+        self.ml6.grid_forget()
+        self.ml7.grid_forget()
+        self.ml8.grid_forget()
+
+        self.mid_acc_info_body_label.grid(row=1, column=0, columnspan=4)
+        self.mid_acc_info_body_label.configure(text=input_info)
+        
+        self.ml9.configure(text=lb3_lab)
+        self.ml12.configure(text=rb3_lab)
 
 class TestController:
     _PAGE_NUMBER = 1
@@ -272,31 +267,36 @@ class TestController:
         curr_page = self._PAGE_NUMBER
         if curr_page == 1:
             self.view.master.title('Enter Card Page')
-            self.view.render_page1()
+            self.view.render_card_entry()
         elif curr_page == 2:
-            self.view.master.title('Enter PIN Page')
-            self.view.render_page2()
+            self.view.master.title('Enter PIN')
+            self.view.render_PIN_entry()
         elif curr_page == 3:
-            self.view.master.title('Select Account Page')
-            self.view.render_page3()
+            self.view.master.title('Selection an Account')
+            self.view.render_acc_selection('Account1', 'Account2', 'Account3', 'Account4', 'Other')
+        
         elif curr_page == 4:
-            self.view.master.title('Account Overview and Select Transaction Page')
-            self.view.render_page4()
+            self.view.master.title('Selection a Transaction')
+            self.view.render_acc_info_page("User's Chequing Account", "Type: Chequing Account", "1456874135")
+            
         elif curr_page == 5:
-            self.view.master.title('Info Page')
-            self.view.render_info_page()
+            self.view.master.title('Account Balance')
+            self.view.render_information_page("Current Account Balance", "$5.00", "", "Back")
+            
         elif curr_page == 6:
-            self.view.master.title('Enter Deposit Amount Page')
-            self.view.render_page5()
+            self.view.master.title('Deposit')
+            self.view.render_deposit_page()
+            
         elif curr_page == 7:
-            self.view.master.title('Select Withdraw Amount Page')
-            self.view.render_page6()
+            self.view.master.title('Withdraw')
+            self.view.render_withdraw_page()
+        
         elif curr_page == 8:
             self.view.master.title('Done Page')
-            self.view.render_page7()
-
+            self.view.render_information_page("Done?", "", "Yes", "No")
+        
         self._PAGE_NUMBER += 1
-        if self._PAGE_NUMBER >= 9:
+        if self._PAGE_NUMBER > 8:
             self._PAGE_NUMBER = 1
 
 
