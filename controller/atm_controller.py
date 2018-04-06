@@ -11,7 +11,12 @@ class LoginController:
         self.db = db
         self.update()
         self.keypad_binding()
+<<<<<<< HEAD
         self.view.lb3.configure(command= self.cancel_session)
+=======
+        
+        self.view.lb3.configure(command=self.cancel_session)
+>>>>>>> 23db6fbeec0567435b6eee38e3374874f5e9f9d1
         
     def keypad_binding(self):
         self.view.npb1.configure(command=lambda: self.keypad_entry(1))
