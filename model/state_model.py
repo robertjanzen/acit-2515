@@ -8,7 +8,7 @@ class StateModel:
     def state(self):
         return self._state
 
-    @property.setter
+    @state.setter
     def state(self, input_value):
         self._state = input_value
 
@@ -16,7 +16,7 @@ class StateModel:
     def entry(self):
         return self._entry
 
-    @property.setter
+    @entry.setter
     def entry(self, input_value):
         self._entry = input_value
 
@@ -24,6 +24,9 @@ class StateModel:
     def input(self):
         return self._input
 
-    @property.setter
+    @input.setter
     def input(self, input_value):
         self._input = input_value
+
+    def __str__(self):
+        return "State: {}\nEntry: {}\nInput: {}".format(self.state, self.entry, self.input);
