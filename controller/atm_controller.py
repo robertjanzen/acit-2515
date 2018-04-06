@@ -1,6 +1,6 @@
 from view.atm_view import View as atm_view
 from tkinter import *
-
+from ..observe.observer import Observer
 
 class LoginController:
     _ControllerState = 1
@@ -11,7 +11,6 @@ class LoginController:
         self.db = db
         self.update()
         self.keypad_binding()
-        
         self.view.lb3.configure(command= self.cancel_session)
         
     def keypad_binding(self):
