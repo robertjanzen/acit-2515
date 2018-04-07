@@ -11,8 +11,7 @@ class TransactionController(Observer):
         self.view = view
         self.state_db = state_model
         self.state_db.add_observer(self)
-        self.account_model = account_model.accounts
-        print(account_model.accounts)
+        self.account_model = account_model
         self.transaction_model = trans_model
         
         self.usr_acc_dic = None
@@ -166,7 +165,7 @@ class TransactionController(Observer):
                 self.clear_controller_data()
 
     def get_account_list(self):
-        for entry in self.account_model:
+        for entry in self.account_model.accounts:
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
                 

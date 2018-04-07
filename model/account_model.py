@@ -8,7 +8,6 @@ class AccountModel:
     def load_accounts(self):
         with open('model/account_db.json') as json_file:
             self.accounts = json.load(json_file)
-            print(self.accounts)
 
     def create_new_account(self, uid, acc_num, acc_type, acc_name, acc_balance=0):
         user_object = {

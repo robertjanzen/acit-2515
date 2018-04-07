@@ -15,10 +15,10 @@ from constants import *
 if __name__ == "__main__":
     root = Tk()
     atm_View = atm_view(root)
-    
+
     state_db = StateModel()
-    trans_model = TransactionModel()
     account_model = AccountModel()
+    trans_model = TransactionModel()
     usr_db = UserDB(USER_DB_FILE)
     
     test_acc_db = [
