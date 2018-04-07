@@ -17,8 +17,14 @@ class CLIView:
         return password
 
     def showMenu(self):
-        return input('\n1. Manage account\n2. Open new account\n3. Quit program\nOption: ')
+        return input('\n1. Manage account\n2. Open new account\n3. Quit\n')
 
     def accountType(self):
-        return input('\n1. Create Chequing account\n2. Create saving account\n3. Create termed saving account\n4. Exit')
+        return input('\n1. Create Chequing account\n2. Create saving account\n3. Quit\n')
+
+    def getAccName(self):
+        return input('Enter account holder name: ')
+
+    def getInitialDeposit(self):
+        return input('Enter initial deposit amount: ')
 

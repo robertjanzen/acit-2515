@@ -22,7 +22,7 @@ class AccountModel:
 
     def save_account_to_file(self, user_object):
         exists = False
-        with open('account_db.json') as json_file:
+        with open('model/account_db.json') as json_file:
             data = json.load(json_file)
             for account in data:
                 if (account['uid'] == user_object['uid']) and (account['acc_num'] == user_object['acc_num']):
@@ -54,11 +54,19 @@ class AccountModel:
         #     else:
         #         print('Insufficient funds.')
 
-    def deposit(self, amount):
+    def deposit(self, uid, account_num, amount):
         """allow deposit if valid amount"""
-        # if self.check_float(amount):
-        #     self._balance += amount
-        #     # self.add_entry('deposit', amount)
+        if self.check_float(amount):
+            with open('model/account_db.json', 'r+') as json_file:
+                data = json.load(json_file)
+                for index, account in enumerate(data):
+                    if (account['uid'] == uid) and (account['acc_num'] == account_num):
+                        curr_amount = float(data[index]['acc_balance'])
+                        new_amount = curr_amount + float(amount)
+                        data[index]['acc_balance'] = str(new_amount)
+
+                json_file.seek(0)
+                json.dump(data, json_file)
 
     def get_balance(self):
         """print out the current balance"""
@@ -69,8 +77,7 @@ class AccountModel:
         then check to see if the value is greater than or equal to 0
         returns false if both criteria are not met so account information is not changed"""
         try:
-            float(value)
-            if value >= 0:
+            if float(value) >= 0.0:
                 return True
             else:
                 print('Invalid value, please re-enter amount.')

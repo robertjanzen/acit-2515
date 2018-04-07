@@ -1,7 +1,5 @@
 from tkinter import *
 from observe.observer import Observer
-from datetime import datetime
-from datetime import timedelta
 
 import math
 
@@ -56,9 +54,6 @@ class TransactionController(Observer):
                 
                 if self.state_db.state == 'Deposit':
                     
-                    # Update account balance and stuff
-                    
-                    
                     try:
                         dollar_amt = float(entry)
                         converted = True
@@ -66,7 +61,7 @@ class TransactionController(Observer):
                         converted = False
                         
                     if converted:
-                        # self.deposit(dollar_amt)
+                        self.deposit(entry)
                         print("Depositing $%s..." % dollar_amt)
                         self.state_db.state = 'Done'
                     
@@ -84,7 +79,7 @@ class TransactionController(Observer):
                     offset = int(input_cmd[0]) - 1
         
                     target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
-                    for item in self.account_model:
+                    for item in self.account_model.accounts:
                         if item['acc_num'] == target_acc_num:
                             self.usr_target_acc = item
                             break
@@ -176,13 +171,18 @@ class TransactionController(Observer):
         self.selection_page_num = -1
 
     def deposit(self, amount):
-        uid = self.account_model['uid']
-        account_type = self.account_model['type']
+        uid = self.state_db.uid
 
-        # Step 1 save transaction to file
-        self.transaction_model.create_new_entry(uid, account_type, 'Deposit', amount)
+        # {'uid': '1', 'acc_num': '1004', 'acc_type': 'Chequing', 'acc_name': 'Chequing', 'acc_balance': 0}
+        account_num = self.usr_target_acc['acc_num']
+        account_type = self.usr_target_acc['acc_type']
 
-        # Step 2 update balance in user's database file
+        # Step 1 update balance in user's database file
+        self.account_model.deposit(uid, account_num, amount)
+
+        # Step 2 save transaction to file
+        self.transaction_model.create_new_entry(uid, account_type, account_num, 'Deposit', amount)
+
 
     def withdraw(self, input_value):
         dollar_value = float(input_value)

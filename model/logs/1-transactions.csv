@@ -1,0 +1,3 @@
+date,uid,account_type,account_number,transaction_type,amount
+2018-04-07 14:14:23.924389,1,Chequing,1001,Deposit,40000.0
+2018-04-07 14:14:23.924389,1,Chequing,1003,Deposit,30.0
