@@ -3,6 +3,7 @@ from view.atm_view import View as atm_view
 from model.state_model import StateModel
 from model.user_model import UserDB
 from model.transaction_model import TransactionModel
+from model.account_model import AccountModel
 from controller.button_controller import ButtonController
 from controller.login_controller import LoginController
 from controller.transaction_controller import TransactionController

@@ -16,9 +16,16 @@ class AccountModel:
         self.save_account_to_file(user_object)
 
     def save_account_to_file(self, user_object):
+        exists = False
         with open('account_db.json') as json_file:
             data = json.load(json_file)
-            data.append(user_object)
+            for account in data:
+                if (account['uid'] == user_object['uid']) and (account['acc_num'] == user_object['acc_num']):
+                    exists = True
+            if not exists:
+                data.append(user_object)
+            else:
+                print('Account already exists')
 
         with open('account_db.json', 'w') as out_file:
             json.dump(data, out_file)
@@ -69,4 +76,4 @@ class AccountModel:
 
 if __name__ == '__main__':
     am = AccountModel()
-    am.create_new_account('1','1002','Chequing','Chequing')
+    am.create_new_account('1','1004','Chequing','Chequing')
