@@ -15,3 +15,6 @@ class CLIView:
         # password = getp('Enter your password: ')
         password = input('Enter your password: ')
         return password
+
+    def showMenu(self):
+        return input('\n1. Manage account\n2. Open new account\n3. Quit program\nOption: ')

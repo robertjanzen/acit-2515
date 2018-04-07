@@ -17,6 +17,23 @@ class CLIController():
             password = self.view.getCLIPwd()
             if self.clidb.verifyPwd(password):
                 print('Successfully logged in.')
+                self.menu()
+
+
+    def menu(self):
+        menu_input = self.view.showMenu()
+        if menu_input == 1:
+            self.cli_manage()
+        elif menu_input == 2:
+            self.cli_create()
+        elif menu_input == 3:
+            exit(0)
+
+    def cli_manage(self):
+        pass
+
+    def cli_create(self):
+        pass
 
 
 
