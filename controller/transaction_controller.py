@@ -45,15 +45,17 @@ class TransactionController(Observer):
 
         elif 'state' in updated_data:
             new_state = kwargs['state']
-            if new_state == 'Deposit':
+            if new_state == 'Selection':
                 pass
             elif new_state == 'Overview':
+                pass
+            elif new_state == 'Info':
+                pass
+            elif new_state == 'Deposit':
                 pass
             elif new_state == 'Withdraw':
                 pass
             elif new_state == 'Done':
-                pass
-            elif new_state == 'Info':
                 pass
 
 if __name__ == '__main__':
