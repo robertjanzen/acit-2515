@@ -5,18 +5,14 @@ class TransactionModel:
     _TRANSACTION_COLUMNS = ['date', 'uid', 'account', 'type', 'amount']
 
     def __init__(self):
-        self._transaction_file = ''
-        self._transaction_content = []
-
-    @property
-    def transaction_content(self):
-        return self._transaction_content
+        pass
 
     def open_transaction_file(self):
         pass
 
-    def create_new_entry(self, uid, type, amount, date=datetime.datetime.now()):
-        pass
+    def create_new_entry(self, uid, account_type, transaction_type, amount, date=datetime.datetime.now()):
+        row = str(date) + ',' + uid + ',' + account_type + ',' + transaction_type + ',' + str(amount)
+        self.save_to_file(uid, row)
 
     # To be used with CLI only
     def delete_from_file(self, uid):
@@ -26,14 +22,12 @@ class TransactionModel:
     def edit_entry(self, uid, type, amount):
         pass
 
-    def save_to_file(self, uid, account_type, transaction_type, amount):
-        filename = uid+'transactions.txt'
+    def save_to_file(self, uid, row):
+        filename = uid+'transactions.csv'
         with open(filename, 'a', newline='') as csv_file:
             fields = self._TRANSACTION_COLUMNS
             writer = csv.DictWriter(csv_file, fieldnames=fields)
-
-            for entry in self.transaction_content:
-                writer.writerow(entry)
+            writer.writerow(row)
 
 if __name__ == '__main__':
     pass
