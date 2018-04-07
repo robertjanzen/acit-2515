@@ -7,11 +7,11 @@ import math
 
 class TransactionController(Observer):
 
-    def __init__(self, view, state_model, account_db):
+    def __init__(self, view, state_model, account_model):
         self.view = view
         self.state_db = state_model
         self.state_db.add_observer(self)
-        self.account_db = account_db
+        self.account_model = account_model
         
         self.usr_acc_dic = None
         self.usr_target_acc = None
@@ -65,7 +65,7 @@ class TransactionController(Observer):
                     offset = int(input_cmd[0]) - 1
         
                     target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
-                    for item in self.account_db:
+                    for item in self.account_model:
                         if item['acc_num'] == target_acc_num:
                             self.usr_target_acc = item
                             break
@@ -142,7 +142,7 @@ class TransactionController(Observer):
 
     def get_account_list(self):
         
-        for entry in self.account_db:
+        for entry in self.account_model:
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
                 
