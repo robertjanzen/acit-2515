@@ -13,8 +13,8 @@ class TransactionController(Observer):
         self.state_db.add_observer(self)
         self.account_db = account_db
         
-        self.usr_acc_dic = {}
-        self.usr_target_acc = {}
+        self.usr_acc_dic = None
+        self.usr_target_acc = None
         self.selection_page_num = -1
 
     def deposit(self):
@@ -64,6 +64,9 @@ class TransactionController(Observer):
                     
                 elif input_cmd == 'Withdraw':
                     self.state_db.state = 'Withdraw'
+                    
+                elif input_cmd == 'Back':
+                    self.state_db.state = 'Selection'
 
             elif self.state_db.state == 'Balance':
                 if input_cmd == 'Back':
@@ -106,7 +109,7 @@ class TransactionController(Observer):
             new_state = kwargs['state']
             
             if new_state == 'Selection':
-                
+                self.usr_target_acc = {}
                 if self.selection_page_num != -1:
                     options = []
                     acc_pool = list(self.usr_acc_dic.keys())
@@ -126,6 +129,7 @@ class TransactionController(Observer):
                     
                 else:
                     self.selection_page_num = 0
+                    self.usr_acc_dic = {}
                     self.get_account_list()
                     self.state_db.state = "Selection"
                 
@@ -144,12 +148,20 @@ class TransactionController(Observer):
                 
             elif new_state == 'Done':
                 self.view.render_done()
+            
+            elif new_state == 'Card':
+                self.clear_controller_data()
 
     def get_account_list(self):
         
         for entry in self.account_db:
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
+                
+    def clear_controller_data(self):
+        self.usr_target_acc = None
+        self.usr_acc_dic = None
+        self.selection_page_num = -1
                 
 
 if __name__ == '__main__':

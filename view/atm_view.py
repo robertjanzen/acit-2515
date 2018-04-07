@@ -214,7 +214,6 @@ class View:
         self.ml1.grid_forget()
         self.ml2.grid_forget()
         
-        self.ml5.grid_forget()
         self.ml6.grid_forget()
         self.ml7.grid_forget()
         
@@ -224,8 +223,9 @@ class View:
         self.ml3.configure(text=input_number)
         
         self.mid_acc_info_body_label.configure(text=input_type, anchor=E, justify=LEFT, compound=LEFT)
-        self.mid_acc_info_body_label.grid(row=1, column=0, columnspan=3, sticky=W)
+        self.mid_acc_info_body_label.grid(row=1, column=1, columnspan=2, sticky=W)
         
+        self.ml5.configure(text="Back")
         self.ml9.configure(text="Cancel")
         
         self.ml4.configure(text="Balance")
