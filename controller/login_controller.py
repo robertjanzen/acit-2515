@@ -24,7 +24,7 @@ class LoginController(Observer):
                 break
         print(target_account)
         if target_account["PIN"] == input_PIN:
-            self.state_db.state = "Overview"
+            self.state_db.state = "Selection"
 
     def update(self, publisher, **kwargs):
         updated_data = kwargs.keys()

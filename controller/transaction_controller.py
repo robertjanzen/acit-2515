@@ -74,7 +74,7 @@ class TransactionController(Observer):
         elif 'state' in updated_data:
             new_state = kwargs['state']
             if new_state == 'Selection':
-                self.view.render_selection()
+                self.view.render_selection('Chequing','Savings','','','Other')
             elif new_state == 'Overview':
                 self.view.render_overview('1','1','1')
             elif new_state == 'Balance':
