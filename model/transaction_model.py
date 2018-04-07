@@ -11,7 +11,7 @@ class TransactionModel:
         pass
 
     def create_new_entry(self, uid, account_type, transaction_type, amount, date=datetime.datetime.now()):
-        row = str(date) + ',' + uid + ',' + account_type + ',' + transaction_type + ',' + str(amount)
+        row = str(date) + ',' + str(uid) + ',' + str(account_type) + ',' + str(transaction_type) + ',' + str(amount)
         self.save_transaction(uid, row)
 
     # To be used with CLI only
@@ -23,10 +23,10 @@ class TransactionModel:
         pass
 
     def save_transaction(self, uid, row):
-        filename = uid+'transactions.csv'
+        filename = 'model/logs/'+str(uid)+'-transactions.csv'
         with open(filename, 'a', newline='') as csv_file:
             fields = self._TRANSACTION_COLUMNS
-            writer = csv.DictWriter(csv_file, fieldnames=fields)
+            writer = csv.writer(csv_file)
             writer.writerow(row)
 
 if __name__ == '__main__':

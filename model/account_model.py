@@ -55,9 +55,6 @@ class AccountModel:
         #         print('Insufficient funds.')
 
     def deposit(self, uid, account_num, amount):
-        print(uid)
-        print(account_num)
-        print(amount)
         """allow deposit if valid amount"""
         if self.check_float(amount):
             with open('model/account_db.json', 'r+') as json_file:

@@ -171,14 +171,16 @@ class TransactionController(Observer):
 
     def deposit(self, amount):
         uid = self.state_db.uid
+
+        # {'uid': '1', 'acc_num': '1004', 'acc_type': 'Chequing', 'acc_name': 'Chequing', 'acc_balance': 0}
         account_num = self.usr_target_acc['acc_num']
-        account_type = 'Chequing' # TODO retrieve account_type
+        account_type = self.usr_target_acc['acc_type']
 
         # Step 1 update balance in user's database file
         self.account_model.deposit(uid, account_num, amount)
 
         # Step 2 save transaction to file
-        # self.transaction_model.create_new_entry(uid, account_type, 'Deposit', amount)
+        self.transaction_model.create_new_entry(uid, account_type, 'Deposit', amount)
 
 
     def withdraw(self, input_value):
