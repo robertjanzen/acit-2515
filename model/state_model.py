@@ -26,7 +26,6 @@ class StateModel(Observable):
     
     @prev_state.setter
     def prev_state(self, input_value):
-        print(input_value)
         if input_value in self._prev_states:
             index = self._prev_states.index(input_value)
             self._prev_states = self._prev_states[0:index + 1]
