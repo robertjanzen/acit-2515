@@ -211,26 +211,25 @@ class View:
     def display_overview_page(self, input_name, input_type, input_number):
         self.display_blank_page()
 
-        self.ml1.grid_forget()
         self.ml2.grid_forget()
         
         self.ml6.grid_forget()
         self.ml7.grid_forget()
         
         self.mid_acc_info_title_label.configure(text=input_name, anchor=W, justify=LEFT, compound=LEFT)
-        self.mid_acc_info_title_label.grid(row=0, column=0, columnspan=2, sticky=W)
+        self.mid_acc_info_title_label.grid(row=0, column=1, columnspan=1, sticky=W)
         
         self.ml3.configure(text=input_number)
         
         self.mid_acc_info_body_label.configure(text=input_type, anchor=E, justify=LEFT, compound=LEFT)
         self.mid_acc_info_body_label.grid(row=1, column=1, columnspan=2, sticky=W)
         
-        self.ml5.configure(text="Back")
+        self.ml1.configure(text="Balance")
         self.ml9.configure(text="Cancel")
         
-        self.ml4.configure(text="Balance")
+        self.ml4.configure(text="Withdraw")
         self.ml8.configure(text="Deposit")
-        self.ml12.configure(text="Withdraw")
+        self.ml12.configure(text="Back")
         
     def display_info_page(self, input_title, input_info, lb3_lab='', rb3_lab=''):
         self.display_blank_page()
