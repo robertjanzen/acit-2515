@@ -1,7 +1,7 @@
 from tkinter import *
 from view.atm_view import View as atm_view
 from model.state_model import StateModel
-from model.user_db import UserDB
+from model.user_model import UserDB
 from controller.button_controller import ButtonController
 from controller.login_controller import LoginController
 from controller.transaction_controller import TransactionController

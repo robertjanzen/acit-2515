@@ -1,1 +1,1 @@
-USER_DB_FILE = './model/user_db_file.csv'
+USER_DB_FILE = './model/user_db.csv'
