@@ -56,8 +56,8 @@ class LoginController(Observer):
             new_state = kwargs['state']
             if new_state == "Card":
                 self.state_db.uid = -1
-                self.view.render_card_entry()
+                self.view.render_card()
 
             elif new_state == "PIN":
-                self.view.render_PIN_entry()
+                self.view.render_pin()
 
