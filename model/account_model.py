@@ -3,7 +3,8 @@ import json
 class AccountModel:
 
     def __init__(self):
-        self.accounts = self.load_accounts()
+        self.accounts = None
+        self.load_accounts()
 
     def load_accounts(self):
         with open('model/account_db.json') as json_file:
@@ -21,7 +22,7 @@ class AccountModel:
 
     def save_account_to_file(self, user_object):
         exists = False
-        with open('account_db.json') as json_file:
+        with open('model/account_db.json') as json_file:
             data = json.load(json_file)
             for account in data:
                 if (account['uid'] == user_object['uid']) and (account['acc_num'] == user_object['acc_num']):
