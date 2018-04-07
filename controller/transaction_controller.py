@@ -19,45 +19,41 @@ class TransactionController(Observer):
 
         elif 'input' in updated_data:
             input_cmd = kwargs['input']
-            if self.state_db.state == 'deposit':
-                if input_cmd == 'ok':
+            if self.state_db.state == 'Deposit':
+                if input_cmd == 'OK':
                     pass
-                elif input_cmd == 'del':
+                elif input_cmd == 'DEL':
                     pass
-                elif input_cmd == 'cancel':
+                elif input_cmd == 'Back':
                     pass
-                elif input_cmd == 'back':
-                    pass
-            elif self.state_db.state == 'withdraw':
+            elif self.state_db.state == 'Withdraw':
                 if input_cmd == '20':
                     pass
                 elif input_cmd == '500':
                     pass
                 elif input_cmd == '100':
                     pass
-                elif input_cmd == 'other':
+                elif input_cmd == 'Other':
                     pass
-                elif input_cmd == 'cancel':
+                elif input_cmd == 'Back':
                     pass
-                elif input_cmd == 'back':
+            elif self.state_db.state == 'Done':
+                if input_cmd == 'Yes':
                     pass
-            elif self.state_db.state == 'done':
-                if input_cmd == 'yes':
-                    pass
-                elif input_cmd == 'no':
+                elif input_cmd == 'No':
                     pass
 
         elif 'state' in updated_data:
             new_state = kwargs['state']
-            if new_state == 'deposit':
+            if new_state == 'Deposit':
                 pass
-            elif new_state == 'overview':
+            elif new_state == 'Overview':
                 pass
-            elif new_state == 'withdraw':
+            elif new_state == 'Withdraw':
                 pass
-            elif new_state == 'done':
+            elif new_state == 'Done':
                 pass
-            elif new_state == 'info':
+            elif new_state == 'Info':
                 pass
 
 if __name__ == '__main__':
