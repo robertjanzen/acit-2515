@@ -34,7 +34,7 @@ class TransactionController(Observer):
 
             if input_cmd == 'Back':
                 # check for if we went from Done to Selection by clicking NO
-                if self.state_db.prev_state == 'Done':
+                if self.state_db.state == 'Overview':
                     self.state_db.state = 'Selection'
                 else:
                     self.state_db.state = self.state_db.prev_state
