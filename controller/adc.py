@@ -5,8 +5,8 @@ from observe.observer import Observer
 
 class ADC(Observer):
 
-    def __init__(self, master, state_model):
-        self.view = atm_view(master)
+    def __init__(self, view, state_model):
+        self.view = view
         self.state_db = state_model
         self.keypad_binding()
         self.state_db.add_observer(self)

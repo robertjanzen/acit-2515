@@ -5,7 +5,7 @@ from controller.adc import ADC
 
 if __name__ == "__main__":
     root = Tk()
-
+    atm_View = atm_view(root)
     state_db = StateModel()
-    atm_ADC = ADC(root, state_db)
+    atm_ADC = ADC(atm_View, state_db)
     mainloop()
