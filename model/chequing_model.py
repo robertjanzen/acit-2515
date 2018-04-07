@@ -1,8 +1,8 @@
-from model.account_model import Account
+from model.account_model import AccountModel
 
 from model.constants import *
 
-class Chequing(Account):
+class Chequing(AccountModel):
 
     def __init__(self, name, amount):
         super().__init__(name, amount)

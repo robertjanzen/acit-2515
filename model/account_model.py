@@ -1,18 +1,30 @@
-<<<<<<< HEAD
-class Account():
+import json
+
+class AccountModel():
 
     _NEXT_ACCT_NUM = 10000
 
     def __init__(self, accName, balance=0):
         """constructor for the super class"""
-        self.accNum = Account._NEXT_ACCT_NUM
-        Account._NEXT_ACCT_NUM += 1
+        self.accNum = AccountModel._NEXT_ACCT_NUM
+        AccountModel._NEXT_ACCT_NUM += 1
         self.accName = accName
         if self.check_float(balance):
             self._balance = balance
         # self.logObj = Translog()
         # self.log = self.logObj.list
         # self.add_entry('deposit', balance)
+
+    def create_new_account(self):
+        with open('user_db.json') as json_file:
+            data = json.load(json_file)
+            print(json.dumps(data, indent=4))
+
+    def delete_account(self):
+        pass
+
+    def update_acc_balance(self, uid, acc_num, acc_type, amount):
+        pass
 
     def change_name(self, accName):
         """changes owner name"""
@@ -69,31 +81,9 @@ class Account():
 
 
 if __name__ == '__main__':
-    a = Account('david', 500000)
+    a = AccountModel('david', 500000)
     a.deposit(200000.01)
     a.withdraw(12.5)
     print(a.balance)
+    a.create_new_account()
     # a.show_transaction()
-=======
-import json
-
-class AccountModel:
-
-    def __init__(self):
-        pass
-
-    def create_new_account(self):
-        with open('user_db.json') as json_file:
-            data = json.load(json_file)
-            print(json.dumps(data, indent=4))
-
-    def delete_account(self):
-        pass
-
-    def update_acc_balance(self, uid, acc_num, acc_type, amount):
-        pass
-
-if __name__ == '__main__':
-    am = AccountModel()
-    am.create_new_account()
->>>>>>> 0e89678caf50fe815968d5892da67d8788dfc42a

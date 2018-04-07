@@ -1,5 +1,5 @@
-from model.account_model import Account
+from model.account_model import AccountModel
 
-class Saving(Account):
+class Saving(AccountModel):
 
     pass
