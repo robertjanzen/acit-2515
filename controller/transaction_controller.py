@@ -18,7 +18,34 @@ class TransactionController(Observer):
             pass
 
         elif 'input' in updated_data:
-            pass
+            input_cmd = kwargs['input']
+            if self.state_db.state == 'deposit':
+                if input_cmd == 'ok':
+                    pass
+                elif input_cmd == 'del':
+                    pass
+                elif input_cmd == 'cancel':
+                    pass
+                elif input_cmd == 'back':
+                    pass
+            elif self.state_db.state == 'withdraw':
+                if input_cmd == '20':
+                    pass
+                elif input_cmd == '500':
+                    pass
+                elif input_cmd == '100':
+                    pass
+                elif input_cmd == 'other':
+                    pass
+                elif input_cmd == 'cancel':
+                    pass
+                elif input_cmd == 'back':
+                    pass
+            elif self.state_db.state == 'done':
+                if input_cmd == 'yes':
+                    pass
+                elif input_cmd == 'no':
+                    pass
 
         elif 'state' in updated_data:
             new_state = kwargs['state']
