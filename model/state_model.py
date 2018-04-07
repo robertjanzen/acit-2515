@@ -8,7 +8,7 @@ class StateModel(Observable):
         self._entry = -1
         self._input = -1
         self._session_uid = -1
-        self._prev_state = ''
+        self._prev_states = []
         
     def reset(self):
         self._entry = -1
@@ -17,11 +17,21 @@ class StateModel(Observable):
         
     @property
     def prev_state(self):
-        return self._prev_state
+        record_size = len(self._prev_states)
+        if record_size > 1:
+            output = self._prev_states[record_size - 2]
+        else:
+            output = 'Card'
+        return output
     
     @prev_state.setter
     def prev_state(self, input_value):
-        self._prev_state = input_value
+        if input_value in self._prev_states:
+            index = self._prev_states.index(input_value)
+            self._prev_states = self._prev_states[0:index + 1]
+        else:
+            self._prev_states.append(input_value)
+            
 
     @property
     def state(self):
@@ -29,8 +39,8 @@ class StateModel(Observable):
 
     @state.setter
     def state(self, input_value):
-        self.prev_state = self.state
         self._state = input_value
+        self.prev_state = self.state
         self.notify_all(state=input_value)
 
     @property

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 class Account():
 
     _NEXT_ACCT_NUM = 10000
@@ -73,3 +74,26 @@ if __name__ == '__main__':
     a.withdraw(12.5)
     print(a.balance)
     # a.show_transaction()
+=======
+import json
+
+class AccountModel:
+
+    def __init__(self):
+        pass
+
+    def create_new_account(self):
+        with open('user_db.json') as json_file:
+            data = json.load(json_file)
+            print(json.dumps(data, indent=4))
+
+    def delete_account(self):
+        pass
+
+    def update_acc_balance(self, uid, acc_num, acc_type, amount):
+        pass
+
+if __name__ == '__main__':
+    am = AccountModel()
+    am.create_new_account()
+>>>>>>> 0e89678caf50fe815968d5892da67d8788dfc42a
