@@ -111,11 +111,9 @@ class View:
         self.npb12.grid(row=3, column=3)
 
     def render_card(self):
-
         self.display_entry_page("Enter Card Number")
 
     def render_pin(self):
-        
         self.display_entry_page("Enter PIN", True)
 
     def render_selection(self, option1, option2, option3, option4, option5):
@@ -134,6 +132,9 @@ class View:
     def render_withdraw(self):
         self.display_options_page(lb1_lab="$20", lb2_lab="$100", lb3_lab="Cancel", rb1_lab="$500", rb2_lab="Other",
                                   rb3_lab="Back")
+
+    def render_done(self):
+        self.display_info_page('', '', '', '')
 
     def clear_screen(self):
         self.mid_title_label.configure(text='')

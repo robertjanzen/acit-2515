@@ -46,17 +46,17 @@ class TransactionController(Observer):
         elif 'state' in updated_data:
             new_state = kwargs['state']
             if new_state == 'Selection':
-                pass
+                self.view.render_selection()
             elif new_state == 'Overview':
-                pass
+                self.view.render_overview('1','1','1')
             elif new_state == 'Info':
-                pass
+                self.view.render_info('a','b')
             elif new_state == 'Deposit':
-                pass
+                self.view.render_deposit()
             elif new_state == 'Withdraw':
-                pass
+                self.view.render_withdraw()
             elif new_state == 'Done':
-                pass
+                self.view.render_done()
 
 if __name__ == '__main__':
     print('Transaction Controller')
