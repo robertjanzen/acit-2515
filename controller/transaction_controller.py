@@ -166,6 +166,7 @@ class TransactionController(Observer):
 
     def get_account_list(self):
         for entry in self.account_model.accounts:
+            print(entry)
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
                 

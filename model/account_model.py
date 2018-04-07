@@ -3,7 +3,8 @@ import json
 class AccountModel:
 
     def __init__(self):
-        self.accounts = self.load_accounts()
+        self.accounts = None
+        self.load_accounts()
 
     def load_accounts(self):
         with open('model/account_db.json') as json_file:

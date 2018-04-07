@@ -1,6 +1,5 @@
 from model.chequing_model import Chequing
 from model.saving_model import Saving
-from model.term_model import TermSaving
 from view.cli_view import CLIView
 from model.cli_db import CLIDB
 

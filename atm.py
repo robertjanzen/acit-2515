@@ -5,10 +5,12 @@ from model.state_model import StateModel
 from model.user_model import UserDB
 from model.transaction_model import TransactionModel
 from model.account_model import AccountModel
+from model.cli_db import CLIDB
 
 from controller.button_controller import ButtonController
 from controller.login_controller import LoginController
 from controller.transaction_controller import TransactionController
+from controller.cli_controller import CLIController
 
 from constants import *
 
@@ -85,4 +87,8 @@ if __name__ == "__main__":
     atm_trans_ctrl = TransactionController(atm_View, state_db, account_model, trans_model)
     
     state_db.state = "Card"
+    
+    cli_model = CLIDB(CLI_DB_FILE)
+    # cli_ctrl = CLIController(cli_model)
+    
     mainloop()
