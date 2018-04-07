@@ -7,6 +7,7 @@ class StateModel(Observable):
         self._state = 1;
         self._entry = -1;
         self._input = -1;
+        self._session_uid = -1
 
     @property
     def state(self):
@@ -34,6 +35,14 @@ class StateModel(Observable):
     def input(self, input_value):
         self._input = input_value
         self.notify_all(input=input_value)
+
+    @property
+    def uid(self):
+        return self._session_uid
+
+    @uid.setter
+    def uid(self, input_value):
+        self._session_uid = input_value
 
     def __str__(self):
         return "State: {}\nEntry: {}\nInput: {}".format(self.state, self.entry, self.input);

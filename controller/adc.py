@@ -46,7 +46,4 @@ class ADC(Observer):
         self.state_db.state = 1
 
     def update(self, publisher, **kwargs):
-        #print object
-        #print(publisher)
-
-        print(kwargs)
+        pass
