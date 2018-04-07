@@ -22,21 +22,26 @@ class CLIController():
 
     def menu(self):
         menu_input = self.view.showMenu()
-        if menu_input == 1:
+        if menu_input == '1':
             self.cli_manage()
-        elif menu_input == 2:
+        elif menu_input == '2':
             self.cli_create()
-        elif menu_input == 3:
+        elif menu_input == '3':
             exit(0)
 
     def cli_manage(self):
         pass
 
     def cli_create(self):
-        pass
-
-
-
+        account_input = self.view.accountType()
+        if account_input == '1':
+            pass
+        elif account_input == '2':
+            pass
+        elif account_input == '3':
+            pass
+        elif account_input == '4':
+            exit(0)
 
 
 if __name__ == "__main__":
