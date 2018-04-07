@@ -22,5 +22,5 @@ if __name__ == "__main__":
     state_db = StateModel()
     atm_btn_controller = ButtonController(atm_View, state_db)
     atm_login_ctrl = LoginController(atm_View, state_db, test_db)
-    state_db.state = 1
+    state_db.state = "Card"
     mainloop()

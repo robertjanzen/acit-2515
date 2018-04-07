@@ -4,7 +4,7 @@ from observe.observer import Observable
 class StateModel(Observable):
     def __init__(self):
         super().__init__()
-        self._state = 1;
+        self._state = '';
         self._entry = -1;
         self._input = -1;
         self._session_uid = -1

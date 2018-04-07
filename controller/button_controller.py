@@ -43,7 +43,7 @@ class ButtonController(Observer):
         self.state_db.input = user_input
 
     def cancel_session(self):
-        self.state_db.state = 1
+        self.state_db.state = "Card"
 
     def update(self, publisher, **kwargs):
         pass
