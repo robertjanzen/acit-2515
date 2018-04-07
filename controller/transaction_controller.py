@@ -43,6 +43,18 @@ class TransactionController(Observer):
                     self.selection_page_num += 1
                     self.state_db.state = 'Selection'
 
+                elif input_cmd != 'OK' and input_cmd != 'DEL':
+                    if input_cmd != '':
+                        offset = int(input_cmd[0]) - 1
+                        
+                        target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
+                        for item in self.account_db:
+                            if item['acc_num'] == target_acc_num:
+                                self.usr_target_acc = item
+                                break
+                        
+                        self.state_db.state = "Overview"
+
             elif self.state_db.state == 'Overview':
                 if input_cmd == 'Balance':
                     self.state_db.state = 'Balance'
@@ -121,7 +133,8 @@ class TransactionController(Observer):
                 self.view.render_overview('', '', '')
                 
             elif new_state == 'Balance':
-                self.view.render_balance('Your Current Balance:', '$', 'Cancel', 'Back')
+                self.view.render_balance('Your Current Balance:', '${}'.format(self.usr_target_acc['acc_balance']),
+                                         'Cancel', 'Back')
                 
             elif new_state == 'Deposit':
                 self.view.render_deposit()
