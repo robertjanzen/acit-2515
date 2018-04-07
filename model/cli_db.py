@@ -2,8 +2,6 @@ import csv
 
 class CLIDB:
     _ACC_DB_FIELDS = ['name', 'pwd']
-
-    _SP_CHAR_POOL = ['!', '@', '#', '$', '%', '^', '&', '*']
     
     def __init__(self, file_path):
         self._acc_db_content = []
@@ -11,12 +9,21 @@ class CLIDB:
         self.loadAcc()
         
 
-    def verifyCLIName(self, name):
-        return True
+    def verify_account(self, usr, pwd):
+        for entry in self._acc_db_content:
+            if usr == entry[self._ACC_DB_FIELDS[0]]:
+                if self.verifyPwd(entry[self._ACC_DB_FIELDS[1]], pwd):
+                    return True
+                else:
+                    return False
+        return False
 
-    def verifyPwd(self, pwd):
-        return True
-    
+    def verifyPwd(self, hpwd, pwd):
+        if self.pwd_hash(pwd) == hpwd:
+            return True
+        else:
+            return False
+        
     def createAcc(self, usr, pwd):
         duplicate = False
         
@@ -27,7 +34,7 @@ class CLIDB:
                 break
                 
         if not duplicate:
-            self._acc_db_content.append({self._ACC_DB_FIELDS[0]: usr, self._ACC_DB_FIELDS[1]: pwd})
+            self._acc_db_content.append({self._ACC_DB_FIELDS[0]: usr, self._ACC_DB_FIELDS[1]: self.pwd_hash(pwd)})
             self.saveAcc()
     
     def loadAcc(self):
@@ -73,32 +80,10 @@ class CLIDB:
         for entry in ascii_list:
             output += chr(entry)
             
-        print(output)
-        
-    def rvrs_hash(self, hash):
-        ascitt_list = []
-        output = ''
-        
-        for character in hash:
-            chr_ascii = ord(character)
-            
-            chr_ascii -= 50
-            
-            if chr_ascii < ord('!'):
-                chr_ascii = chr_ascii - ord('!') + ord('~')
-            
-            ascitt_list.append(chr_ascii)
-        
-        for entry in ascitt_list:
-            output += chr(entry)
-            
-        print(output)
-        
+        return output
+
 
 if __name__ == "__main__":
     test_db = CLIDB('cli_acc_db.csv')
     test_db.createAcc('manager', 'password')
-    test_db.pwd_hash('password')
-    test_db.rvrs_hash('E6HHLDG9')
-    
-    
+    print(test_db.verify_account('manager', 'password'))
