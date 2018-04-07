@@ -56,15 +56,24 @@ class TransactionController(Observer):
                 
                 if self.state_db.state == 'Deposit':
                     
-                    # Update accound balance and stuff
-                    print("You deposited: $%s" % entry)
-                    self.state_db.state = 'Done'
+                    # Update account balance and stuff
+                    
+                    
+                    try:
+                        dollar_amt = float(entry)
+                        converted = True
+                    except:
+                        converted = False
+                        
+                    if converted:
+                        # self.deposit(dollar_amt)
+                        print("Depositing $%s..." % dollar_amt)
+                        self.state_db.state = 'Done'
                     
                 elif self.state_db.state == 'Cash':
                     
                     # Should probably check to see if account has enough balance
-                    self.withdraw(entry)
-                    self.state_db.state = 'Done'
+                    self.withdraw(float(entry))
 
             elif input_cmd == '':
                 return
@@ -179,6 +188,8 @@ class TransactionController(Observer):
         
         # Do Withdraw logic here...
         print("Withdrawing $%.2f..." % dollar_value)
+        self.state_db.state = 'Done'
+
 
 if __name__ == '__main__':
     print('Transaction Controller')
