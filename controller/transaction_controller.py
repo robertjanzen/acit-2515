@@ -19,7 +19,24 @@ class TransactionController(Observer):
 
         elif 'input' in updated_data:
             input_cmd = kwargs['input']
-            if self.state_db.state == 'Deposit':
+            if self.state_db.state == 'Selection':
+                if input_cmd == 'Chequing':
+                    pass
+                elif input_cmd == 'Savings':
+                    pass
+                elif input_cmd == 'Other':
+                    pass
+            elif self.state_db.state == 'Overview':
+                if input_cmd == 'Balance':
+                    pass
+                elif input_cmd == 'Deposit':
+                    pass
+                elif input_cmd == 'Withdraw':
+                    pass
+            elif self.state_db.state == 'Info':
+                if input_cmd == 'Back':
+                    pass
+            elif self.state_db.state == 'Deposit':
                 if input_cmd == 'OK':
                     pass
                 elif input_cmd == 'DEL':
