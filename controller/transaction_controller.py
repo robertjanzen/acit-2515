@@ -54,9 +54,6 @@ class TransactionController(Observer):
                 
                 if self.state_db.state == 'Deposit':
                     
-                    # Update account balance and stuff
-                    
-                    
                     try:
                         dollar_amt = float(entry)
                         converted = True
@@ -64,7 +61,7 @@ class TransactionController(Observer):
                         converted = False
                         
                     if converted:
-                        # self.deposit(dollar_amt)
+                        self.deposit(entry)
                         print("Depositing $%s..." % dollar_amt)
                         self.state_db.state = 'Done'
                     
@@ -173,15 +170,16 @@ class TransactionController(Observer):
         self.selection_page_num = -1
 
     def deposit(self, amount):
+        uid = self.state_db.uid
+        account_num = self.usr_target_acc['acc_num']
+        account_type = 'Chequing' # TODO retrieve account_type
 
-        uid = self.state_db.session_uid
-        account_num = self.usr_target_acc
-        account_type = self.account_model['type']
+        # Step 1 update balance in user's database file
+        self.account_model.deposit(uid, account_num, amount)
 
-        # Step 1 save transaction to file
-        self.transaction_model.create_new_entry(uid, account_type, 'Deposit', amount)
+        # Step 2 save transaction to file
+        # self.transaction_model.create_new_entry(uid, account_type, 'Deposit', amount)
 
-        # Step 2 update balance in user's database file
 
     def withdraw(self, input_value):
         dollar_value = float(input_value)
