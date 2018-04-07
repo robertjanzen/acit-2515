@@ -15,6 +15,7 @@ class LoginController(Observer):
             if account["card_number"] == input_number:
                 self.state_db.uid = account["uid"]
                 self.state_db.state = "PIN"
+                break
             else:
                 self.state_db.state = 'Card'
 
@@ -49,7 +50,7 @@ class LoginController(Observer):
         if 'entry' in updated_data:
             input_value = kwargs['entry']
 
-            if self.state_db.state == "Card" or  self.state_db.state == "PIN":
+            if self.state_db.state == "Card" or self.state_db.state == "PIN":
                 self.view.mid_title_input.insert(END, input_value)
 
         elif 'input' in updated_data:
