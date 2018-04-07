@@ -22,7 +22,10 @@ class TransactionController(Observer):
         updated_data = kwargs.keys()
 
         if 'entry' in updated_data:
-            pass
+            input_value = kwargs['entry']
+            
+            if self.state_db.state == 'Deposit':
+                self.view.mid_title_input.insert(END, input_value)
 
         elif 'input' in updated_data:
             input_cmd = kwargs['input']
