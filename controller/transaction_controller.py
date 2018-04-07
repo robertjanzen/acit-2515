@@ -24,7 +24,7 @@ class TransactionController(Observer):
         if 'entry' in updated_data:
             input_value = kwargs['entry']
             
-            if self.state_db.state == 'Deposit':
+            if self.state_db.state in ['Deposit', 'Cash']:
                 self.view.mid_title_input.insert(END, input_value)
 
         elif 'input' in updated_data:
@@ -40,17 +40,30 @@ class TransactionController(Observer):
                 if self.state_db.state == 'Selection':
                     self.selection_page_num += 1
                     self.state_db.state = 'Selection'
+                elif self.state_db.state == 'Withdraw':
+                    self.state_db.state = 'Cash'
 
             elif input_cmd == 'DEL':
-                if self.state_db.state == 'Deposit':
+                if self.state_db.state in ['Deposit', 'Cash']:
                     last_index = len(self.view.mid_title_input.get()) - 1
                     self.view.mid_title_input.delete(last_index)
 
             elif input_cmd == 'OK':
+    
+                entry = self.view.mid_title_input.get()
+                if entry == '':
+                    return
+                
                 if self.state_db.state == 'Deposit':
-                    entry = self.view.mid_title_input.get()
                     
+                    # Update accound balance and stuff
                     print("You deposited: $%s" % entry)
+                    self.state_db.state = 'Done'
+                    
+                elif self.state_db.state == 'Cash':
+                    
+                    # Should probably check to see if account has enough balance
+                    self.withdraw(entry)
                     self.state_db.state = 'Done'
 
             elif input_cmd == '':
@@ -80,7 +93,9 @@ class TransactionController(Observer):
                         self.state_db.state = 'Withdraw'
     
                 elif self.state_db.state == 'Withdraw':
-                    print('Withdrawing....')
+                    amount = input_cmd.strip('$')
+                    self.withdraw(amount)
+                    
                     self.state_db.state = 'Done'
     
                 elif self.state_db.state == 'Done':
@@ -130,6 +145,9 @@ class TransactionController(Observer):
                 
             elif new_state == 'Withdraw':
                 self.view.render_withdraw()
+            
+            elif new_state == 'Cash':
+                self.view.render_cash()
                 
             elif new_state == 'Done':
                 self.view.render_done()
@@ -156,9 +174,11 @@ class TransactionController(Observer):
 
         # Step 2 update balance in user's database file
 
-
-    def withdraw(self):
-        pass
+    def withdraw(self, input_value):
+        dollar_value = float(input_value)
+        
+        # Do Withdraw logic here...
+        print("Withdrawing $%.2f..." % dollar_value)
 
 if __name__ == '__main__':
     print('Transaction Controller')

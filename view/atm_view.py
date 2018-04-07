@@ -133,6 +133,9 @@ class View:
     def render_withdraw(self):
         self.display_options_page(lb1_lab="$20", lb2_lab="$100", lb3_lab="Cancel", rb1_lab="$500", rb2_lab="Other",
                                   rb3_lab="Back")
+        
+    def render_cash(self):
+        self.display_entry_page("Enter Custom Withdrawal Amount", True, True)
 
     def render_done(self):
         self.display_info_page('Done?', '', 'Yes', 'No')
