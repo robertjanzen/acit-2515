@@ -7,21 +7,16 @@ import math
 
 class TransactionController(Observer):
 
-    def __init__(self, view, state_model, account_model):
+    def __init__(self, view, state_model, account_model, trans_model):
         self.view = view
         self.state_db = state_model
         self.state_db.add_observer(self)
         self.account_model = account_model
+        self.transaction_model = trans_model
         
         self.usr_acc_dic = None
         self.usr_target_acc = None
         self.selection_page_num = -1
-
-    def deposit(self):
-        pass
-
-    def withdraw(self):
-        pass
 
     def update(self, publisher, **kwargs):
         updated_data = kwargs.keys()
@@ -141,7 +136,6 @@ class TransactionController(Observer):
                 self.clear_controller_data()
 
     def get_account_list(self):
-        
         for entry in self.account_model:
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
@@ -150,7 +144,14 @@ class TransactionController(Observer):
         self.usr_target_acc = None
         self.usr_acc_dic = None
         self.selection_page_num = -1
-                
+
+    def deposit(self, amount):
+        uid = self.account_model['uid']
+        account_type = self.account_model['type']
+        self.transaction_model.save_to_file(uid, account_type, 'Deposit', amount)
+
+    def withdraw(self):
+        pass
 
 if __name__ == '__main__':
     print('Transaction Controller')

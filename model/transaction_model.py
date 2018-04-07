@@ -2,13 +2,11 @@ import csv
 import datetime
 
 class TransactionModel:
-    _TRANSACTION_COLUMNS = ['date', 'uid', 'type', 'amount']
+    _TRANSACTION_COLUMNS = ['date', 'uid', 'account', 'type', 'amount']
 
-    def __init__(self, transaction_file):
-        self._transaction_file = transaction_file
+    def __init__(self):
+        self._transaction_file = ''
         self._transaction_content = []
-
-        self.open_db_file()
 
     @property
     def transaction_content(self):
@@ -28,7 +26,7 @@ class TransactionModel:
     def edit_entry(self, uid, type, amount):
         pass
 
-    def save_to_file(self, uid):
+    def save_to_file(self, uid, account_type, transaction_type, amount):
         filename = uid+'transactions.txt'
         with open(filename, 'a', newline='') as csv_file:
             fields = self._TRANSACTION_COLUMNS
