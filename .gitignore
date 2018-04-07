@@ -6,3 +6,4 @@
 *.pyc
 account_db.json
 model/account_model.py
+model/account_db.json
