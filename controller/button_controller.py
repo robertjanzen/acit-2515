@@ -3,7 +3,7 @@ from tkinter import *
 from observe.observer import Observer
 
 
-class ADC(Observer):
+class ButtonController(Observer):
 
     def __init__(self, view, state_model):
         self.view = view
