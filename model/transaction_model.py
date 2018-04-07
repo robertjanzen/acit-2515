@@ -1,8 +1,8 @@
-import csv
 import datetime
+import os
 
 class TransactionModel:
-    _TRANSACTION_COLUMNS = ['date', 'uid', 'account', 'type', 'amount']
+    _TRANSACTION_COLUMNS = 'date,uid,account_type,account_number,transaction_type,amount'
 
     def __init__(self):
         pass
@@ -10,8 +10,8 @@ class TransactionModel:
     def open_transaction_file(self):
         pass
 
-    def create_new_entry(self, uid, account_type, transaction_type, amount, date=datetime.datetime.now()):
-        row = str(date) + ',' + str(uid) + ',' + str(account_type) + ',' + str(transaction_type) + ',' + str(amount)
+    def create_new_entry(self, uid, account_type, account_num, transaction_type, amount, date=datetime.datetime.now()):
+        row = '{0},{1},{2},{3},{4},{5}'.format(str(date), uid, account_type, account_num, transaction_type, str(float(amount)), )
         self.save_transaction(uid, row)
 
     # To be used with CLI only
@@ -24,10 +24,19 @@ class TransactionModel:
 
     def save_transaction(self, uid, row):
         filename = 'model/logs/'+str(uid)+'-transactions.csv'
-        with open(filename, 'a', newline='') as csv_file:
-            fields = self._TRANSACTION_COLUMNS
-            writer = csv.writer(csv_file)
-            writer.writerow(row)
+        try:
+            if os.path.getsize(filename) > 0:
+                with open(filename, 'a') as csv_file:
+                    csv_file.write('\n'+row)
+            else:
+                with open(filename, 'w') as csv_file:
+                    output = self._TRANSACTION_COLUMNS + '\n' + row
+                    csv_file.write(output)
+        except OSError:
+            with open(filename, 'w') as csv_file:
+                output = self._TRANSACTION_COLUMNS + '\n' + row
+                csv_file.write(output)
+
 
 if __name__ == '__main__':
     pass
