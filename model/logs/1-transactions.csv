@@ -5,3 +5,9 @@ date,uid,account_type,account_number,transaction_type,amount
 2018-04-07 14:20:32.328212,1,Chequing,1003,Deposit,20.0
 2018-04-07 14:20:32.328212,1,Chequing,1003,Deposit,20.0
 2018-04-07 14:20:32.328212,1,Chequing,1003,Deposit,20.0
+2018-04-07 15:20:22.080528,1,Chequing,1001,Deposit,20.0
+2018-04-07 15:25:17.027398,1,Chequing,1001,Deposit,20.0
+2018-04-07 15:29:35.215165,1,Chequing,1001,Deposit,20.0
+2018-04-07 15:29:35.215165,1,Chequing,1001,Deposit,10000.0
+2018-04-07 15:29:35.215165,1,Chequing,1003,Deposit,20.0
+2018-04-07 15:30:58.953955,1,Chequing,1001,Deposit,21.0
