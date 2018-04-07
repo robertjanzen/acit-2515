@@ -7,17 +7,19 @@ class LoginController(Observer):
         self.view = view
         self.state_db = state_model
         self.state_db.add_observer(self)
-
         self.db = user_db.db_content
+        
+        self.msg = ''
 
     def check_card_num(self, input_number):
         for account in self.db:
             if account["card_number"] == input_number:
                 self.state_db.uid = account["uid"]
                 self.state_db.state = "PIN"
-                break
-            else:
-                self.state_db.state = 'Card'
+                return
+            
+        self.msg = 'Invalid Card Number'
+        self.state_db.state = 'LoginError'
 
     def check_pin(self, input_PIN):
         target_account = {}
@@ -28,7 +30,8 @@ class LoginController(Observer):
         if self.unhash(target_account["PIN"]) == input_PIN:
             self.state_db.state = "Selection"
         else:
-            self.state_db.state = "PIN"
+            self.msg = 'Invalid PIN'
+            self.state_db.state = "LoginError"
             
     @staticmethod
     def unhash(input_hash):
@@ -78,3 +81,6 @@ class LoginController(Observer):
 
             elif new_state == "PIN":
                 self.view.render_pin()
+            
+            elif new_state == "LoginError":
+                self.view.render_error(self.msg)

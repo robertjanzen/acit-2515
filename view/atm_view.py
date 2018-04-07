@@ -139,6 +139,9 @@ class View:
 
     def render_done(self):
         self.display_info_page('Done?', '', 'Yes', 'No')
+        
+    def render_error(self, error_msg):
+        self.display_info_page('ERROR', error_msg, 'Cancel', 'Back')
 
     def clear_screen(self):
         self.mid_title_label.configure(text='')
