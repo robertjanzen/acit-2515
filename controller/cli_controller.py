@@ -1,6 +1,5 @@
 from model.chequing_model import Chequing
 from model.saving_model import Saving
-from model.term_model import TermSaving
 from model.account_model import AccountModel
 from view.cli_view import CLIView
 from model.cli_db import CLIDB
@@ -10,7 +9,7 @@ class CLIController():
 
     def __init__(self):
         self.view = CLIView()
-        self.clidb = CLIDB()
+        self.clidb = CLIDB('model/account_db.json')
         self.accounts = AccountModel()
 
     def run(self):
@@ -55,7 +54,6 @@ class CLIController():
         elif account_input == '4':
             exit(0)
 
-<<<<<<< HEAD
     def create_chequing(self):
         accName = self.view.getAccName()
         deposit = self.view.getInitialDeposit()
@@ -66,9 +64,6 @@ class CLIController():
     def create_saving(self):
         print('This creates a saving account')
 
-
-=======
->>>>>>> e6c2f56a2004c519d3dfe242ed9f2c753ef61b00
 
 if __name__ == "__main__":
     controller = CLIController()
