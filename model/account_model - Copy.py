@@ -13,14 +13,14 @@ class AccountModel:
             "acc_name": acc_name,
             "acc_balance": acc_balance
         }
-        self.add_user_to_db(user_object)
+        self.save_account_to_file(user_object)
 
-    def add_user_to_db(self, user_object):
-        with open('user_db.json') as json_file:
+    def save_account_to_file(self, user_object):
+        with open('account_db.json') as json_file:
             data = json.load(json_file)
             data.append(user_object)
 
-        with open('user_db.json', 'w') as out_file:
+        with open('account_db.json', 'w') as out_file:
             json.dump(data, out_file)
 
     def delete_account(self):
@@ -31,4 +31,4 @@ class AccountModel:
 
 if __name__ == '__main__':
     am = AccountModel()
-    am.create_new_account('1','1001','Chequing','Chequing')
+    am.create_new_account('1','1002','Chequing','Chequing')

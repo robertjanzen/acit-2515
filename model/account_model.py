@@ -16,7 +16,7 @@ class AccountModel():
         # self.add_entry('deposit', balance)
 
     def create_new_account(self):
-        with open('user_db.json') as json_file:
+        with open('account_db.json') as json_file:
             data = json.load(json_file)
             print(json.dumps(data, indent=4))
 
