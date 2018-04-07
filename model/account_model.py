@@ -3,7 +3,12 @@ import json
 class AccountModel:
 
     def __init__(self):
-        pass
+        self.accounts = self.load_accounts()
+
+    def load_accounts(self):
+        with open('model/account_db.json') as json_file:
+            self.accounts = json.load(json_file)
+            print(self.accounts)
 
     def create_new_account(self, uid, acc_num, acc_type, acc_name, acc_balance=0):
         user_object = {
@@ -27,7 +32,7 @@ class AccountModel:
             else:
                 print('Account already exists')
 
-        with open('account_db.json', 'w') as out_file:
+        with open('model/account_db.json', 'w') as out_file:
             json.dump(data, out_file)
 
     def delete_account(self):

@@ -11,7 +11,8 @@ class TransactionController(Observer):
         self.view = view
         self.state_db = state_model
         self.state_db.add_observer(self)
-        self.account_model = account_model
+        self.account_model = account_model.accounts
+        print(account_model.accounts)
         self.transaction_model = trans_model
         
         self.usr_acc_dic = None
