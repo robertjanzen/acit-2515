@@ -28,3 +28,15 @@ class CLIView:
     def getInitialDeposit(self):
         return input('Enter initial deposit amount: ')
 
+    def getManInput(self):
+        return input('\n1. Deposit into an account\n2. Quit\n')
+
+    def uidInput(self):
+        return input('Enter the user ID: ')
+
+    def accNumInput(self):
+        return input('Enter the account number: ')
+
+    def depositInput(self):
+        return input('Enter deposit amount: ')
+

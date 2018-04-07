@@ -11,6 +11,7 @@ class CLIController():
     def __init__(self):
         self.view = CLIView()
         self.clidb = CLIDB()
+        self.accounts = AccountModel()
 
     def run(self):
         user_name = self.view.getCLIName()
@@ -30,14 +31,24 @@ class CLIController():
             exit(0)
 
     def cli_manage(self):
-        pass
+        manInput = self.view.getManInput()
+        if manInput == '1':
+            self.cli_deposit()
+        elif manInput == '2':
+            exit(0)
+
+    def cli_deposit(self):
+        uid = self.view.uidInput()
+        accNum = self.view.accNumInput()
+        amount = self.view.depositInput()
+        self.accounts.deposit(uid, accNum, amount)
 
     def cli_create(self):
         account_input = self.view.accountType()
         if account_input == '1':
             self.create_chequing()
         elif account_input == '2':
-            pass
+            self.create_saving()
         elif account_input == '3':
             exit(0)
 
@@ -47,6 +58,10 @@ class CLIController():
         # new_account = AccountModel()
         # new_account.create_new_account('10', '1010', 'Chequing', accName, deposit)
         print(accName, deposit)
+
+    def create_saving(self):
+        print('This creates a saving account')
+
 
 
 if __name__ == "__main__":
