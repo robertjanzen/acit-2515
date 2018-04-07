@@ -161,6 +161,7 @@ class TransactionController(Observer):
 
     def get_account_list(self):
         for entry in self.account_model.accounts:
+            print(entry)
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
                 
@@ -180,7 +181,7 @@ class TransactionController(Observer):
         self.account_model.deposit(uid, account_num, amount)
 
         # Step 2 save transaction to file
-        self.transaction_model.create_new_entry(uid, account_type, 'Deposit', amount)
+        self.transaction_model.create_new_entry(uid, account_type, account_num, 'Deposit', amount)
 
 
     def withdraw(self, input_value):

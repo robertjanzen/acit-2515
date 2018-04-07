@@ -21,6 +21,7 @@ class CLIController():
                 print('Successfully logged in.')
                 self.menu()
 
+
     def menu(self):
         menu_input = self.view.showMenu()
         if menu_input == '1':
@@ -46,12 +47,15 @@ class CLIController():
     def cli_create(self):
         account_input = self.view.accountType()
         if account_input == '1':
-            self.create_chequing()
+            pass
         elif account_input == '2':
             self.create_saving()
         elif account_input == '3':
+            pass
+        elif account_input == '4':
             exit(0)
 
+<<<<<<< HEAD
     def create_chequing(self):
         accName = self.view.getAccName()
         deposit = self.view.getInitialDeposit()
@@ -63,6 +67,8 @@ class CLIController():
         print('This creates a saving account')
 
 
+=======
+>>>>>>> e6c2f56a2004c519d3dfe242ed9f2c753ef61b00
 
 if __name__ == "__main__":
     controller = CLIController()
