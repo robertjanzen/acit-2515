@@ -1,6 +1,7 @@
 from model.chequing_model import Chequing
 from model.saving_model import Saving
 from model.term_model import TermSaving
+from model.account_model import AccountModel
 from view.cli_view import CLIView
 from model.cli_db import CLIDB
 
@@ -19,7 +20,6 @@ class CLIController():
                 print('Successfully logged in.')
                 self.menu()
 
-
     def menu(self):
         menu_input = self.view.showMenu()
         if menu_input == '1':
@@ -35,13 +35,18 @@ class CLIController():
     def cli_create(self):
         account_input = self.view.accountType()
         if account_input == '1':
-            pass
+            self.create_chequing()
         elif account_input == '2':
             pass
         elif account_input == '3':
-            pass
-        elif account_input == '4':
             exit(0)
+
+    def create_chequing(self):
+        accName = self.view.getAccName()
+        deposit = self.view.getInitialDeposit()
+        # new_account = AccountModel()
+        # new_account.create_new_account('10', '1010', 'Chequing', accName, deposit)
+        print(accName, deposit)
 
 
 if __name__ == "__main__":
