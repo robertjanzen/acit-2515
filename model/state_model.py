@@ -8,6 +8,11 @@ class StateModel(Observable):
         self._entry = -1
         self._input = -1
         self._session_uid = -1
+        
+    def reset(self):
+        self._entry = -1
+        self._input = -1
+        self.uid = -1
 
     @property
     def state(self):
@@ -43,6 +48,14 @@ class StateModel(Observable):
     @uid.setter
     def uid(self, input_value):
         self._session_uid = input_value
-
+        
+    @property
+    def usr_record(self):
+        return self._usr_acc_dict
+    
+    @usr_record.setter
+    def usr_record(self, input_value):
+        self._usr_acc_dict = input_value
+    
     def __str__(self):
         return "State: {}\nEntry: {}\nInput: {}".format(self.state, self.entry, self.input);

@@ -25,7 +25,7 @@ class LoginController(Observer):
                 target_account = account
                 break
         if self.unhash(target_account["PIN"]) == input_PIN:
-            self.state_db.state = "Overview"
+            self.state_db.state = "Selection"
         else:
             self.state_db.state = "PIN"
             
@@ -72,7 +72,7 @@ class LoginController(Observer):
         elif 'state' in updated_data:
             new_state = kwargs['state']
             if new_state == "Card":
-                self.state_db.uid = -1
+                self.state_db.reset()
                 self.view.render_card()
 
             elif new_state == "PIN":

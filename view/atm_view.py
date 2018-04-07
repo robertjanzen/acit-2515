@@ -200,13 +200,13 @@ class View:
     def display_options_page(self, lb1_lab='', lb2_lab='', lb3_lab='', rb1_lab='', rb2_lab='', rb3_lab=''):
         self.display_blank_page()
         
-        self.ml1.configure(text=lb1_lab)
-        self.ml5.configure(text=lb2_lab)
-        self.ml9.configure(text=lb3_lab)
+        self.ml1.configure(text=lb1_lab, anchor=W)
+        self.ml5.configure(text=lb2_lab, anchor=W)
+        self.ml9.configure(text=lb3_lab, anchor=W)
         
-        self.ml4.configure(text=rb1_lab)
-        self.ml8.configure(text=rb2_lab)
-        self.ml12.configure(text=rb3_lab)
+        self.ml4.configure(text=rb1_lab, anchor=W)
+        self.ml8.configure(text=rb2_lab, anchor=W)
+        self.ml12.configure(text=rb3_lab, anchor=W)
     
     def display_overview_page(self, input_name, input_type, input_number):
         self.display_blank_page()
