@@ -53,7 +53,7 @@ class UserDB:
                 if input_category in self._DB_COLUMNS and not 'uid':
                     item[input_category] = input_value
                     self.save_to_file()
-                    break;
+                    break
     
     def save_to_file(self):
         with open(self._db_file, 'w', newline='') as csv_file:
