@@ -24,4 +24,4 @@ class UserDB:
                     new_dict[category] = row[category]
                     
                 self._db_content.append(new_dict)
-        
+

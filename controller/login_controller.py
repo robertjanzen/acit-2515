@@ -9,6 +9,8 @@ class LoginController(Observer):
         self.state_db.add_observer(self)
 
         self.db = user_db.db_content
+        test_hash = '234318910'
+        print(self.unhash(test_hash))
 
     def check_card_num(self, input_number):
         for account in self.db:
@@ -25,6 +27,25 @@ class LoginController(Observer):
         print(target_account)
         if target_account["PIN"] == input_PIN:
             self.state_db.state = "Overview"
+            
+    @staticmethod
+    def unhash(input_hash):
+        
+        num_str = ''
+        
+        curr_num = ''
+        for character in input_hash:
+            if int(character) % 2 != 0 and int(character) != 1:
+                
+                num_str += str(int(int(curr_num)/2))
+                curr_num = ''
+            else:
+                curr_num += character
+        
+        num_str += str(int(int(curr_num)/2))
+        
+        return num_str
+        
 
     def update(self, publisher, **kwargs):
         updated_data = kwargs.keys()
@@ -60,4 +81,3 @@ class LoginController(Observer):
 
             elif new_state == "PIN":
                 self.view.render_pin()
-
