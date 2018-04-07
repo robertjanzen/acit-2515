@@ -102,7 +102,7 @@ class TransactionController(Observer):
                     options = []
                     acc_pool = list(self.usr_acc_dic.keys())
                     
-                    if self.selection_page_num >= math.floor(len(acc_pool) % 4):
+                    if self.selection_page_num >= math.ceil(len(acc_pool) / 4):
                         self.selection_page_num = 0
                     
                     start_index = self.selection_page_num * 4
