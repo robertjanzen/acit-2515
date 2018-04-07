@@ -31,79 +31,138 @@ class TransactionController(Observer):
 
         elif 'input' in updated_data:
             input_cmd = kwargs['input']
-            
-            if self.state_db.state == 'Selection':
-                if input_cmd == 'Chequing':
-                    self.state_db.state = 'Overview'
-                    
-                elif input_cmd == 'Savings':
-                    self.state_db.state = 'Overview'
-                    
-                elif input_cmd == 'Other':
+
+            if input_cmd == 'Back':
+                # check for if we went from Done to Selection by clicking NO
+                if self.state_db.prev_state == 'Done':
+                    self.state_db.state = 'Selection'
+                else:
+                    self.state_db.state = self.state_db.prev_state
+
+            elif input_cmd == 'Other':
+                if self.state_db.state == 'Selection':
                     self.selection_page_num += 1
                     self.state_db.state = 'Selection'
 
-                elif input_cmd != 'OK' and input_cmd != 'DEL':
-                    if input_cmd != '':
-                        offset = int(input_cmd[0]) - 1
-                        
-                        target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
-                        for item in self.account_db:
-                            if item['acc_num'] == target_acc_num:
-                                self.usr_target_acc = item
-                                break
-                        
-                        self.state_db.state = "Overview"
+            elif input_cmd == 'DEL':
+                if self.state_db.state == 'Deposit':
+                    last_index = len(self.view.mid_title_input.get()) - 1
+                    self.view.mid_title_input.delete(last_index)
 
-            elif self.state_db.state == 'Overview':
-                if input_cmd == 'Balance':
-                    self.state_db.state = 'Balance'
+            elif input_cmd == 'OK':
+                if self.state_db.state == 'Deposit':
+                    entry = self.view.mid_title_input.get()
                     
-                elif input_cmd == 'Deposit':
-                    self.state_db.state = 'Deposit'
+                    print("You deposited: $%s" % entry)
+                    self.state_db.state = 'Done'
+
+            elif input_cmd == '':
+                return
+
+            else:
+                if self.state_db.state == 'Selection':
                     
-                elif input_cmd == 'Withdraw':
-                    self.state_db.state = 'Withdraw'
+                    offset = int(input_cmd[0]) - 1
+        
+                    target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
+                    for item in self.account_db:
+                        if item['acc_num'] == target_acc_num:
+                            self.usr_target_acc = item
+                            break
                     
-                elif input_cmd == 'Back':
-                    self.state_db.state = 'Selection'
-
-            elif self.state_db.state == 'Balance':
-                if input_cmd == 'Back':
                     self.state_db.state = 'Overview'
-
-            elif self.state_db.state == 'Deposit':
-                if input_cmd == 'OK':
-                    pass
-                
-                elif input_cmd == 'DEL':
-                    pass
-                
-                elif input_cmd == 'Back':
-                    self.state_db.state = 'Overview'
-
-            elif self.state_db.state == 'Withdraw':
-                if input_cmd == '20':
-                    pass
-                
-                elif input_cmd == '500':
-                    pass
-                
-                elif input_cmd == '100':
-                    pass
-                
-                elif input_cmd == 'Other':
-                    pass
-                
-                elif input_cmd == 'Back':
-                    self.state_db.state = 'Overview'
-
-            elif self.state_db.state == 'Done':
-                if input_cmd == 'Yes':
-                    self.state_db.state = 'Card'
-                    
-                elif input_cmd == 'No':
-                    self.state_db.state = 'Overview'
+    
+                elif self.state_db.state == 'Overview':
+                    if input_cmd == 'Balance':
+                        self.state_db.state = 'Balance'
+        
+                    elif input_cmd == 'Deposit':
+                        self.state_db.state = 'Deposit'
+        
+                    elif input_cmd == 'Withdraw':
+                        self.state_db.state = 'Withdraw'
+    
+                elif self.state_db.state == 'Withdraw':
+                    print('Withdrawing....')
+                    self.state_db.state = 'Done'
+    
+                elif self.state_db.state == 'Done':
+                    if input_cmd == 'Yes':
+                        self.state_db.state = 'Card'
+    
+                    elif input_cmd == 'No':
+                        self.state_db.state = 'Overview'
+            
+            
+            
+            # if self.state_db.state == 'Selection':
+            #
+            #     elif input_cmd == 'Other':
+            #         self.selection_page_num += 1
+            #         self.state_db.state = 'Selection'
+            #
+            #     elif input_cmd != 'OK' and input_cmd != 'DEL':
+            #         if input_cmd != '':
+            #             offset = int(input_cmd[0]) - 1
+            #
+            #             target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
+            #             for item in self.account_db:
+            #                 if item['acc_num'] == target_acc_num:
+            #                     self.usr_target_acc = item
+            #                     break
+            #
+            #             self.state_db.state = "Overview"
+            #
+            # elif self.state_db.state == 'Overview':
+            #     if input_cmd == 'Balance':
+            #         self.state_db.state = 'Balance'
+            #
+            #     elif input_cmd == 'Deposit':
+            #         self.state_db.state = 'Deposit'
+            #
+            #     elif input_cmd == 'Withdraw':
+            #         self.state_db.state = 'Withdraw'
+            #
+            #     # elif input_cmd == 'Back':
+            #     #     self.state_db.state = 'Selection'
+            #
+            # elif self.state_db.state == 'Balance':
+            #     # if input_cmd == 'Back':
+            #     #     self.state_db.state = 'Overview'
+            #     pass
+            #
+            # elif self.state_db.state == 'Deposit':
+            #     if input_cmd == 'OK':
+            #         pass
+            #
+            #     elif input_cmd == 'DEL':
+            #         pass
+            #
+            #     # elif input_cmd == 'Back':
+            #     #     self.state_db.state = 'Overview'
+            #
+            # elif self.state_db.state == 'Withdraw':
+            #     if input_cmd == '20':
+            #         pass
+            #
+            #     elif input_cmd == '500':
+            #         pass
+            #
+            #     elif input_cmd == '100':
+            #         pass
+            #
+            #     elif input_cmd == 'Other':
+            #         pass
+            #
+            #     # elif input_cmd == 'Back':
+            #     #     self.state_db.state = 'Overview'
+            #
+            # elif self.state_db.state == 'Done':
+            #     if input_cmd == 'Yes':
+            #         self.state_db.state = 'Card'
+            #
+            #     elif input_cmd == 'No':
+            #         self.state_db.state = 'Overview'
 
         elif 'state' in updated_data:
             new_state = kwargs['state']

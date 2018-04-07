@@ -135,7 +135,7 @@ class View:
                                   rb3_lab="Back")
 
     def render_done(self):
-        self.display_info_page('', '', '', '')
+        self.display_info_page('Done?', '', 'Yes', 'No')
 
     def clear_screen(self):
         self.mid_title_label.configure(text='')

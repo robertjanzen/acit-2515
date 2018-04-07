@@ -8,11 +8,20 @@ class StateModel(Observable):
         self._entry = -1
         self._input = -1
         self._session_uid = -1
+        self._prev_state = ''
         
     def reset(self):
         self._entry = -1
         self._input = -1
         self.uid = -1
+        
+    @property
+    def prev_state(self):
+        return self._prev_state
+    
+    @prev_state.setter
+    def prev_state(self, input_value):
+        self._prev_state = input_value
 
     @property
     def state(self):
@@ -20,6 +29,7 @@ class StateModel(Observable):
 
     @state.setter
     def state(self, input_value):
+        self.prev_state = self.state
         self._state = input_value
         self.notify_all(state=input_value)
 
