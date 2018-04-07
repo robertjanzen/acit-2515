@@ -15,6 +15,8 @@ class LoginController(Observer):
             if account["card_number"] == input_number:
                 self.state_db.uid = account["uid"]
                 self.state_db.state = "PIN"
+            else:
+                self.state_db.state = 'Card'
 
     def check_pin(self, input_PIN):
         target_account = {}
@@ -23,8 +25,9 @@ class LoginController(Observer):
                 target_account = account
                 break
         if self.unhash(target_account["PIN"]) == input_PIN:
-
             self.state_db.state = "Overview"
+        else:
+            self.state_db.state = "PIN"
             
     @staticmethod
     def unhash(input_hash):

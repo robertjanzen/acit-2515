@@ -64,6 +64,7 @@ class UserDB:
             for entry in self.db_content:
                 writer.writerow(entry)
 
+
 if __name__ == "__main__":
     test = UserDB('user_db_file.csv')
     # test.create_new_entry('10000', '3333333333', '232323232')

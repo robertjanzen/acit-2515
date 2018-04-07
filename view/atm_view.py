@@ -115,6 +115,7 @@ class View:
 
     def render_pin(self):
         self.display_entry_page("Enter PIN", True)
+        self.mid_title_input.configure(show='*')
 
     def render_selection(self, option1, option2, option3, option4, option5):
         self.display_options_page(lb1_lab=option1, lb2_lab=option2, lb3_lab="Cancel", rb1_lab=option3, rb2_lab=option4,
