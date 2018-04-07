@@ -1,7 +1,5 @@
 from tkinter import *
 from observe.observer import Observer
-from datetime import datetime
-from datetime import timedelta
 
 import math
 
@@ -84,7 +82,7 @@ class TransactionController(Observer):
                     offset = int(input_cmd[0]) - 1
         
                     target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
-                    for item in self.account_model:
+                    for item in self.account_model.accounts:
                         if item['acc_num'] == target_acc_num:
                             self.usr_target_acc = item
                             break
@@ -175,7 +173,9 @@ class TransactionController(Observer):
         self.selection_page_num = -1
 
     def deposit(self, amount):
-        uid = self.account_model['uid']
+
+        uid = self.state_db.session_uid
+        account_num = self.usr_target_acc
         account_type = self.account_model['type']
 
         # Step 1 save transaction to file
