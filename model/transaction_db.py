@@ -21,15 +21,21 @@ class TransactionDB:
         pass
 
     # To be used with CLI only
-    def delete_from_file(self, input_uid):
+    def delete_from_file(self, uid):
         pass
 
     # To be used with CLI only
-    def edit_entry(self, input_uid, input_type, input_value):
+    def edit_entry(self, uid, type, amount):
         pass
 
-    def save_to_file(self):
-        pass
+    def save_to_file(self, uid):
+        filename = uid+'transactions.txt'
+        with open(filename, 'a', newline='') as csv_file:
+            fields = self._DB_COLUMNS
+            writer = csv.DictWriter(csv_file, fieldnames=fields)
+
+            for entry in self.db_content:
+                writer.writerow(entry)
 
 if __name__ == '__main__':
     pass
