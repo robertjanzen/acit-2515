@@ -1,5 +1,9 @@
-class StateModel:
+from observe.observer import Observable
+
+
+class StateModel(Observable):
     def __init__(self):
+        super().__init__()
         self._state = 1;
         self._entry = -1;
         self._input = -1;
@@ -11,6 +15,7 @@ class StateModel:
     @state.setter
     def state(self, input_value):
         self._state = input_value
+        self.notify_all(state=input_value)
 
     @property
     def entry(self):
@@ -19,6 +24,7 @@ class StateModel:
     @entry.setter
     def entry(self, input_value):
         self._entry = input_value
+        self.notify_all(entry=input_value)
 
     @property
     def input(self):
@@ -27,6 +33,7 @@ class StateModel:
     @input.setter
     def input(self, input_value):
         self._input = input_value
+        self.notify_all(input=input_value)
 
     def __str__(self):
         return "State: {}\nEntry: {}\nInput: {}".format(self.state, self.entry, self.input);

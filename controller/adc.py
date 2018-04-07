@@ -1,14 +1,15 @@
 from view.atm_view import View as atm_view
-from model.state_model import StateModel
 from tkinter import *
+from observe.observer import Observer
 
 
-class ADC:
+class ADC(Observer):
 
     def __init__(self, master, state_model):
         self.view = atm_view(master)
         self.state_db = state_model
         self.keypad_binding()
+        self.state_db.add_observer(self)
 
     def keypad_binding(self):
         self.view.rb1.configure(command=lambda: self.button_input(self.view.ml4.cget("text")))
@@ -37,20 +38,15 @@ class ADC:
 
     def keypad_entry(self, input_value):
         self.state_db.entry = input_value
-        print(self.state_db)
 
     def input_cmd(self, user_input):
         self.state_db.input = user_input
-        print(self.state_db)
 
     def cancel_session(self):
         self.state_db.state = 1
-        print(self.state_db)
 
+    def update(self, publisher, **kwargs):
+        #print object
+        #print(publisher)
 
-if __name__ == "__main__":
-    root = Tk()
-
-    test_controller = ADC(root)
-
-    mainloop()
+        print(kwargs)
