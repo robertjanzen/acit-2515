@@ -8,7 +8,7 @@ class LoginController(Observer):
         self.state_db = state_model
         self.state_db.add_observer(self)
 
-        self.db = user_db
+        self.db = user_db.db_content
 
     def check_card_num(self, input_number):
         for account in self.db:
