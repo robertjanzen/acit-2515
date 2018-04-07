@@ -78,7 +78,7 @@ class TransactionController(Observer):
             elif new_state == 'Overview':
                 self.view.render_overview('1','1','1')
             elif new_state == 'Balance':
-                self.view.render_balance('a','b')
+                self.view.render_balance('a','b','Cancel','Back')
             elif new_state == 'Deposit':
                 self.view.render_deposit()
             elif new_state == 'Withdraw':
