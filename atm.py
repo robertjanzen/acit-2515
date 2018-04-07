@@ -9,8 +9,8 @@ if __name__ == "__main__":
     test_db = [
         {
             "uid": 1,
-            "card_number": "1001",
-            "PIN": "123456789"
+            "card_number": "1",
+            "PIN": "1"
         },
         {
             "uid": 2,
