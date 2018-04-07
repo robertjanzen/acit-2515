@@ -110,28 +110,28 @@ class View:
         self.npb11.grid(row=3, column=1)
         self.npb12.grid(row=3, column=3)
 
-    def render_card_entry(self):
+    def render_card(self):
 
         self.display_entry_page("Enter Card Number")
 
-    def render_PIN_entry(self):
+    def render_pin(self):
         
         self.display_entry_page("Enter PIN", True)
 
-    def render_acc_selection(self, option1, option2, option3, option4, option5):
+    def render_selection(self, option1, option2, option3, option4, option5):
         self.display_options_page(lb1_lab=option1, lb2_lab=option2, lb3_lab="Cancel", rb1_lab=option3, rb2_lab=option4,
                                   rb3_lab=option5)
     
-    def render_acc_info_page(self, acc_name, acc_type, acc_number):
-        self.display_acc_info_page(acc_name, acc_type, acc_number)
+    def render_overview(self, acc_name, acc_type, acc_number):
+        self.display_overview_page(acc_name, acc_type, acc_number)
 
-    def render_information_page(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+    def render_info(self, input_title, input_info, lb3_lab='', rb3_lab=''):
         self.display_info_page(input_title, input_info, lb3_lab, rb3_lab)
     
-    def render_deposit_page(self):
+    def render_deposit(self):
         self.display_entry_page("Enter Deposit Amount", True, True)
         
-    def render_withdraw_page(self):
+    def render_withdraw(self):
         self.display_options_page(lb1_lab="$20", lb2_lab="$100", lb3_lab="Cancel", rb1_lab="$500", rb2_lab="Other",
                                   rb3_lab="Back")
 
@@ -206,7 +206,7 @@ class View:
         self.ml8.configure(text=rb2_lab)
         self.ml12.configure(text=rb3_lab)
     
-    def display_acc_info_page(self, input_name, input_type, input_number):
+    def display_overview_page(self, input_name, input_type, input_number):
         self.display_blank_page()
 
         self.ml1.grid_forget()
@@ -267,33 +267,33 @@ class TestController:
         curr_page = self._PAGE_NUMBER
         if curr_page == 1:
             self.view.master.title('Enter Card Page')
-            self.view.render_card_entry()
+            self.view.render_card()
         elif curr_page == 2:
             self.view.master.title('Enter PIN')
-            self.view.render_PIN_entry()
+            self.view.render_pin()
         elif curr_page == 3:
             self.view.master.title('Selection an Account')
-            self.view.render_acc_selection('Account1', 'Account2', 'Account3', 'Account4', 'Other')
+            self.view.render_selection('Account1', 'Account2', 'Account3', 'Account4', 'Other')
         
         elif curr_page == 4:
             self.view.master.title('Selection a Transaction')
-            self.view.render_acc_info_page("User's Chequing Account", "Type: Chequing Account", "1456874135")
+            self.view.render_overview("User's Chequing Account", "Type: Chequing Account", "1456874135")
             
         elif curr_page == 5:
             self.view.master.title('Account Balance')
-            self.view.render_information_page("Current Account Balance", "$5.00", "", "Back")
+            self.view.render_info("Current Account Balance", "$5.00", "", "Back")
             
         elif curr_page == 6:
             self.view.master.title('Deposit')
-            self.view.render_deposit_page()
+            self.view.render_deposit()
             
         elif curr_page == 7:
             self.view.master.title('Withdraw')
-            self.view.render_withdraw_page()
+            self.view.render_withdraw()
         
         elif curr_page == 8:
             self.view.master.title('Done Page')
-            self.view.render_information_page("Done?", "", "Yes", "No")
+            self.view.render_info("Done?", "", "Yes", "No")
         
         self._PAGE_NUMBER += 1
         if self._PAGE_NUMBER > 8:
