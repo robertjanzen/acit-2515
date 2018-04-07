@@ -123,7 +123,7 @@ class View:
     def render_overview(self, acc_name, acc_type, acc_number):
         self.display_overview_page(acc_name, acc_type, acc_number)
 
-    def render_info(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+    def render_balance(self, input_title, input_info, lb3_lab='', rb3_lab=''):
         self.display_info_page(input_title, input_info, lb3_lab, rb3_lab)
     
     def render_deposit(self):
@@ -282,7 +282,7 @@ class TestController:
             
         elif curr_page == 5:
             self.view.master.title('Account Balance')
-            self.view.render_info("Current Account Balance", "$5.00", "", "Back")
+            self.view.render_balance("Current Account Balance", "$5.00", "", "Back")
             
         elif curr_page == 6:
             self.view.master.title('Deposit')
@@ -294,7 +294,7 @@ class TestController:
         
         elif curr_page == 8:
             self.view.master.title('Done Page')
-            self.view.render_info("Done?", "", "Yes", "No")
+            self.view.render_balance("Done?", "", "Yes", "No")
         
         self._PAGE_NUMBER += 1
         if self._PAGE_NUMBER > 8:
