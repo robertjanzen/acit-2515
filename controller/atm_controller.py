@@ -1,6 +1,6 @@
 from view.atm_view import View as atm_view
 from tkinter import *
-from ..observe.observer import Observer
+from observe.observer import Observer
 
 class LoginController:
     _ControllerState = 1
