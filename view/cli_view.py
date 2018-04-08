@@ -265,6 +265,8 @@ class CLIView:
         Returns:
             None
         """
+        if report_content is None:
+            return
         
         print('\n{0:^65}'.format('----- Beginning of Report -----\n'))
         for item in report_content:
