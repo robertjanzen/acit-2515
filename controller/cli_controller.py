@@ -38,7 +38,8 @@ class CLIController:
         elif uInput == '2':
             self.cli_new_uid()
         elif uInput == '3':
-            self.charge_fees()
+            # self.charge_fees()
+            pass
         elif uInput == '4':
             self.run()
         elif uInput == '5':

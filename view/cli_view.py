@@ -27,7 +27,7 @@ class CLIView:
         return input('Enter account number: ')
 
     def showManAccMenu(self):
-        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Back\n6. Quit\n')
+        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Close account \n6.Back\n7. Quit\n')
 
     def showAccounts(self, target_uid, accounts):
         output = '\nAccounts for uid: {0} - '.format(target_uid)
