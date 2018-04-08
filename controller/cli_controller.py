@@ -16,6 +16,7 @@ class CLIController:
         self.trans = TransactionModel
         self.state = 0
         self.uid = ''
+        self.accNum = ''
 
     def run(self):
         user_name = self.view.getCLIName()
@@ -51,31 +52,41 @@ class CLIController:
         self.state = 1
         aInput = self.view.showAccMenu()
         if aInput == '1':
-            self.cli_man_acc()
+            self.cli_choose_account()
         elif aInput == '2':
             self.cli_create_acc()
         elif aInput == '3':
-            self.view.showUidMenu()
+            self.cli_uid_menu()
         elif aInput == '4':
             exit(0)
 
+    def cli_choose_account(self):
+        self.accNum = self.view.getAccNum()
+        self.cli_man_acc()
+
     def cli_man_acc(self):
-        accNum = self.view.getAccNum()
         maInput = self.view.showManAccMenu()
         if maInput == '1':
             amount = self.view.getDeposit()
-            self.accounts.deposit(self.uid, accNum, amount)
+            self.accounts.deposit(self.uid, self.accNum, amount)
+            self.cli_man_acc()
         elif maInput == '2':
             amount = self.view.getWithdraw()
-            self.accounts.withdraw(self.uid, accNum, amount)
+            msg = self.accounts.withdraw(self.uid, self.accNum, amount)
+            if msg == '':
+                self.view.withdrawSuccess(amount)
+            else:
+                self.view.withdrawFailure(msg)
+            self.cli_man_acc()
         elif maInput == '3':
-            balance = self.accounts.get_balance(self.uid, accNum)
+            balance = self.accounts.get_balance(self.uid, self.accNum)
             self.view.showBalance(balance)
+            self.cli_man_acc()
         elif maInput == '4':
             # TODO Charge fee
-            self.view.showAccMenu()
+            self.cli_acc_menu()
         elif maInput == '5':
-            self.view.showAccMenu()
+            self.cli_acc_menu()
         elif maInput == '6':
             exit(0)
 
@@ -87,7 +98,7 @@ class CLIController:
         elif tInput == '2':
             accType = 'Savings'
         elif tInput == '3':
-            self.view.showAccMenu()
+            self.cli_acc_menu()
         elif tInput == '4':
             exit(0)
         accName = self.view.getAccName()
