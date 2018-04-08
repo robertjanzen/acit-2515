@@ -38,8 +38,10 @@ class CLIController:
         elif uInput == '2':
             self.cli_new_uid()
         elif uInput == '3':
-            self.run()
+            self.charge_fees()
         elif uInput == '4':
+            self.run()
+        elif uInput == '5':
             exit(0)
 
     def cli_uid_menu(self):
@@ -71,14 +73,16 @@ class CLIController:
         maInput = self.view.showManAccMenu()
         if maInput == '1':
             amount = self.view.getDeposit()
-            self.accounts.deposit(self.uid, self.accNum, amount)
+            acc_type = self.accounts.deposit(self.uid, self.accNum, amount)
+            self.trans.create_new_entry(self.uid, acc_type, self.accNum, 'Deposit', amount)
             self.view.depositSuccess(amount)
             self.cli_man_acc()
         elif maInput == '2':
             amount = self.view.getWithdraw()
             msg = self.accounts.withdraw(self.uid, self.accNum, amount)
-            if msg == '':
+            if msg == 'Chequing' or msg == 'Saving':
                 self.view.withdrawSuccess(amount)
+                self.trans.create_new_entry(self.uid, msg, self.accNum, 'Deposit', amount)
             else:
                 self.view.withdrawFailure(msg)
             self.cli_man_acc()
@@ -90,8 +94,15 @@ class CLIController:
             # TODO Charge fee
             self.cli_acc_menu()
         elif maInput == '5':
-            self.cli_acc_menu()
+            if self.accounts.delete_account(self.uid, self.accNum):
+                self.view.close_account_success()
+                self.cli_man_acc()
+            else:
+                self.view.close_account_fail()
+                self.cli_man_acc()
         elif maInput == '6':
+            self.cli_acc_menu()
+        elif maInput == '7':
             exit(0)
 
 
@@ -154,6 +165,10 @@ class CLIController:
     def get_report(self):
         report = self.trans.display_report(self.uid)
         self.view.printReport(report)
+
+    # def charge_fees(self):
+    #     self.accounts.interest_and_fee()
+    #     self.view.int_fee_complete()
 
 if __name__ == "__main__":
     controller = CLIController()

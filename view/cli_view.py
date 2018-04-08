@@ -18,7 +18,7 @@ class CLIView:
 
     def showUidMenu(self):
         print('\nMain menu: ')
-        return input('\n1. Manage existing customer\n2. Create new customer\n3. Back\n4. Quit\n')
+        return input('\n1. Manage existing customer\n2. Create new customer\n3. Pay interest and charge fees\n4. Back\n4. Quit\n')
 
     def showAccMenu(self):
         return input('\n1. Manage account\n2. Open new account\n3. User report\n4. Back\n5. Quit\n')
@@ -84,5 +84,11 @@ class CLIView:
             print()
         print('{0:^65}'.format('----- End of Report -----'))
 
+    def int_fee_complete(self):
+        print('Successfully completed transactions')
 
+    def close_account_success(self):
+        print('Successfully closed account')
 
+    def close_account_fail(self):
+        print('Failed to close account. Account balance must be 0')
