@@ -55,7 +55,7 @@ class CLIController:
             amount = self.view.getWithdraw()
             self.accounts.withdraw(uid, accNum, amount)
         elif maInput == '3':
-            balance = AccountModel.get_balance(uid, accNum)
+            balance = self.accounts.get_balance(uid, accNum)
             self.view.showBalance(balance)
 
 

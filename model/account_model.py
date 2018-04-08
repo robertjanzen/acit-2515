@@ -19,10 +19,10 @@ class AccountModel:
 
     def create_new_account(self, acc_type, acc_name, acc_balance=0, uid = '', acc_num = ''):
         if uid == '':
-            uid = AccountModel._NEXT_UID
+            uid = str(AccountModel._NEXT_UID)
             AccountModel._NEXT_UID += 1
         if acc_num == '':
-            acc_num = AccountModel._NEXT_ACC_NUMBER
+            acc_num = str(AccountModel._NEXT_ACC_NUMBER)
             AccountModel._NEXT_ACC_NUMBER += 1
         user_object = {
             "uid": uid,
