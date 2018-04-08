@@ -214,6 +214,19 @@ class TransactionController(Observer):
                 self.view.render_error(self.error_msg)
 
     def update_tgt_acc_info(self, uid, acc_num):
+        """
+            Reloads the selected account's information
+            
+        Args:
+            uid:
+                UID of the user who owns the account
+            acc_num:
+                Account number of the account
+                
+        Returns:
+            None
+        """
+        
         self.account_model.load_accounts()
         for entry in self.account_model.accounts:
             if entry['uid'] == uid and entry['acc_num'] == acc_num:
