@@ -75,9 +75,9 @@ class AccountModel:
             data = json.load(json_file)
             for index, account in enumerate(data):
                 if data[index]['acc_type'] == 'Chequing':
-                    data[index]['acc_balance'] = self.chequing_intFee(data[index]['acc_balance'])
+                    data[index]['acc_balance'] = str(self.chequing_intFee(data[index]['acc_balance']))
                 elif data[index]['acc_type'] == 'Saving':
-                    data[index]['acc_balance'] = self.saving_intFee(data[index]['acc_balance'])
+                    data[index]['acc_balance'] = str(self.saving_intFee(data[index]['acc_balance']))
             json_file.seek(0)
             json.dump(data, json_file)
 
