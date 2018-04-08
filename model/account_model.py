@@ -72,6 +72,9 @@ class AccountModel:
                                 data[index]['acc_balance'] = str(new_amount)
                             else:
                                 return_msg = 'Insufficient Funds'
+                        
+                        else:
+                            return_msg = 'Unknown Account Type'
                                 
                         if return_msg == '':
                             json_file.seek(0)
