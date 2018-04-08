@@ -21,7 +21,7 @@ class CLIView:
         return input('\n1. Manage existing customer\n2. Create new customer\n3. Back\n4. Quit\n')
 
     def showAccMenu(self):
-        return input('\n1. Manage account\n2. Open new account\n3. User report\n4. Back\n5. Quit')
+        return input('\n1. Manage account\n2. Open new account\n3. User report\n4. Back\n5. Quit\n')
 
     def getAccNum(self):
         return input('Enter account number: ')
@@ -66,11 +66,9 @@ class CLIView:
         print('\nIncorrect username password combination')
 
     def printReport(self, report_content):
-        print()
-        print('{0:^65}'.format('----- Beginning of Report -----\n'))
+        print('\n{0:^65}'.format('----- Beginning of Report -----\n'))
         for item in report_content:
-            print(item[0])
-            print()
+            print(item[0] + '\n')
             for x in range(1, len(item)):
                 print(item[x])
             print()
