@@ -90,14 +90,14 @@ if __name__ == '__main__':
 
     test_db = [
         {
-            "uid" : 1,
-            "card_number" : "1001",
-            "PIN" : "123456789"
+            "uid": 1,
+            "card_number": "1001",
+            "PIN": "123456789"
         },
         {
-            "uid" : 2,
-            "card_number" : "1002",
-            "PIN" : "987654321"
+            "uid": 2,
+            "card_number": "1002",
+            "PIN": "987654321"
         }
     ]
 
