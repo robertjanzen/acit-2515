@@ -2,6 +2,8 @@ import json
 
 class AccountModel:
 
+    _OVERDRAFT_LIMIT = -500
+
     def __init__(self):
         self.accounts = None
         self.load_accounts()
@@ -45,14 +47,39 @@ class AccountModel:
         """changes owner name"""
         pass
 
-    def withdraw(self, amount):
+    def withdraw(self, uid, account_num, amount):
         """allow withdraw if valid amount and sufficient balance, print error message otherwise"""
-        # if self.check_float(amount):
-        #     if self._balance >= amount:
-        #         self._balance -= amount
-        #         # self.add_entry('withdraw', amount)
-        #     else:
-        #         print('Insufficient funds.')
+        return_msg = ''
+        
+        if self.check_float(amount):
+            with open('model/account_db.json', 'r+') as json_file:
+                
+                data = json.load(json_file)
+                
+                for index, account in enumerate(data):
+                    if (account['uid'] == uid) and (account['acc_num'] == account_num):
+                        
+                        new_amount = float(data[index]['acc_balance']) - float(amount)
+                        
+                        if account['acc_type'] == 'Chequing':
+                            if new_amount >= self._OVERDRAFT_LIMIT:
+                                data[index]['acc_balance'] = str(new_amount)
+                            else:
+                                return_msg = 'Exceeded Overdraft Limit'
+                                
+                        elif account['acc_type'] == 'Savings':
+                            if new_amount >= 0:
+                                data[index]['acc_balance'] = str(new_amount)
+                            else:
+                                return_msg = 'Insufficient Funds'
+                                
+                        if return_msg == '':
+                            json_file.seek(0)
+                            json.dump(data, json_file)
+        else:
+            return_msg = 'Invalid Input'
+            
+        return return_msg
 
     def deposit(self, uid, account_num, amount):
         """allow deposit if valid amount"""

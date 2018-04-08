@@ -15,6 +15,8 @@ class TransactionController(Observer):
         self.usr_acc_dic = None
         self.usr_target_acc = None
         self.selection_page_num = -1
+        
+        self.error_msg = ''
 
     def update(self, publisher, **kwargs):
         updated_data = kwargs.keys()
@@ -62,13 +64,29 @@ class TransactionController(Observer):
 
                     if converted:
                         self.deposit(entry)
-                        print("Depositing $%s..." % dollar_amt)
+                        
                         self.state_db.state = 'Done'
 
                 elif self.state_db.state == 'Cash':
 
                     # Should probably check to see if account has enough balance
-                    self.withdraw(float(entry))
+                    try:
+                        dollar_amt = float(entry)
+                        converted = True
+                        
+                    except:
+                        converted = False
+                        
+                    if converted:
+                        
+                        withdrawal_result = self.withdraw(entry)
+                        
+                        if withdrawal_result != '':
+                            self.error_msg = withdrawal_result
+                            self.state_db.state = 'Error'
+                        
+                        else:
+                            self.state_db.state = 'Done'
 
             elif input_cmd == '':
                 return
@@ -98,9 +116,14 @@ class TransactionController(Observer):
 
                 elif self.state_db.state == 'Withdraw':
                     amount = input_cmd.strip('$')
-                    self.withdraw(amount)
-
-                    self.state_db.state = 'Done'
+                    print(amount)
+                    result = self.withdraw(amount)
+                    if result != '':
+                        self.error_msg = result
+                        self.state_db.state = 'Error'
+                        
+                    else:
+                        self.state_db.state = 'Done'
 
                 elif self.state_db.state == 'Done':
                     if input_cmd == 'Yes':
@@ -159,6 +182,9 @@ class TransactionController(Observer):
 
             elif new_state == 'Card':
                 self.clear_controller_data()
+                
+            elif new_state == 'Error':
+                self.view.render_error(self.error_msg)
 
     def update_acc_info(self):
         self.account_model.load_accounts()
@@ -196,12 +222,19 @@ class TransactionController(Observer):
 
 
     def withdraw(self, input_value):
-        dollar_value = float(input_value)
+        uid = self.state_db.uid
+        
+        account_num = self.usr_target_acc['acc_num']
+        account_type = self.usr_target_acc['acc_type']
 
         # Do Withdraw logic here...
-        print("Withdrawing $%.2f..." % dollar_value)
-        self.state_db.state = 'Done'
-
+        transaction_result = self.account_model.withdraw(uid, account_num, input_value)
+        
+        if transaction_result == '':
+            self.transaction_model.create_new_entry(uid, account_type, account_num, 'Withdraw', input_value)
+            
+        return transaction_result
+    
 
 if __name__ == '__main__':
     print('Transaction Controller')
