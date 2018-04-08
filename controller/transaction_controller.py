@@ -228,7 +228,7 @@ class TransactionController(Observer):
 
     def get_account_list(self):
         """
-            Get a list of accounds tied to the currently signed in user uid.
+            Get a list of accounts tied to the currently signed in user uid.
             
         Returns:
             None
@@ -264,7 +264,6 @@ class TransactionController(Observer):
         
         uid = self.state_db.uid
 
-        # {'uid': '1', 'acc_num': '1004', 'acc_type': 'Chequing', 'acc_name': 'Chequing', 'acc_balance': 0}
         account_num = self.usr_target_acc['acc_num']
         account_type = self.usr_target_acc['acc_type']
 
@@ -273,7 +272,6 @@ class TransactionController(Observer):
 
         # Step 2 save transaction to file
         self.transaction_model.create_new_entry(uid, account_type, account_num, 'Deposit', amount)
-
 
     def withdraw(self, input_value):
         """
@@ -292,7 +290,6 @@ class TransactionController(Observer):
         account_num = self.usr_target_acc['acc_num']
         account_type = self.usr_target_acc['acc_type']
 
-        # Do Withdraw logic here...
         transaction_result = self.account_model.withdraw(uid, account_num, input_value)
         
         if transaction_result == '':
