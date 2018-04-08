@@ -72,7 +72,7 @@ class CLIController:
         if maInput == '1':
             amount = self.view.getDeposit()
             self.accounts.deposit(self.uid, self.accNum, amount)
-            self.view.depositSuccess()
+            self.view.depositSuccess(amount)
             self.cli_man_acc()
         elif maInput == '2':
             amount = self.view.getWithdraw()

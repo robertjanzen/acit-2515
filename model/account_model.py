@@ -86,33 +86,38 @@ class AccountModel:
         return_msg = ''
         
         if self.check_float(amount):
-            with open('model/account_db.json', 'r+') as json_file:
+            
+            with open('model/account_db.json') as json_file:
                 
                 data = json.load(json_file)
                 
-                for index, account in enumerate(data):
-                    if (account['uid'] == uid) and (account['acc_num'] == account_num):
-                        
-                        new_amount = float(data[index]['acc_balance']) - float(amount)
-                        
-                        if account['acc_type'] == 'Chequing':
-                            if new_amount >= self._OVERDRAFT_LIMIT:
-                                data[index]['acc_balance'] = str(new_amount)
-                            else:
-                                return_msg = 'Exceeded Overdraft Limit'
-                                
-                        elif account['acc_type'] == 'Savings':
-                            if new_amount >= 0:
-                                data[index]['acc_balance'] = str(new_amount)
-                            else:
-                                return_msg = 'Insufficient Funds'
-                        
+            for index, account in enumerate(data):
+                if (account['uid'] == uid) and (account['acc_num'] == account_num):
+                    
+                    new_amount = float(data[index]['acc_balance']) - float(amount)
+                    
+                    if account['acc_type'] == 'Chequing':
+                        if new_amount >= self._OVERDRAFT_LIMIT:
+                            data[index]['acc_balance'] = str(new_amount)
+                            break
                         else:
-                            return_msg = 'Unknown Account Type'
-                                
-                        if return_msg == '':
-                            json_file.seek(0)
-                            json.dump(data, json_file)
+                            return_msg = 'Exceeded Overdraft Limit'
+                            
+                    elif account['acc_type'] == 'Savings':
+                        if new_amount >= 0:
+                            data[index]['acc_balance'] = str(new_amount)
+                            break
+                        else:
+                            return_msg = 'Insufficient Funds'
+                    
+                    else:
+                        return_msg = 'Unknown Account Type'
+                        
+            if return_msg == '':
+                with open('model/account_db.json', 'w') as json_file2:
+                    
+                    json_file2.seek(0)
+                    json.dump(data, json_file2)
         else:
             return_msg = 'Invalid Input'
             
@@ -123,14 +128,15 @@ class AccountModel:
         if self.check_float(amount):
             with open('model/account_db.json', 'r+') as json_file:
                 data = json.load(json_file)
-                for index, account in enumerate(data):
-                    if (account['uid'] == uid) and (account['acc_num'] == account_num):
-                        curr_amount = float(data[index]['acc_balance'])
-                        new_amount = curr_amount + float(amount)
-                        data[index]['acc_balance'] = str(new_amount)
-
-                json_file.seek(0)
-                json.dump(data, json_file)
+            for index, account in enumerate(data):
+                if (account['uid'] == uid) and (account['acc_num'] == account_num):
+                    curr_amount = float(data[index]['acc_balance'])
+                    new_amount = curr_amount + float(amount)
+                    data[index]['acc_balance'] = str(new_amount)
+            with open('model/account_db.json', 'w') as json_file2:
+            
+                json_file2.seek(0)
+                json.dump(data, json_file2)
 
     def get_balance(self, uid, account_num):
         """print out the current balance"""
