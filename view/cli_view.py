@@ -53,6 +53,12 @@ class CLIView:
     def confirmPIN(self):
         return input('Confirm PIN: ')
 
+    def success(self):
+        print('\nSuccessfully logged in.')
+
+    def incorrect(self):
+        print('\nIncorrect username password combination')
+
     def printReport(self, report_content):
         print()
         print('{0:^65}'.format('----- Beginning of Report -----\n'))

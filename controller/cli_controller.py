@@ -2,6 +2,7 @@ from model.account_model import AccountModel
 from view.cli_view import CLIView
 from model.cli_db import CLIDB
 from model.user_model import UserDB
+from model.transaction_model import TransactionModel
 import random
 
 
@@ -12,6 +13,7 @@ class CLIController:
         self.clidb = CLIDB('model/cli_acc_db.csv')
         self.accounts = AccountModel()
         self.userdb = UserDB('model/user_db.csv')
+        self.trans = TransactionModel
         self.state = 0
         self.uid = ''
 
@@ -35,8 +37,10 @@ class CLIController:
         elif uInput == '2':
             self.cli_new_uid()
         elif uInput == '3':
-            self.run()
+            self.get_report()
         elif uInput == '4':
+            self.run()
+        elif uInput == '5':
             exit(0)
 
     def cli_uid_menu(self):
@@ -131,6 +135,10 @@ class CLIController:
                 odd_str += random.choice(odd_num)
             hash_str +=(odd_str+str(int(pwd[strIndex])*2))
         return hash_str
+
+    def get_report(self):
+        report = self.trans.display_report(self.uid)
+        self.view.printReport(report)
 
 if __name__ == "__main__":
     controller = CLIController()
