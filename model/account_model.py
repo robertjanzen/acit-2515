@@ -47,12 +47,12 @@ class AccountModel:
 
     def withdraw(self, amount):
         """allow withdraw if valid amount and sufficient balance, print error message otherwise"""
-        # if self.check_float(amount):
-        #     if self._balance >= amount:
-        #         self._balance -= amount
-        #         # self.add_entry('withdraw', amount)
-        #     else:
-        #         print('Insufficient funds.')
+        if self.check_float(amount):
+            if self._balance >= amount:
+                self._balance -= amount
+                # self.add_entry('withdraw', amount)
+            else:
+                print('Insufficient funds.')
 
     def deposit(self, uid, account_num, amount):
         """allow deposit if valid amount"""

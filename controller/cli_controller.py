@@ -14,11 +14,12 @@ class CLIController():
 
     def run(self):
         user_name = self.view.getCLIName()
-        if self.clidb.verifyCLIName(user_name):
-            password = self.view.getCLIPwd()
-            if self.clidb.verifyPwd(password):
-                print('Successfully logged in.')
-                self.menu()
+        password = self.view.getCLIPwd()
+        if self.clidb.verify_account(user_name, password):
+            print('Successfully logged in.')
+            self.menu()
+        else:
+            print('Incorrect username password combination')
 
 
     def menu(self):
