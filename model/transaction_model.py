@@ -96,11 +96,12 @@ class TransactionModel:
         # filename = 'model/logs/' + str(uid) + '-transactions.csv'
         filename = 'logs/' + str(uid) + '-transactions.csv'
         report_content = [['Comprehensive report for user no. ' + uid]]
-        
+
         try:
             if os.path.getsize(filename) > 0:
                 with open(filename, 'r') as csv_file:
                     transaction_dic = {}
+                    csv_file.readline()
                     full_file = csv_file.readlines()
 
                     account_list = []
@@ -118,20 +119,20 @@ class TransactionModel:
 
                     for account_num in account_list:
 
-                        acc_specific_entry = [('Transactions for account no.' + account_num + '----------')]
+                        acc_specific_entry = [('Transactions for account no.' + account_num)]
                         for entry in transaction_dic[account_num]:
                             acc_specific_entry.append(entry)
                         report_content.append(acc_specific_entry)
 
             print()
-            print('Beginning of Report--------------------------')
+            print('{0:^65}'.format('----- Beginning of Report -----\n'))
             for item in report_content:
                 print(item[0])
                 print()
                 for x in range(1, len(item)):
                     print(item[x])
                 print()
-            print('End of Report--------------------------------')
+            print('{0:^65}'.format('----- End of Report -----'))
 
         except:
             print('Error Generating Report...')
