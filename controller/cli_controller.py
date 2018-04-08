@@ -13,7 +13,7 @@ class CLIController:
         self.clidb = CLIDB('model/cli_acc_db.csv')
         self.accounts = AccountModel()
         self.userdb = UserDB('model/user_db.csv')
-        self.trans = TransactionModel
+        self.trans = TransactionModel()
         self.state = 0
         self.uid = ''
         self.accNum = ''
@@ -56,8 +56,10 @@ class CLIController:
         elif aInput == '2':
             self.cli_create_acc()
         elif aInput == '3':
-            self.cli_uid_menu()
+            self.get_report()
         elif aInput == '4':
+            self.uidMenu()
+        elif aInput == '5':
             exit(0)
 
     def cli_choose_account(self):

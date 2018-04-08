@@ -93,8 +93,8 @@ class TransactionModel:
         Returns:
             None
         """
-        # filename = 'model/logs/' + str(uid) + '-transactions.csv'
-        filename = 'logs/' + str(uid) + '-transactions.csv'
+        filename = 'model/logs/' + str(uid) + '-transactions.csv'
+        # filename = 'logs/' + str(uid) + '-transactions.csv'
         report_content = [['Comprehensive report for user no. ' + uid]]
 
         try:
