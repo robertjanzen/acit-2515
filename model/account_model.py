@@ -117,8 +117,8 @@ class AccountModel:
                 
                 data = json.load(json_file)
                 
-<<<<<<< HEAD
             for index, account in enumerate(data):
+                
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
                     
                     new_amount = float(data[index]['acc_balance']) - float(amount)
@@ -127,27 +127,6 @@ class AccountModel:
                         if new_amount >= self._OVERDRAFT_LIMIT:
                             data[index]['acc_balance'] = str(new_amount)
                             break
-=======
-                for index, account in enumerate(data):
-                    if (account['uid'] == uid) and (account['acc_num'] == account_num):
-                        
-                        new_amount = float(data[index]['acc_balance']) - float(amount)
-                        
-                        if account['acc_type'] == 'Chequing':
-                            if new_amount >= self._OVERDRAFT_LIMIT:
-                                if new_amount < 0:
-                                    new_amount -= odFee
-                                data[index]['acc_balance'] = str(new_amount)
-                            else:
-                                return_msg = 'Exceeded Overdraft Limit'
-                                
-                        elif account['acc_type'] == 'Savings':
-                            if new_amount >= 0:
-                                data[index]['acc_balance'] = str(new_amount)
-                            else:
-                                return_msg = 'Insufficient Funds'
-                        
->>>>>>> a9054acc851d012d329908cdfb43c37861e04667
                         else:
                             return_msg = 'Exceeded Overdraft Limit'
                             
