@@ -9,7 +9,7 @@ class CLIController():
 
     def __init__(self):
         self.view = CLIView()
-        self.clidb = CLIDB('model/account_db.json')
+        self.clidb = CLIDB()
         self.accounts = AccountModel()
 
     def run(self):
@@ -47,7 +47,7 @@ class CLIController():
     def cli_create(self):
         account_input = self.view.accountType()
         if account_input == '1':
-            pass
+            self.create_chequing()
         elif account_input == '2':
             self.create_saving()
         elif account_input == '3':
@@ -58,11 +58,15 @@ class CLIController():
     def create_chequing(self):
         accName = self.view.getAccName()
         deposit = self.view.getInitialDeposit()
-        # new_account = AccountModel()
-        # new_account.create_new_account('10', '1010', 'Chequing', accName, deposit)
+        new_account = AccountModel()
+        new_account.create_new_account('10', 'Chequing', accName, deposit)
         print(accName, deposit)
 
     def create_saving(self):
+        accName = self.view.getAccName()
+        deposit = self.view.getInitialDeposit()
+        new_account = AccountModel()
+        new_account.create_new_account('10', 'Saving', accName, deposit)
         print('This creates a saving account')
 
 
