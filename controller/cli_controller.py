@@ -64,7 +64,7 @@ class CLIController:
         if tInput == '1':
             accType = 'Chequing'
         elif tInput == '2':
-            accType = 'Saving'
+            accType = 'Savings'
         elif tInput == '3':
             exit(0)
         accName = self.view.getAccName()
@@ -76,7 +76,7 @@ class CLIController:
         if tInput == '1':
             accType = 'Chequing'
         elif tInput == '2':
-            accType = 'Saving'
+            accType = 'Savings'
         elif tInput == '3':
             exit(0)
         accName = self.view.getAccName()
