@@ -25,7 +25,7 @@ class CLIView:
             Username inputted by user
         """
         
-        user_name = input('Enter your username: ')
+        user_name = input('\nEnter your username: ')
         return user_name
 
     def getCLIPwd(self):
@@ -49,7 +49,7 @@ class CLIView:
         """
         
         print('\nMain menu: ')
-        return input('\n1. Manage existing customer\n2. Create new customer\n3. Pay interest and charge fees\n4. Back\n4. Quit\n')
+        return input('\n1. Manage existing customer\n2. Create new customer\n3. Pay interest and charge fees\n4. Back\n5. Quit\n')
 
     def showAccMenu(self):
         """
@@ -73,6 +73,9 @@ class CLIView:
 
     def incorrectAcc(self):
         print('\nSelected account does not exist\n')
+
+    def incorrectUID(self):
+        print('\nSelected UID does not exist\n')
 
     def showManAccMenu(self):
         """
