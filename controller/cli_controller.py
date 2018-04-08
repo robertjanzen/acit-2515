@@ -57,6 +57,7 @@ class CLIController:
             self.cli_create_acc()
         elif aInput == '3':
             self.get_report()
+            self.cli_acc_menu()
         elif aInput == '4':
             self.uidMenu()
         elif aInput == '5':
@@ -71,6 +72,7 @@ class CLIController:
         if maInput == '1':
             amount = self.view.getDeposit()
             self.accounts.deposit(self.uid, self.accNum, amount)
+            self.view.depositSuccess()
             self.cli_man_acc()
         elif maInput == '2':
             amount = self.view.getWithdraw()

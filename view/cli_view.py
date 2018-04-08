@@ -38,14 +38,17 @@ class CLIView:
     def getDeposit(self):
         return input('Enter deposit amount: ')
 
+    def depositSuccess(self, amount):
+        print('\nSuccessfully deposited: ${0}'.format(float(amount)))
+
     def getWithdraw(self):
         return input('Enter withdraw amount: ')
 
     def withdrawSuccess(self, amount):
-        print('Successfully withdrew: ${0}'.format(amount))
+        print('\nSuccessfully withdrew: ${0}'.format(float(amount)))
 
     def withdrawFailure(self, message):
-        print('Withdraw failure: {0}'.format(message))
+        print('\nWithdraw failure: {0}'.format(message))
 
     def getUid(self):
         return input('Enter the user ID: ')
