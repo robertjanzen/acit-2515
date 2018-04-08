@@ -122,7 +122,7 @@ class CLIController:
         self.uid = self.accounts.create_new_account(accType, accName, initDep)
         self.create_user_db()
         self.accounts.load_accounts()
-        self.view.showUidMenu()
+        self.uidMenu()
 
     def create_user_db(self):
         cardNum = self.generate_cardNum(self.uid)
