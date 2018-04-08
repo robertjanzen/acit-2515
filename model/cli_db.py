@@ -7,7 +7,6 @@ class CLIDB:
         self._acc_db_content = []
         self._db_file = file_path
         self.loadAcc()
-        
 
     def verify_account(self, usr, pwd):
         for entry in self._acc_db_content:
