@@ -11,7 +11,9 @@ class CLIDB:
     def verify_account(self, usr, pwd):
         for entry in self._acc_db_content:
             if usr == entry[self._ACC_DB_FIELDS[0]]:
+                
                 if self.verifyPwd(entry[self._ACC_DB_FIELDS[1]], pwd):
+                    
                     return True
                 else:
                     return False
