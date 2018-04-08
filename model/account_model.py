@@ -1,4 +1,5 @@
 import json
+from model.constants import *
 
 class AccountModel:
 
@@ -33,7 +34,6 @@ class AccountModel:
         }
         self.save_account_to_file(user_object)
         return uid
-
 
     def save_account_to_file(self, user_object):
         exists = False
@@ -70,6 +70,32 @@ class AccountModel:
     def update_acc_balance(self, uid, acc_num, acc_type, amount):
         pass
 
+    def interest_and_fee(self):
+        with open('model/account_db.json', 'r+') as json_file:
+            data = json.load(json_file)
+            for index, account in enumerate(data):
+                if data[index]['acc_type'] == 'Chequing':
+                    data[index]['acc_balance'] = self.chequing_intFee(data[index]['acc_balance'])
+                elif data[index]['acc_type'] == 'Saving':
+                    data[index]['acc_balance'] = self.saving_intFee(data[index]['acc_balance'])
+            json_file.seek(0)
+            json.dump(data, json_file)
+
+    def chequing_intFee(self, balance):
+        che_fee = 0
+        if balance < 0:
+            """apply 3% interest on overdraft"""
+            che_fee = balance * odInterest
+        balance += che_fee
+        return balance
+
+    def saving_intFee(self, balance):
+        sav_fee = balance * savInterest
+        if balance < savMin:
+            sav_fee -= 10
+        balance += sav_fee
+        return balance
+
     def change_name(self, uid, acc_num, accName):
         """changes account name"""
         with open('model/account_db.json', 'r+') as json_file:
@@ -97,6 +123,7 @@ class AccountModel:
                         
                         if account['acc_type'] == 'Chequing':
                             if new_amount >= self._OVERDRAFT_LIMIT:
+                                new_amount -= odFee
                                 data[index]['acc_balance'] = str(new_amount)
                             else:
                                 return_msg = 'Exceeded Overdraft Limit'
