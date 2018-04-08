@@ -210,9 +210,9 @@ class View:
         self.ml5.configure(text=lb2_lab, anchor=W)
         self.ml9.configure(text=lb3_lab, anchor=W)
         
-        self.ml4.configure(text=rb1_lab, anchor=W)
-        self.ml8.configure(text=rb2_lab, anchor=W)
-        self.ml12.configure(text=rb3_lab, anchor=W)
+        self.ml4.configure(text=rb1_lab, anchor=E)
+        self.ml8.configure(text=rb2_lab, anchor=E)
+        self.ml12.configure(text=rb3_lab, anchor=E)
     
     def display_overview_page(self, input_name, input_type, input_number):
         self.display_blank_page()
