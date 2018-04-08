@@ -93,30 +93,31 @@ class TransactionModel:
         Returns:
             None
         """
-        filename = 'model/logs/' + str(uid) + '-transactions.csv'
-        # filename = 'logs/' + str(uid) + '-transactions.csv'
+        # filename = 'model/logs/' + str(uid) + '-transactions.csv'
+        filename = 'logs/' + str(uid) + '-transactions.csv'
         report_content = [['Comprehensive report for user no. ' + uid]]
         
         try:
             if os.path.getsize(filename) > 0:
                 with open(filename, 'r') as csv_file:
                     transaction_dic = {}
-                    log_structure = csv_file.readline()
                     full_file = csv_file.readlines()
-                    
+
+                    account_list = []
+
                     for line in full_file:
                         line_data = line.rstrip('\n').split(',')
                         account_list = list(transaction_dic.keys())
-                        
+
                         if line_data[3] in account_list:
                             transaction_dic[line_data[3]].append(', '.join(line_data))
                         else:
                             transaction_dic[line_data[3]] = [', '.join(line_data)]
-                            
-                    account_list.sort(key=float)
-                    
+
+                    account_list.sort(key=str)
+
                     for account_num in account_list:
-                        
+
                         acc_specific_entry = [('Transactions for account no.' + account_num + '----------')]
                         for entry in transaction_dic[account_num]:
                             acc_specific_entry.append(entry)
@@ -131,11 +132,9 @@ class TransactionModel:
                     print(item[x])
                 print()
             print('End of Report--------------------------------')
-            
+
         except:
             print('Error Generating Report...')
-                    
-                    
 
 
 if __name__ == '__main__':
