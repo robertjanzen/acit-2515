@@ -53,5 +53,16 @@ class CLIView:
     def confirmPIN(self):
         return input('Confirm PIN: ')
 
+    def printReport(self, report_content):
+        print()
+        print('{0:^65}'.format('----- Beginning of Report -----\n'))
+        for item in report_content:
+            print(item[0])
+            print()
+            for x in range(1, len(item)):
+                print(item[x])
+            print()
+        print('{0:^65}'.format('----- End of Report -----'))
+
 
 

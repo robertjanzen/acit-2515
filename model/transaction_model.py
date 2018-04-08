@@ -133,6 +133,16 @@ class TransactionModel:
                     print(item[x])
                 print()
             print('{0:^65}'.format('----- End of Report -----'))
+                return report_content
+            # print()
+            # print('{0:^65}'.format('----- Beginning of Report -----\n'))
+            # for item in report_content:
+            #     print(item[0])
+            #     print()
+            #     for x in range(1, len(item)):
+            #         print(item[x])
+            #     print()
+            # print('{0:^65}'.format('----- End of Report -----'))
 
         except:
             print('Error Generating Report...')
