@@ -26,6 +26,9 @@ class CLIView:
     def getAccNum(self):
         return input('Enter account number: ')
 
+    def incorrectAcc(self):
+        print('\nSelected account does not exist\n')
+
     def showManAccMenu(self):
         return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Close account \n6. Back\n7. Quit\n')
 
@@ -69,7 +72,7 @@ class CLIView:
         print('\nSuccessfully logged in.')
 
     def incorrect(self):
-        print('\nIncorrect username password combination')
+        print('\nIncorrect username password combination\n')
 
     def printReport(self, report_content):
         print('\n{0:^65}'.format('----- Beginning of Report -----\n'))

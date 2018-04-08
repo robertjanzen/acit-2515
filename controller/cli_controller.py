@@ -19,16 +19,16 @@ class CLIController:
         self.accNum = ''
 
     def run(self):
-        user_name = self.view.getCLIName()
-        password = self.view.getCLIPwd()
-        if self.clidb.verify_account(user_name, password):
-            self.view.success()
-            if self.state == 0:
+        choice = False
+        while choice == False:
+            user_name = self.view.getCLIName()
+            password = self.view.getCLIPwd()
+            if self.clidb.verify_account(user_name, password):
+                choice = True
+                self.view.success()
                 self.uidMenu()
-            elif self.state == 1:
-                self.cli_acc_menu()
-        else:
-            self.view.incorrect()
+            else:
+                self.view.incorrect()
 
     def uidMenu(self):
         """Manage user or create new user"""
@@ -76,6 +76,8 @@ class CLIController:
             self.accNum = self.view.getAccNum()
             if self.accNum in account_list:
                 choice = True
+            else:
+                self.view.incorrectAcc()
         self.cli_man_acc()
 
     def cli_man_acc(self):
