@@ -84,13 +84,13 @@ class CLIView:
         
         return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Close account \n6. Back\n7. Quit\n')
 
-<<<<<<< HEAD
-    def showAccounts(self, target_uid, accounts):
+
+    def showAccounts(self, uid, accounts):
         """
             Displays a string which contains a list of account numbers for the accounts that belongs to a uid
             
         Args:
-            target_uid:
+            uid:
                 UID tied to a customer
                 
             accounts:
@@ -100,15 +100,13 @@ class CLIView:
             None
         """
         
-        output = '\nAccounts for uid: {0} - '.format(target_uid)
-        for account in accounts:
-            if account['uid'] == target_uid:
-                output += account['acc_num'] + ' '
-        print(output + '\n')
-=======
-    def showAccounts(self, uid, accounts):
+        # output = '\nAccounts for uid: {0} - '.format(target_uid)
+        # for account in accounts:
+        #     if account['uid'] == target_uid:
+        #         output += account['acc_num'] + ' '
+        # print(output + '\n')
         print('\nAccounts for uid: {0} - {1}\n'.format(uid, ' '.join(accounts)))
->>>>>>> fa06a3b74eca191df56a45d5aa553044970952e0
+
 
     def getAccType(self):
         """
@@ -247,7 +245,6 @@ class CLIView:
         print('\nSuccessfully logged in.')
 
     def incorrect(self):
-<<<<<<< HEAD
         """
             Displays a failure message for failed login attempts
             
@@ -255,10 +252,7 @@ class CLIView:
             None
         """
         
-        print('\nIncorrect username password combination')
-=======
         print('\nIncorrect username password combination\n')
->>>>>>> fa06a3b74eca191df56a45d5aa553044970952e0
 
     def printReport(self, report_content):
         """
