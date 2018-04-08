@@ -16,10 +16,14 @@ class AccountModel:
         with open('model/next_acc_num.txt') as num_file:
             AccountModel._NEXT_UID = int(num_file.readline())
             AccountModel._NEXT_ACC_NUMBER = int(num_file.readline())
-            print(AccountModel._NEXT_UID)
-            print(AccountModel._NEXT_ACC_NUMBER)
 
-    def create_new_account(self, acc_type, acc_name, uid = AccountModel._NEXT_UID, acc_num = AccountModel._NEXT_ACC_NUMBER, acc_balance=0):
+    def create_new_account(self, acc_type, acc_name, acc_balance=0, uid = '', acc_num = ''):
+        if uid == '':
+            uid = AccountModel._NEXT_UID
+            AccountModel._NEXT_UID += 1
+        if acc_num == '':
+            acc_num = AccountModel._NEXT_ACC_NUMBER
+            AccountModel._NEXT_ACC_NUMBER += 1
         user_object = {
             "uid": uid,
             "acc_num": acc_num,
@@ -27,7 +31,6 @@ class AccountModel:
             "acc_name": acc_name,
             "acc_balance": acc_balance
         }
-        AccountModel._NEXT_ACC_NUMBER += 1
         self.save_account_to_file(user_object)
 
 
@@ -110,9 +113,13 @@ class AccountModel:
                 json_file.seek(0)
                 json.dump(data, json_file)
 
-    def get_balance(self):
+    def get_balance(self, uid, account_num):
         """print out the current balance"""
-        pass
+        with open('model/account_db.json', 'r+') as json_file:
+            data = json.load(json_file)
+            for index, account in enumerate(data):
+                if (account['uid'] == uid) and (account['acc_num'] == account_num):
+                    return float(data[index]['acc_balance'])
 
     def check_float(self, value):
         """this function first checks if the value can be made into a float

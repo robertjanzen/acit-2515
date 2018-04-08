@@ -3,7 +3,7 @@ import csv
 class CLIDB:
     _ACC_DB_FIELDS = ['name', 'pwd']
     
-    def __init__(self, file_path='model/cli_acc_db.csv'):
+    def __init__(self, file_path):
         self._acc_db_content = []
         self._db_file = file_path
         self.loadAcc()
@@ -40,10 +40,8 @@ class CLIDB:
     
     def loadAcc(self):
         try:
-            print(self._db_file)
             with open(self._db_file) as csv_file:
                 reader = csv.DictReader(csv_file)
-                print('1')
             
                 for row in reader:
                     new_dict = {}
@@ -52,7 +50,6 @@ class CLIDB:
                 
                     self._acc_db_content.append(new_dict)
         except:
-            print('2')
             return
     
     def saveAcc(self):

@@ -17,33 +17,35 @@ class CLIView:
         return password
 
     def showUidMenu(self):
+        print('Main menu: ')
         return input('\n1. Manage existing customer\n2. Create new customer\n3. Quit\n')
-
-    def showManUid(self):
-        return input('\n1. Create new account\n2. Delete account\n3. View transaction report\n'
-                     '4. Quit')
 
     def showAccMenu(self):
         return input('\n1. Manage account\n2. Open new account\n3. Quit\n')
 
-    def accountType(self):
-        return input('\n1. Create Chequing account\n2. Create saving account\n3. Quit\n')
+    def getAccNum(self):
+        return input('Enter account number: ')
+
+    def showManAccMenu(self):
+        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Quit\n')
+
+    def getAccType(self):
+        return input('\n1. Chequing\n2. Saving\n3. Quit\n')
 
     def getAccName(self):
-        return input('Enter account holder name: ')
+        return input('Enter account name: ')
 
-    def getInitialDeposit(self):
-        return input('Enter initial deposit amount: ')
+    def getDeposit(self):
+        return input('Enter deposit amount: ')
 
-    def getManInput(self):
-        return input('\n1. Deposit into an account\n2. Quit\n')
+    def getWithdraw(self):
+        return input('Enter withdraw amount: ')
 
-    def uidInput(self):
+    def getUid(self):
         return input('Enter the user ID: ')
 
-    def accNumInput(self):
-        return input('Enter the account number: ')
+    def showBalance(self, balance):
+        print('The current balance is: ', balance)
 
-    def depositInput(self):
-        return input('Enter deposit amount: ')
+
 
