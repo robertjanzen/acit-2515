@@ -47,5 +47,11 @@ class CLIView:
     def showBalance(self, balance):
         print('The current balance is: ', balance)
 
+    def getPIN(self):
+        return input('Enter your PIN: ')
+
+    def confirmPIN(self):
+        return input('Confirm PIN: ')
+
 
 

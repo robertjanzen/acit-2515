@@ -137,7 +137,7 @@ class UserDB:
 
 
 if __name__ == "__main__":
-    test = UserDB('user_db_file.csv')
-    # test.create_new_entry('10000', '3333333333', '232323232')
+    test = UserDB('model/user_db.csv')
+    test.create_new_entry('10000', '3333333333', '232323232')
     # test.edit_entry('10000', 'uid', '10001')
     # test.delete_from_file('10000')

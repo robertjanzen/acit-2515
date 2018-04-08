@@ -32,6 +32,7 @@ class AccountModel:
             "acc_balance": acc_balance
         }
         self.save_account_to_file(user_object)
+        return uid
 
 
     def save_account_to_file(self, user_object):
