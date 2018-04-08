@@ -17,30 +17,59 @@ class CLIController:
         password = self.view.getCLIPwd()
         if self.clidb.verify_account(user_name, password):
             print('Successfully logged in.')
-            self.menu()
+            self.uidMenu()
         else:
             print('Incorrect username password combination')
 
-    def menu(self):
-        menu_input = self.view.showMenu()
-        if menu_input == '1':
-            self.cli_manage()
-        elif menu_input == '2':
-            self.cli_create()
-        elif menu_input == '3':
+    def uidMenu(self):
+        input = self.view.showUidMenu()
+        if input == '1':
+            self.cli_uid_menu()
+        elif input == '2':
+            self.cli_new_uid()
+        elif input == '3':
             exit(0)
 
-    def cli_user(self):
-        manInput = self.view.getManInput()
-        if manInput == '1':
+    def cli_uid_menu(self):
+        input = self.view.showManUid()
+        if input == '1':
+            self.cli_man_uid()
+        elif input == '2':
+            self.cli_new_uid()
+        elif input == '3':
+            self.cli_trans_report()
+        elif input == '4':
+            exit(0)
+
+    def cli_man_uid(self):
+        uInput = self.view.getManInput()
+        if uInput == '1':
             self.cli_create_user()
-        elif manInput == '2':
-            self.cli_manage_user
-        elif manInput == '2':
+        elif uInput == '2':
+            self.cli_manage_user()
+        elif uInput == '3':
+            exit(0)
+
+    def cli_new_uid(self):
+        uInput = self.view.getManInput()
+        if uInput == '1':
+            self.cli_create_user()
+        elif uInput == '2':
+            self.cli_manage_user()
+        elif uInput == '3':
+            exit(0)
+
+    def cli_manage(self):
+        mInput = self.view.getManInput()
+        if mInput == '1':
+            self.cli_create_user()
+        elif mInput == '2':
+            self.cli_manage_user()
+        elif mInput == '4':
             exit(0)
             
     def cli_create_user(self):
-
+        pass
 
     def cli_deposit(self):
         uid = self.view.uidInput()

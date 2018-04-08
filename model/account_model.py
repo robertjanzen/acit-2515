@@ -3,6 +3,7 @@ import json
 class AccountModel:
 
     _NEXT_ACC_NUMBER = ''
+    _NEXT_UID = ''
     _OVERDRAFT_LIMIT = -500
 
     def __init__(self):
@@ -13,12 +14,15 @@ class AccountModel:
         with open('model/account_db.json') as json_file:
             self.accounts = json.load(json_file)
         with open('model/next_acc_num.txt') as num_file:
-            AccountModel._NEXT_ACC_NUMBER = num_file.read()
+            AccountModel._NEXT_UID = int(num_file.readline())
+            AccountModel._NEXT_ACC_NUMBER = int(num_file.readline())
+            print(AccountModel._NEXT_UID)
+            print(AccountModel._NEXT_ACC_NUMBER)
 
-    def create_new_account(self, uid, acc_type, acc_name, acc_balance=0):
+    def create_new_account(self, acc_type, acc_name, uid = AccountModel._NEXT_UID, acc_num = AccountModel._NEXT_ACC_NUMBER, acc_balance=0):
         user_object = {
             "uid": uid,
-            "acc_num": AccountModel._NEXT_ACC_NUMBER,
+            "acc_num": acc_num,
             "acc_type": acc_type,
             "acc_name": acc_name,
             "acc_balance": acc_balance
@@ -29,8 +33,9 @@ class AccountModel:
 
     def save_account_to_file(self, user_object):
         exists = False
-        with open('model/next_acc_num.txt') as num_file:
-            num_file.write(AccountModel._NEXT_ACC_NUMBER)
+        with open('model/next_acc_num.txt','w') as num_file:
+            next_data = str(AccountModel._NEXT_UID)+'\n'+str(AccountModel._NEXT_ACC_NUMBER)
+            num_file.write(next_data)
         with open('model/account_db.json') as json_file:
             data = json.load(json_file)
             for account in data:
@@ -125,4 +130,4 @@ class AccountModel:
 
 if __name__ == '__main__':
     am = AccountModel()
-    am.create_new_account('1','1004','Chequing','Chequing')
+    am.create_new_account('Chequing','Chequing')

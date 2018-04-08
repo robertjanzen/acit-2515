@@ -10,7 +10,7 @@ from model.cli_db import CLIDB
 from controller.button_controller import ButtonController
 from controller.login_controller import LoginController
 from controller.transaction_controller import TransactionController
-from controller.cli_controller import CLIController
+# from controller.cli_controller import CLIController
 
 from constants import *
 

@@ -16,7 +16,14 @@ class CLIView:
         password = input('Enter your password: ')
         return password
 
-    def showMenu(self):
+    def showUidMenu(self):
+        return input('\n1. Manage existing customer\n2. Create new customer\n3. Quit\n')
+
+    def showManUid(self):
+        return input('\n1. Create new account\n2. Delete account\n3. View transaction report\n'
+                     '4. Quit')
+
+    def showAccMenu(self):
         return input('\n1. Manage account\n2. Open new account\n3. Quit\n')
 
     def accountType(self):
