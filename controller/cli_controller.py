@@ -21,7 +21,6 @@ class CLIController:
         else:
             print('Incorrect username password combination')
 
-
     def menu(self):
         menu_input = self.view.showMenu()
         if menu_input == '1':
@@ -31,12 +30,17 @@ class CLIController:
         elif menu_input == '3':
             exit(0)
 
-    def cli_manage(self):
+    def cli_user(self):
         manInput = self.view.getManInput()
         if manInput == '1':
-            self.cli_deposit()
+            self.cli_create_user()
+        elif manInput == '2':
+            self.cli_manage_user
         elif manInput == '2':
             exit(0)
+            
+    def cli_create_user(self):
+
 
     def cli_deposit(self):
         uid = self.view.uidInput()
