@@ -18,10 +18,10 @@ class CLIView:
 
     def showUidMenu(self):
         print('\nMain menu: ')
-        return input('\n1. Manage existing customer\n2. Create new customer\n3. Back\n4. Quit')
+        return input('\n1. Manage existing customer\n2. Create new customer\n3. Logout\n4. Quit\n')
 
     def showAccMenu(self):
-        return input('\n1. Manage account\n2. Open new account\n3. Back\n4. Quit')
+        return input('\n1. Manage account\n2. Open new account\n3. Back\n4. Quit\n')
 
     def getAccNum(self):
         return input('Enter account number: ')
@@ -52,6 +52,12 @@ class CLIView:
 
     def confirmPIN(self):
         return input('Confirm PIN: ')
+
+    def success(self):
+        print('\nSuccessfully logged in.')
+
+    def incorrect(self):
+        print('\nIncorrect username password combination')
 
 
 
