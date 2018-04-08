@@ -153,7 +153,7 @@ class AccountModel:
     def deposit(self, uid, account_num, amount):
         """allow deposit if valid amount"""
         if self.check_float(amount):
-            with open('model/account_db.json', 'r+') as json_file:
+            with open('model/account_db.json') as json_file:
                 data = json.load(json_file)
             for index, account in enumerate(data):
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
