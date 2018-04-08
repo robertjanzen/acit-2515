@@ -66,8 +66,16 @@ class CLIController:
             exit(0)
 
     def cli_choose_account(self):
-        self.view.showAccounts(self.uid, self.accounts.accounts)
-        self.accNum = self.view.getAccNum()
+        account_list = []
+        for index, account in enumerate(self.accounts.accounts):
+            if account['uid'] == self.uid:
+                account_list.append(self.accounts.accounts[index]['acc_num'])
+        self.view.showAccounts(self.uid, account_list)
+        choice = False
+        while choice == False:
+            self.accNum = self.view.getAccNum()
+            if self.accNum in account_list:
+                choice = True
         self.cli_man_acc()
 
     def cli_man_acc(self):

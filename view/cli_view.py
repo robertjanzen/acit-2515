@@ -29,12 +29,8 @@ class CLIView:
     def showManAccMenu(self):
         return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Close account \n6. Back\n7. Quit\n')
 
-    def showAccounts(self, target_uid, accounts):
-        output = '\nAccounts for uid: {0} - '.format(target_uid)
-        for account in accounts:
-            if account['uid'] == target_uid:
-                output += account['acc_num'] + ' '
-        print(output + '\n')
+    def showAccounts(self, uid, accounts):
+        print('\nAccounts for uid: {0} - {1}\n'.format(uid, ' '.join(accounts)))
 
     def getAccType(self):
         return input('\n1. Chequing\n2. Saving\n3. Quit\n')
