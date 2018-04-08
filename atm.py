@@ -1,3 +1,13 @@
+# atm.py
+#
+# ATM MVC program
+#
+# Team alroda
+#
+# Aldrich Huamg A01026502 2B
+# Robert Janzen A01029341 2B
+# David Xiao A00725026 2B
+
 from tkinter import *
 from view.atm_view import View as atm_view
 

@@ -1,3 +1,13 @@
+# login_controller.py
+#
+# ATM MVC program
+#
+# Team alroda
+#
+# Aldrich Huamg A01026502 2B
+# Robert Janzen A01029341 2B
+# David Xiao A00725026 2B
+
 from tkinter import *
 from observe.observer import Observer
 
@@ -12,6 +22,17 @@ class LoginController(Observer):
         self.msg = ''
 
     def check_card_num(self, input_number):
+        """
+            Checks the inputted card number to see if it is a valid card number
+            
+        Args:
+            input_number:
+                Card Number entered at the Card Entry page
+                
+        Returns:
+            None
+        """
+        
         for account in self.db:
             if account["card_number"] == input_number:
                 self.state_db.uid = account["uid"]
@@ -22,6 +43,16 @@ class LoginController(Observer):
         self.state_db.state = 'LoginError'
 
     def check_pin(self, input_PIN):
+        """
+            Checks the PIN to see if it matches
+            
+        Args:
+            input_PIN:
+                PIN entered at the PIN Entry page
+                
+        Returns:
+            None
+        """
         target_account = {}
         for account in self.db:
             if account["uid"] == self.state_db.uid:
@@ -35,6 +66,17 @@ class LoginController(Observer):
             
     @staticmethod
     def unhash(input_hash):
+        """
+            Function for unhashing the hashed PIN
+            
+        Args:
+            input_hash:
+                Hashed PIN
+                
+        Returns:
+            Unhashed PIN
+        """
+        
         num_str = ''
         curr_num = ''
         for character in input_hash:
@@ -48,6 +90,19 @@ class LoginController(Observer):
         return num_str
 
     def update(self, publisher, **kwargs):
+        """
+            Updates the ATM view
+            
+        Args:
+            publisher:
+                Object that is updated
+            **kwargs:
+                The updated attribute name and value as reported by the observer
+                
+        Returns:
+            None
+        """
+        
         updated_data = kwargs.keys()
 
         if 'entry' in updated_data:

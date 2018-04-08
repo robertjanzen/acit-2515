@@ -1,3 +1,14 @@
+# transaction_model.py
+#
+# ATM MVC program
+#
+# Team alroda
+#
+# Aldrich Huamg A01026502 2B
+# Robert Janzen A01029341 2B
+# David Xiao A00725026 2B
+
+
 import datetime
 import os
 import locale
@@ -12,6 +23,26 @@ class TransactionModel:
         pass
 
     def create_new_entry(self, uid, account_type, account_num, transaction_type, amount, date=datetime.datetime.now()):
+        """
+            Creates a new transaction log entry to be saved to file
+            
+        Args:
+            uid:
+                UID of the user that owns the account that the transaction is initiated from
+            account_type:
+                The type of the account
+            account_num:
+                The account number of the account
+            transaction_type:
+                The type of transaction that was done
+            amount:
+                The dollar value involved in the transaction
+            date:
+                The time and date when the transaction took place
+
+        Returns:
+            None
+        """
         row = '{0},{1},{2},{3},{4},{5}'.format(str(date), uid, account_type, account_num, transaction_type, str(float(amount)), )
         self.save_transaction(uid, row)
 
@@ -24,6 +55,18 @@ class TransactionModel:
         pass
 
     def save_transaction(self, uid, row):
+        """
+            Saves the new entry to the transaction log file
+            
+        Args:
+            uid:
+                UID of the user who owns that account that initiated the transaction
+            row:
+                String containing the new entry to be added to the transaction log file
+                
+        Returns:
+            None
+        """
         filename = 'model/logs/'+str(uid)+'-transactions.csv'
         try:
             if os.path.getsize(filename) > 0:
@@ -39,6 +82,17 @@ class TransactionModel:
                 csv_file.write(output)
                 
     def display_report(self, uid):
+        """
+            Displays a report of all recorded transactions for accounts owned by the User with the ID uid. The report
+            is displayed in the CLI
+            
+        Args:
+            uid:
+                UID of the user
+                
+        Returns:
+            None
+        """
         filename = 'model/logs/' + str(uid) + '-transactions.csv'
         # filename = 'logs/' + str(uid) + '-transactions.csv'
         report_content = [['Comprehensive report for user no. ' + uid]]

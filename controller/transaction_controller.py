@@ -1,3 +1,13 @@
+# transaction.py
+#
+# ATM MVC program
+#
+# Team alroda
+#
+# Aldrich Huamg A01026502 2B
+# Robert Janzen A01029341 2B
+# David Xiao A00725026 2B
+
 from tkinter import *
 from observe.observer import Observer
 
@@ -19,6 +29,18 @@ class TransactionController(Observer):
         self.error_msg = ''
 
     def update(self, publisher, **kwargs):
+        """
+            Update the ATM view depending on the state and updated input
+        Args:
+            publisher:
+                Object that's updated
+            **kwargs:
+                Updated attribute name and value as reported by the observer
+                
+        Returns:
+            None
+        """
+        
         updated_data = kwargs.keys()
 
         if 'entry' in updated_data:
@@ -187,6 +209,13 @@ class TransactionController(Observer):
                 self.view.render_error(self.error_msg)
 
     def update_acc_info(self):
+        """
+            Reloads account information
+            
+        Returns:
+            None
+        """
+        
         self.account_model.load_accounts()
         self.usr_acc_dic = {}
         self.get_account_list()
@@ -198,16 +227,41 @@ class TransactionController(Observer):
                 break
 
     def get_account_list(self):
+        """
+            Get a list of accounds tied to the currently signed in user uid.
+            
+        Returns:
+            None
+        """
+        
         for entry in self.account_model.accounts:
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
 
     def clear_controller_data(self):
+        """
+            Clears controller user session data
+            
+        Returns:
+            None
+        """
+        
         self.usr_target_acc = None
         self.usr_acc_dic = None
         self.selection_page_num = -1
 
     def deposit(self, amount):
+        """
+            Deposits money into the selected account
+            
+        Args:
+            amount:
+                The amount to be deposited to the account
+                
+        Returns:
+            None
+        """
+        
         uid = self.state_db.uid
 
         # {'uid': '1', 'acc_num': '1004', 'acc_type': 'Chequing', 'acc_name': 'Chequing', 'acc_balance': 0}
@@ -222,6 +276,17 @@ class TransactionController(Observer):
 
 
     def withdraw(self, input_value):
+        """
+            Withdraw money from the account
+            
+        Args:
+            input_value:
+                The amount to be withdrawn from the account
+                
+        Returns:
+            String containing the result of the withdraw attempt
+        """
+        
         uid = self.state_db.uid
         
         account_num = self.usr_target_acc['acc_num']

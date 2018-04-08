@@ -1,3 +1,14 @@
+# observer.py
+#
+# ATM MVC program
+#
+# Team alroda
+#
+# Aldrich Huamg A01026502 2B
+# Robert Janzen A01029341 2B
+# David Xiao A00725026 2B
+
+
 class Observer:
     def update(self, obj, **kwargs):
         raise NotImplementedError

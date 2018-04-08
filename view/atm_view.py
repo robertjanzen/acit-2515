@@ -1,8 +1,12 @@
+# atm_view.py
 #
-# View.py
+# ATM MVC program
 #
-# Final Project
+# Team alroda
 #
+# Aldrich Huamg A01026502 2B
+# Robert Janzen A01029341 2B
+# David Xiao A00725026 2B
 
 from tkinter import *
 
@@ -111,39 +115,148 @@ class View:
         self.npb12.grid(row=3, column=3)
 
     def render_card(self):
+        """
+            Render the card number entry page
+        
+        Returns:
+            None
+        """
+        
         self.display_entry_page("Enter Card Number")
 
     def render_pin(self):
+        """
+            Renders the PIN entry page
+        Returns:
+            None
+        """
+        
         self.display_entry_page("Enter PIN", True)
         self.mid_title_input.configure(show='*')
 
     def render_selection(self, option1, option2, option3, option4, option5):
+        """
+            Renders the Selection page, which allows users to select which account to use for transactions
+            
+        Args:
+            option1:
+                String containing name of an account, empty string if not applicable
+            option2:
+                String containing name of an account, empty string if not applicable
+            option3:
+                String containing name of an account, empty string if not applicable
+            option4:
+                String containing name of an account, empty string if not applicable
+            option5:
+                String containing name of an account, empty string if not applicable
+
+        Returns:
+            None
+        """
+        
         self.display_options_page(lb1_lab=option1, lb2_lab=option2, lb3_lab="Cancel", rb1_lab=option3, rb2_lab=option4,
                                   rb3_lab=option5)
     
     def render_overview(self, acc_name, acc_type, acc_number):
+        """
+            Renders the account overview page
+            
+        Args:
+            acc_name:
+                String containing the name of the account
+            acc_type:
+                String containing the type of the account
+            acc_number:
+                String containing the account number
+
+        Returns:
+            None
+        """
+        
         self.display_overview_page(acc_name, acc_type, acc_number)
 
     def render_balance(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+        """
+            Renders the balance page which displays the current balance of the account
+            
+        Args:
+            input_title:
+                String containing the title of the page
+            input_info:
+                String containing the information to be displayed
+            lb3_lab:
+                String that represents the functionality of left button 3
+            rb3_lab:
+                String that represents the functionality of right button 3
+
+        Returns:
+            None
+        """
+        
         self.display_info_page(input_title, input_info, lb3_lab, rb3_lab)
     
     def render_deposit(self):
+        """
+            Renders the deposit page
+            
+        Returns:
+            None
+        """
+        
         self.display_entry_page("Enter Deposit Amount", True, True)
         
     def render_withdraw(self):
+        """
+            Renders the withdraw page
+            
+        Returns:
+            None
+        """
+        
         self.display_options_page(lb1_lab="$20", lb2_lab="$100", lb3_lab="Cancel", rb1_lab="$500", rb2_lab="Other",
                                   rb3_lab="Back")
         
     def render_cash(self):
+        """
+            Renders the custom withdraw amount entry page
+            
+        Returns:
+            None
+        """
+        
         self.display_entry_page("Enter Custom Withdrawal Amount", True, True)
 
     def render_done(self):
+        """
+            Renders the done page
+            
+        Returns:
+            None
+        """
+        
         self.display_info_page('Done?', '', 'Yes', 'No')
         
     def render_error(self, error_msg):
+        """
+            Renders the error page
+        Args:
+            error_msg:
+                String the contains the error message
+
+        Returns:
+            None
+        """
+        
         self.display_info_page('ERROR', error_msg, 'Cancel', 'Back')
 
     def clear_screen(self):
+        """
+            Clears the contents of the view
+            
+        Returns:
+            None
+        """
+        
         self.mid_title_label.configure(text='')
         self.mid_title_input.configure(show='')
         self.mid_title_input.delete(0, END)
@@ -164,6 +277,13 @@ class View:
         self.ml12.configure(text='')
 
     def display_blank_page(self):
+        """
+            Renders a blank page
+            
+        Returns:
+            None
+        """
+        
         self.clear_screen()
 
         self.mid_title_label.grid_forget()
@@ -184,6 +304,22 @@ class View:
         self.ml12.grid(row=2, column=3)
         
     def display_entry_page(self, title='', enable_cancel=False, enable_back=False):
+        """
+            Configures widgets to display an entry page. The entry page mainly consists of a title label at the top,
+            and an entry widget at the middly.
+            
+        Args:
+            title:
+                String containing the title of the page
+            enable_cancel:
+                Boolean that enable the Cancel function
+            enable_back:
+                Boolean that enables the Back function
+
+        Returns:
+            None
+        """
+        
         self.display_blank_page()
 
         self.ml1.grid_forget()
@@ -204,6 +340,28 @@ class View:
             self.ml12.configure(text="Back")
             
     def display_options_page(self, lb1_lab='', lb2_lab='', lb3_lab='', rb1_lab='', rb2_lab='', rb3_lab=''):
+        """
+            Configures widgets to display an options page. The options page mainly consists of widgets on the left and
+            right side with lables that describes the function that the side buttons have
+            
+        Args:
+            lb1_lab:
+                String that describes function of the corresponding side button, empty string for no function
+            lb2_lab:
+                String that describes function of the corresponding side button, empty string for no function
+            lb3_lab:
+                String that describes function of the corresponding side button, empty string for no function
+            rb1_lab:
+                String that describes function of the corresponding side button, empty string for no function
+            rb2_lab:
+                String that describes function of the corresponding side button, empty string for no function
+            rb3_lab:
+                String that describes function of the corresponding side button, empty string for no function
+
+        Returns:
+            None
+        """
+        
         self.display_blank_page()
         
         self.ml1.configure(text=lb1_lab, anchor=W)
@@ -215,6 +373,21 @@ class View:
         self.ml12.configure(text=rb3_lab, anchor=E)
     
     def display_overview_page(self, input_name, input_type, input_number):
+        """
+            Configures widgets to display the account overview page
+            
+        Args:
+            input_name:
+                String containing the account name
+            input_type:
+                String containing the account type
+            input_number:
+                String containing the account number
+
+        Returns:
+            None
+        """
+        
         self.display_blank_page()
 
         self.ml2.grid_forget()
@@ -238,6 +411,23 @@ class View:
         self.ml12.configure(text="Back")
         
     def display_info_page(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+        """
+            Configures widgets to display an information page. The info consists of a title and a middle text label
+            
+        Args:
+            input_title:
+                String containing the title of the page
+            input_info:
+                String containing the information to be displayed on the page
+            lb3_lab:
+                String describing the function of the left button 3
+            rb3_lab:
+                String describing the function of the right button 3
+
+        Returns:
+            None
+        """
+        
         self.display_blank_page()
         
         self.ml1.grid_forget()
@@ -259,55 +449,6 @@ class View:
         self.ml9.configure(text=lb3_lab)
         self.ml12.configure(text=rb3_lab)
 
-class TestController:
-    _PAGE_NUMBER = 1
-
-    def __init__(self):
-        self.root = Tk()
-        self.view = View(self.root)
-
-        # bind events/callbacks
-        self.view.npb12.configure(command=self.cycle)
-
-    def cycle(self):
-
-        curr_page = self._PAGE_NUMBER
-        if curr_page == 1:
-            self.view.master.title('Enter Card Page')
-            self.view.render_card()
-        elif curr_page == 2:
-            self.view.master.title('Enter PIN')
-            self.view.render_pin()
-        elif curr_page == 3:
-            self.view.master.title('Selection an Account')
-            self.view.render_selection('Account1', 'Account2', 'Account3', 'Account4', 'Other')
-        
-        elif curr_page == 4:
-            self.view.master.title('Selection a Transaction')
-            self.view.render_overview("User's Chequing Account", "Type: Chequing Account", "1456874135")
-            
-        elif curr_page == 5:
-            self.view.master.title('Account Balance')
-            self.view.render_balance("Current Account Balance", "$5.00", "", "Back")
-            
-        elif curr_page == 6:
-            self.view.master.title('Deposit')
-            self.view.render_deposit()
-            
-        elif curr_page == 7:
-            self.view.master.title('Withdraw')
-            self.view.render_withdraw()
-        
-        elif curr_page == 8:
-            self.view.master.title('Done Page')
-            self.view.render_balance("Done?", "", "Yes", "No")
-        
-        self._PAGE_NUMBER += 1
-        if self._PAGE_NUMBER > 8:
-            self._PAGE_NUMBER = 1
-
 
 if __name__ == "__main__":
-    test = TestController()
-    test.cycle()
-    mainloop()
+    print('atm_view.py')
