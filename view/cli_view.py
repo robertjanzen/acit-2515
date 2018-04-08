@@ -17,7 +17,7 @@ class CLIView:
         return password
 
     def showUidMenu(self):
-        print('Main menu: ')
+        print('\nMain menu: ')
         return input('\n1. Manage existing customer\n2. Create new customer\n3. Quit\n')
 
     def showAccMenu(self):
@@ -27,7 +27,7 @@ class CLIView:
         return input('Enter account number: ')
 
     def showManAccMenu(self):
-        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Quit\n')
+        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Back\n6. Quit\n')
 
     def getAccType(self):
         return input('\n1. Chequing\n2. Saving\n3. Quit\n')

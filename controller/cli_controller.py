@@ -59,6 +59,13 @@ class CLIController:
         elif maInput == '3':
             balance = self.accounts.get_balance(uid, accNum)
             self.view.showBalance(balance)
+        elif maInput == '4':
+            # TODO Charge fee
+            self.view.showAccMenu()
+        elif maInput == '5':
+            self.view.showAccMenu()
+        elif maInput == '6':
+            exit(0)
 
 
     def cli_create_acc(self, uid):
@@ -87,6 +94,8 @@ class CLIController:
         initDep = self.view.getDeposit()
         uid = self.accounts.create_new_account(accType, accName, initDep)
         self.create_user_db(uid)
+        self.accounts.load_accounts()
+        self.view.showUidMenu()
 
     def create_user_db(self, uid):
         cardNum = self.generate_cardNum(uid)
