@@ -22,6 +22,12 @@ class AccountModel:
         self.load_accounts()
 
     def load_accounts(self):
+        """
+            Load user all user accounts from the account_db JSON file
+
+        Returns:
+
+        """
         with open('model/account_db.json') as json_file:
             self.accounts = json.load(json_file)
         with open('model/next_acc_num.txt') as num_file:

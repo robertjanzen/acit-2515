@@ -46,7 +46,20 @@ class CLIController:
             exit(0)
 
     def cli_uid_menu(self):
-        self.uid = self.view.getUid()
+
+        uid_list = []
+        self.userdb.open_db_file()
+        for user in self.userdb.db_content:
+            uid_list.append(user['uid'])
+
+        choice = False
+        while choice == False:
+            self.uid = self.view.getUid()
+            if self.uid in uid_list:
+                choice = True
+            else:
+                self.view.incorrectUID()
+
         self.cli_acc_menu()
 
     def cli_acc_menu(self):
@@ -184,5 +197,3 @@ class CLIController:
 if __name__ == "__main__":
     controller = CLIController()
     controller.run()
-    # while True:
-    #     controller.run()
