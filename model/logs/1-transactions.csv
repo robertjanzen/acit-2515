@@ -16,3 +16,5 @@ date,uid,account_type,account_number,transaction_type,amount
 2018-04-07 17:59:55.378517,1,Chequing,1002,Withdraw,500.0
 2018-04-07 18:01:53.016556,1,Chequing,1002,Withdraw,500.0
 2018-04-07 18:01:53.016556,1,Chequing,1002,Withdraw,20.0
+2018-04-08 12:21:08.129380,1,Chequing,1001,Deposit,60.0
+2018-04-08 12:21:08.129380,1,Chequing,1001,Withdraw,500.0
