@@ -5,11 +5,11 @@ from view.cli_view import CLIView
 from model.cli_db import CLIDB
 
 
-class CLIController():
+class CLIController:
 
     def __init__(self):
         self.view = CLIView()
-        self.clidb = CLIDB('model/account_db.json')
+        self.clidb = CLIDB('model/cli_acc_db.csv')
         self.accounts = AccountModel()
 
     def run(self):

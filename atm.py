@@ -29,7 +29,5 @@ if __name__ == "__main__":
     
     state_db.state = "Card"
     
-    # cli_model = CLIDB(CLI_DB_FILE)
-    # cli_ctrl = CLIController(cli_model)
-    
+    # cli_ctrl = CLIController()
     mainloop()
