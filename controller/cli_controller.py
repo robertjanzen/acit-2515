@@ -19,13 +19,13 @@ class CLIController:
         user_name = self.view.getCLIName()
         password = self.view.getCLIPwd()
         if self.clidb.verify_account(user_name, password):
-            print('Successfully logged in.')
+            self.view.success()
             if self.state == 0:
                 self.uidMenu()
             elif self.state == 1:
                 self.cli_acc_menu()
         else:
-            print('Incorrect username password combination')
+            self.view.incorrect()
 
     def uidMenu(self):
         """Manage user or create new user"""
@@ -35,6 +35,8 @@ class CLIController:
         elif uInput == '2':
             self.cli_new_uid()
         elif uInput == '3':
+            self.run()
+        elif uInput == '4':
             exit(0)
 
     def cli_uid_menu(self):
@@ -49,6 +51,8 @@ class CLIController:
         elif aInput == '2':
             self.cli_create_acc()
         elif aInput == '3':
+            self.view.showUidMenu()
+        elif aInput == '4':
             exit(0)
 
     def cli_man_acc(self):
@@ -79,6 +83,8 @@ class CLIController:
         elif tInput == '2':
             accType = 'Savings'
         elif tInput == '3':
+            self.view.showAccMenu()
+        elif tInput == '4':
             exit(0)
         accName = self.view.getAccName()
         initDep = self.view.getDeposit()
