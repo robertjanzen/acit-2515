@@ -123,7 +123,8 @@ class AccountModel:
                         
                         if account['acc_type'] == 'Chequing':
                             if new_amount >= self._OVERDRAFT_LIMIT:
-                                new_amount -= odFee
+                                if new_amount < 0:
+                                    new_amount -= odFee
                                 data[index]['acc_balance'] = str(new_amount)
                             else:
                                 return_msg = 'Exceeded Overdraft Limit'
