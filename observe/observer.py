@@ -4,7 +4,7 @@
 #
 # Team alroda
 #
-# Aldrich Huamg A01026502 2B
+# Aldrich Huang A01026502 2B
 # Robert Janzen A01029341 2B
 # David Xiao A00725026 2B
 
