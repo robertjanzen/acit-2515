@@ -87,7 +87,10 @@ class TransactionController(Observer):
                     if converted:
                         self.deposit(entry)
                         
-                        self.state_db.state = 'Done'
+                        if self.usr_target_acc is None:
+                            self.state_db.state = 'Error'
+                        else:
+                            self.state_db.state = 'Done'
 
                 elif self.state_db.state == 'Cash':
 
@@ -119,12 +122,13 @@ class TransactionController(Observer):
                     offset = int(input_cmd[0]) - 1
 
                     target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
-                    for item in self.account_model.accounts:
-                        if item['acc_num'] == target_acc_num:
-                            self.usr_target_acc = item
-                            break
-
-                    self.state_db.state = 'Overview'
+                    self.update_tgt_acc_info(self.state_db.uid, target_acc_num)
+                    
+                    if self.usr_target_acc is None:
+                        self.state_db.state = 'Error'
+                    else:
+                        self.selection_page_num = -1
+                        self.state_db.state = 'Overview'
 
                 elif self.state_db.state == 'Overview':
                     if input_cmd == 'Balance':
@@ -138,7 +142,7 @@ class TransactionController(Observer):
 
                 elif self.state_db.state == 'Withdraw':
                     amount = input_cmd.strip('$')
-                    print(amount)
+                    
                     result = self.withdraw(amount)
                     if result != '':
                         self.error_msg = result
@@ -156,7 +160,7 @@ class TransactionController(Observer):
 
         elif 'state' in updated_data:
             new_state = kwargs['state']
-
+            
             if new_state == 'Selection':
                 self.usr_target_acc = {}
                 if self.selection_page_num != -1:
@@ -183,9 +187,11 @@ class TransactionController(Observer):
                     self.state_db.state = "Selection"
 
             elif new_state == 'Overview':
+                self.update_tgt_acc_info(self.state_db.uid, self.usr_target_acc['acc_num'])
                 self.view.render_overview('', '', '')
 
             elif new_state == 'Balance':
+                self.update_tgt_acc_info(self.state_db.uid, self.usr_target_acc['acc_num'])
                 self.view.render_balance('Your Current Balance:', '${}'.format(self.usr_target_acc['acc_balance']),
                                          'Cancel', 'Back')
 
@@ -199,7 +205,6 @@ class TransactionController(Observer):
                 self.view.render_cash()
 
             elif new_state == 'Done':
-                self.update_acc_info()
                 self.view.render_done()
 
             elif new_state == 'Card':
@@ -208,23 +213,15 @@ class TransactionController(Observer):
             elif new_state == 'Error':
                 self.view.render_error(self.error_msg)
 
-    def update_acc_info(self):
-        """
-            Reloads account information
-            
-        Returns:
-            None
-        """
-        
+    def update_tgt_acc_info(self, uid, acc_num):
         self.account_model.load_accounts()
-        self.usr_acc_dic = {}
-        self.get_account_list()
-        curr_acc_num = self.usr_target_acc['acc_num']
-
         for entry in self.account_model.accounts:
-            if entry['uid'] == self.state_db.uid and entry['acc_num'] == curr_acc_num:
+            if entry['uid'] == uid and entry['acc_num'] == acc_num:
                 self.usr_target_acc = entry
-                break
+                
+                return
+        
+        self.usr_target_acc = None
 
     def get_account_list(self):
         """
@@ -233,7 +230,8 @@ class TransactionController(Observer):
         Returns:
             None
         """
-        
+
+        self.account_model.load_accounts()
         for entry in self.account_model.accounts:
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
@@ -267,6 +265,11 @@ class TransactionController(Observer):
         account_num = self.usr_target_acc['acc_num']
         account_type = self.usr_target_acc['acc_type']
 
+        self.update_tgt_acc_info(uid, account_num)
+        if self.usr_target_acc is None:
+            self.error_msg = 'Account Not Found'
+            return
+
         # Step 1 update balance in user's database file
         self.account_model.deposit(uid, account_num, amount)
 
@@ -289,7 +292,11 @@ class TransactionController(Observer):
         
         account_num = self.usr_target_acc['acc_num']
         account_type = self.usr_target_acc['acc_type']
-
+        
+        self.update_tgt_acc_info(uid, account_num)
+        if self.usr_target_acc is None:
+            return 'Account Not Found'
+        
         transaction_result = self.account_model.withdraw(uid, account_num, input_value)
         
         if transaction_result == '':
