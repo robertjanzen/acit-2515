@@ -38,10 +38,8 @@ class CLIController:
         elif uInput == '2':
             self.cli_new_uid()
         elif uInput == '3':
-            self.get_report()
-        elif uInput == '4':
             self.run()
-        elif uInput == '5':
+        elif uInput == '4':
             exit(0)
 
     def cli_uid_menu(self):
@@ -55,6 +53,7 @@ class CLIController:
             self.cli_choose_account()
         elif aInput == '2':
             self.cli_create_acc()
+            self.cli_acc_menu()
         elif aInput == '3':
             self.get_report()
             self.cli_acc_menu()
@@ -64,6 +63,7 @@ class CLIController:
             exit(0)
 
     def cli_choose_account(self):
+        self.view.showAccounts(self.uid, self.accounts.accounts)
         self.accNum = self.view.getAccNum()
         self.cli_man_acc()
 
