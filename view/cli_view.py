@@ -21,7 +21,7 @@ class CLIView:
         return input('\n1. Manage existing customer\n2. Create new customer\n3. Back\n4. Quit\n')
 
     def showAccMenu(self):
-        return input('\n1. Manage account\n2. Open new account\n3. Back\n4. Quit\n')
+        return input('\n1. Manage account\n2. Open new account\n3. User report\n4. Back\n5. Quit')
 
     def getAccNum(self):
         return input('Enter account number: ')

@@ -52,16 +52,34 @@ class AccountModel:
 
         with open('model/account_db.json', 'w') as out_file:
             json.dump(data, out_file)
+        return
 
-    def delete_account(self):
-        pass
+    def delete_account(self, uid, acc_num):
+        with open('model/account_db.json', 'r+') as json_file:
+            data = json.load(json_file)
+            for index, account in enumerate(data):
+                if (account['uid'] == uid) and (account['acc_num'] == acc_num):
+                    if data[index]['acc_balance'] > 0:
+                        return False
+                    else:
+                        data.remove(account)
+            json_file.seek(0)
+            json.dump(data, json_file)
+        return True
 
     def update_acc_balance(self, uid, acc_num, acc_type, amount):
         pass
 
-    def change_name(self, accName):
-        """changes owner name"""
-        pass
+    def change_name(self, uid, acc_num, accName):
+        """changes account name"""
+        with open('model/account_db.json', 'r+') as json_file:
+            data = json.load(json_file)
+            for index, account in enumerate(data):
+                if (account['uid'] == uid) and (account['acc_num'] == acc_num):
+                    data[index]['acc_name'] = str(accName)
+            json_file.seek(0)
+            json.dump(data, json_file)
+        return True
 
     def withdraw(self, uid, account_num, amount):
         """allow withdraw if valid amount and sufficient balance, print error message otherwise"""
