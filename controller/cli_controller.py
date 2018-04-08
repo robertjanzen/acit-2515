@@ -12,6 +12,8 @@ class CLIController:
         self.clidb = CLIDB('model/cli_acc_db.csv')
         self.accounts = AccountModel()
         self.userdb = UserDB('model/user_db.csv')
+        self.state = 10
+        self.uid = ''
 
     def run(self):
         user_name = self.view.getCLIName()
@@ -70,6 +72,8 @@ class CLIController:
         accName = self.view.getAccName()
         initDep = self.view.getDeposit()
         self.accounts.create_new_account(accType, accName, initDep, uid)
+        print('1')
+        self.cli_acc_menu(uid)
 
     def cli_new_uid(self):
         tInput = self.view.getAccType()
