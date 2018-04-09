@@ -32,6 +32,7 @@ class CLIController:
 
     def uidMenu(self):
         """Manage user or create new user"""
+        
         uInput = self.view.showUidMenu()
         if uInput == '1':
             self.cli_uid_menu()
@@ -51,10 +52,10 @@ class CLIController:
         self.userdb.open_db_file()
         for user in self.userdb.db_content:
             uid_list.append(user['uid'])
-
+        
         if not uid_list:
             self.view.noUID()
-            self.cli_uid_menu()
+            self.uidMenu()
         else:
             choice = False
             while choice == False:
