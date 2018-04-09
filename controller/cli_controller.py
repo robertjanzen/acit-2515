@@ -21,6 +21,7 @@ class CLIController:
         self.state = 0
         self.uid = ''
         self.accNum = ''
+        self.accType = ''
 
     def run(self):
         """
@@ -170,9 +171,13 @@ class CLIController:
         elif maInput == '2':
             amount = self.view.getWithdraw()
             msg = self.accounts.withdraw(self.uid, self.accNum, amount)
-            if msg == 'Chequing' or msg == 'Saving':
+            if msg == '':
+                accType = self.accounts.getAccountType(self.uid, self.accNum)
                 self.view.withdrawSuccess(amount)
-                self.trans.create_new_entry(self.uid, msg, self.accNum, 'Deposit', amount)
+                if accType != '':
+                    self.trans.create_new_entry(self.uid, accType, self.accNum, 'Deposit', amount)
+                else:
+                    pass
             else:
                 self.view.withdrawFailure(msg)
             self.cli_man_acc()

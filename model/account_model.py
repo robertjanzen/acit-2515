@@ -310,6 +310,14 @@ class AccountModel:
             print('Invalid value, please re-enter amount.')
             return False
 
+    def getAccountType(self, uid, acc_num):
+        self.load_accounts()
+        for acc in self.accounts:
+            if acc['uid'] == uid and acc['acc_num'] == acc_num:
+                return acc['acc_type']
+
+        return ''
+
 if __name__ == '__main__':
     am = AccountModel()
     am.create_new_account('Chequing','Chequing')
