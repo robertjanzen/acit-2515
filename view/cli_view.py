@@ -72,15 +72,41 @@ class CLIView:
         return input('Enter account number: ')
 
     def incorrectAcc(self):
+        """
+            Displays a message telling the user that the selected account does not exit
+            
+        Returns:
+            None
+        """
+        
         print('\nSelected account does not exist\n')
 
     def incorrectUID(self):
+        """
+            Displays a message telling the user that the entered uid does not exist
+            
+        Returns:
+            None
+        """
+        
         print('\nSelected UID does not exist\n')
 
     def noAccounts(self):
+        """
+            Displays a message telling the user that the the customer has no accounts opened
+        Returns:
+            None
+        """
+        
         print('\nUser has no accounts')
 
     def noUID(self):
+        """
+            Displays a message telling the user that there are not customer accounts found
+        Returns:
+            None
+        """
+        
         print('\nBank has no users')
 
     def showManAccMenu(self):
