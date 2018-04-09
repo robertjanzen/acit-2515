@@ -63,8 +63,10 @@ class CLIController:
                     choice = True
                     self.cli_acc_menu()
                 else:
-                    self.view.incorrectUID()
-                    self.cli_uid_menu()
+                    break
+                    
+            self.view.incorrectUID()
+            self.cli_uid_menu()
 
     def cli_acc_menu(self):
         self.state = 1
