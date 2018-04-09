@@ -37,8 +37,8 @@ class AccountModel:
 
     def create_new_account(self, acc_type, acc_name, acc_balance=0, uid = '', acc_num = ''):
         """
-            Create a new chequing or savings account for an existing user. The account is saved to file
-            so it's persistent.
+            Create a new chequing or savings account for an existing user, then request that the new account be
+            saved to file.
 
         Args:
             acc_type:
@@ -48,7 +48,7 @@ class AccountModel:
             acc_balance:
                 A starting balance for the account if money is being deposited right away
             uid:
-                The UID of the user creating the account
+                The user ID of the user creating the account
             acc_num:
                 An auto generated account number
 
@@ -74,11 +74,14 @@ class AccountModel:
 
     def save_account_to_file(self, user_object):
         """
+            Using an object which contains the user's account information, save the data into a json file in local
+            storage
 
         Args:
             user_object:
-                A
+                A python object containing the uid, account number, account type, and account balance
         Returns:
+            None
 
         """
         exists = False
@@ -100,6 +103,18 @@ class AccountModel:
         return
 
     def delete_account(self, uid, acc_num):
+        """
+            Delete a user's account by providing their UID and a specific account number
+
+        Args:
+            uid:
+                The user ID which owns the account being deleted
+            acc_num:
+                The account number for the account being deleted
+        Returns:
+            Returns True if the account was deleted successfully, and False otherwise
+        """
+
         with open('model/account_db.json', 'r+') as json_file:
             data = json.load(json_file)
             for index, account in enumerate(data):
@@ -111,9 +126,6 @@ class AccountModel:
             json_file.seek(0)
             json.dump(data, json_file)
         return True
-
-    def update_acc_balance(self, uid, acc_num, acc_type, amount):
-        pass
 
     # def interest_and_fee(self):
     #     with open('model/account_db.json', 'r+') as json_file:
@@ -142,7 +154,21 @@ class AccountModel:
     #     return balance
 
     def change_name(self, uid, acc_num, accName):
-        """changes account name"""
+        """
+            Change the name of a bank account. For example change an account called "Vacation Fund" to "Wedding Fund"
+
+        Args:
+            uid:
+                The user ID which owns that account being renamed
+            acc_num:
+                The account number for the account which is being renamed
+            accName:
+                The new account name
+
+        Returns:
+            Returns True if the account name was successfully update, and False otherwise
+
+        """
         with open('model/account_db.json', 'r+') as json_file:
             data = json.load(json_file)
             for index, account in enumerate(data):
@@ -153,7 +179,22 @@ class AccountModel:
         return True
 
     def withdraw(self, uid, account_num, amount):
-        """allow withdraw if valid amount and sufficient balance, print error message otherwise"""
+        """
+            Withdraw money from an account is there is sufficient funds, otherwise return an error message
+
+        Args:
+            uid:
+                The user ID of the account which is attempting to withdraw funds
+            account_num:
+                The account number for which funds are being withdrawn from
+            amount:
+                The requested amount to be withdrawn
+
+        Returns:
+            Empty string if the withdrawal was a success, and an error message if there were insufficient funds, they
+            exceeded their overdraft limit, an unknown account type was used, or invalid input was given
+
+        """
         return_msg = ''
         
         if self.check_float(amount):
@@ -198,7 +239,21 @@ class AccountModel:
         return return_msg
 
     def deposit(self, uid, account_num, amount):
-        """allow deposit if valid amount"""
+        """
+            Deposit funds into a valid account for an existing user
+
+        Args:
+            uid:
+                The user ID of the account which funds are being deposited into
+            account_num:
+                The account number for which funds are being deposited into
+            amount:
+                The amount of funds being deposited
+        Returns:
+            The account type which is either chequings or savings is returned to the controller, which is then saved
+            to the transaction log
+
+        """
         account_type = ''
         if self.check_float(amount):
             with open('model/account_db.json') as json_file:
@@ -216,7 +271,18 @@ class AccountModel:
         return account_type
 
     def get_balance(self, uid, account_num):
-        """print out the current balance"""
+        """
+            Request the account balance when given a valid user ID and account number belonging to that user
+
+        Args:
+            uid:
+                The user ID which owns an account we want to see the balance of
+            account_num:
+                The account number for which the current balance is being requested
+
+        Returns:
+            A float which is the current balance of the requested account
+        """
         with open('model/account_db.json', 'r+') as json_file:
             data = json.load(json_file)
             for index, account in enumerate(data):
@@ -224,9 +290,16 @@ class AccountModel:
                     return float(data[index]['acc_balance'])
 
     def check_float(self, value):
-        """this function first checks if the value can be made into a float
-        then check to see if the value is greater than or equal to 0
-        returns false if both criteria are not met so account information is not changed"""
+        """
+            This function checks if the value can be made into a float, then checks to see if the value is greater
+            than or equal to zero.
+        Args:
+            value:
+                Can be an int, float, or string
+        Returns:
+            Returns True if the value is greater than or equal to zero, and can be made into a float, and False
+            otherwise
+        """
         try:
             if float(value) >= 0.0:
                 return True
