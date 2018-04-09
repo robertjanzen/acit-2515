@@ -151,7 +151,7 @@ class CLIView:
             String containing the user input
         """
         
-        return input('\n1. Chequing\n2. Saving\n3. Quit\n')
+        return input('\n1. Chequing\n2. Saving\n3. Back\n')
 
     def getAccName(self):
         """

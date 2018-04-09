@@ -63,6 +63,8 @@ class CLIController:
             self.run()
         elif uInput == '5':
             exit(0)
+        else:
+            self.uidMenu()
 
     def cli_uid_menu(self):
         """
@@ -129,6 +131,8 @@ class CLIController:
             self.uidMenu()
         elif aInput == '5':
             exit(0)
+        else:
+            self.cli_acc_menu()
 
     def cli_choose_account(self, accs):
         """
@@ -190,6 +194,8 @@ class CLIController:
             self.cli_acc_menu()
         elif maInput == '7':
             exit(0)
+        else:
+            self.cli_man_acc()
 
 
     def cli_create_acc(self):
@@ -208,7 +214,9 @@ class CLIController:
         elif tInput == '3':
             self.cli_acc_menu()
         elif tInput == '4':
-            exit(0)
+            self.cli_man_acc()
+        else:
+            self.cli_create_acc()
         accName = self.view.getAccName()
         initDep = self.view.getDeposit()
         self.accounts.create_new_account(accType, accName, initDep, self.uid)
@@ -218,7 +226,7 @@ class CLIController:
             Method to create a new user, requires creating an account associated with the uid
             1. Chequing account
             2. Saving account
-            3. Exit program
+            3. Go back
             returns to uid menu once account is created successfully
         """
         tInput = self.view.getAccType()
@@ -227,7 +235,9 @@ class CLIController:
         elif tInput == '2':
             accType = 'Savings'
         elif tInput == '3':
-            exit(0)
+            self.cli_new_uid()
+        else:
+            self.cli_new_uid()
         accName = self.view.getAccName()
         initDep = self.view.getDeposit()
         self.uid = self.accounts.create_new_account(accType, accName, initDep)
