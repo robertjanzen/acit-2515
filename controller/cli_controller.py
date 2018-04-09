@@ -9,6 +9,10 @@ import random
 class CLIController:
 
     def __init__(self):
+        """
+            initialize the
+            loads imported functions into self parameters
+        """
         self.view = CLIView()
         self.clidb = CLIDB('model/cli_acc_db.csv')
         self.accounts = AccountModel()
@@ -19,6 +23,10 @@ class CLIController:
         self.accNum = ''
 
     def run(self):
+        """
+            This is the functioned called to start the commandline interface.
+            Calls the uid menu which allows to manager to perform uid tasks.
+        """
         user_name = self.view.getCLIName()
         password = self.view.getCLIPwd()
         if self.clidb.verify_account(user_name, password):
