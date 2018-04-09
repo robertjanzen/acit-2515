@@ -24,7 +24,8 @@ class CLIController:
 
     def run(self):
         """
-            This is the functioned called to start the commandline interface.
+            This is the method called to start the commandline interface.
+            Prompts for manager user name and password.
             Calls the uid menu which allows to manager to perform uid tasks.
         """
         choice = False
@@ -39,7 +40,16 @@ class CLIController:
                 self.view.incorrect()
 
     def uidMenu(self):
-        """Manage user or create new user"""
+        """
+            Called by the run method
+            Manage user or create new user
+
+            1. Brings up menu for an existing user
+            2. Create new use with a new uid
+            3. Charge fees for everyone in database
+            4. Back to the previous menu
+            5. Exit the command line interface
+        """
         
         uInput = self.view.showUidMenu()
         if uInput == '1':
@@ -55,7 +65,11 @@ class CLIController:
             exit(0)
 
     def cli_uid_menu(self):
-
+        """
+            This function first loads existing uid from file and puts it into a list
+            If uid exist, go to next menu.
+            Else calls view to display error, return this menu and ask for uid.
+        """
         uid_list = []
         self.userdb.open_db_file()
         for user in self.userdb.db_content:
@@ -78,6 +92,19 @@ class CLIController:
             self.cli_uid_menu()
 
     def cli_acc_menu(self):
+        """
+            Create a list of account associated with this uid
+            Presents the options to manage this uid
+
+            1. Manage an existing account from the list
+                check to see if there are any accounts, if not then need to create account
+                if there are accounts then pass into the cli_choose_account method a list
+            2. Create a new account for this uid
+            3. Print out the transaction report for this uid
+            4. Back to the UID selection menu
+            5. Quit program
+        :return:
+        """
         self.state = 1
         aInput = self.view.showAccMenu()
         if aInput == '1':
@@ -104,7 +131,10 @@ class CLIController:
             exit(0)
 
     def cli_choose_account(self, accs):
-
+        """
+            Takes a input account number from commandline, checks if the number entered is in list.
+        :param accs:list of accounts for this uid
+        """
         self.view.showAccounts(self.uid, accs)
         choice = False
         while choice == False:
@@ -116,6 +146,16 @@ class CLIController:
         self.cli_man_acc()
 
     def cli_man_acc(self):
+        """
+            Menu to manage an existing account.
+            1. Prompt user for a deposit amount, update and write to file
+            2. Prompt user for a withdraw amount, update and write to file
+            3. Returns account balance for this account
+            4. TODO charge fees
+            5. Delete this account, only works if account balance = 0
+            6. Back to previous menu
+            7. Exit program
+        """
         maInput = self.view.showManAccMenu()
         if maInput == '1':
             amount = self.view.getDeposit()
@@ -153,6 +193,13 @@ class CLIController:
 
 
     def cli_create_acc(self):
+        """
+            Method to create a new account for an existing user.
+            Previous function sets the uid to use.
+            This function gets the desired account name from user
+            Gets the initial deposit amount from user
+            Use the account_model to create new accout and write to file
+        """
         tInput = self.view.getAccType()
         if tInput == '1':
             accType = 'Chequing'
@@ -167,6 +214,13 @@ class CLIController:
         self.accounts.create_new_account(accType, accName, initDep, self.uid)
 
     def cli_new_uid(self):
+        """
+            Method to create a new user, requires creating an account associated with the uid
+            1. Chequing account
+            2. Saving account
+            3. Exit program
+            returns to uid menu once account is created successfully
+        """
         tInput = self.view.getAccType()
         if tInput == '1':
             accType = 'Chequing'
@@ -182,22 +236,43 @@ class CLIController:
         self.uidMenu()
 
     def create_user_db(self):
+        """
+            Method to create a new user
+            Generate a card number
+            Generate a hashed PIN
+            Calls user_model method to create new user and write to file
+        """
         cardNum = self.generate_cardNum(self.uid)
         pwdHash = self.hash_password()
         self.userdb.create_new_entry(self.uid, cardNum, pwdHash)
 
     def generate_cardNum(self, uid):
+        """
+            This function creates a cardNum starting from 10000000 and uid.
+        :param uid:uid of this user
+        :return: cardNum string
+        """
         init_cardNum = 10000000
         cardNum = init_cardNum+int(uid)
         return str(cardNum)
 
     def get_password(self):
+        """
+            Prompts user to enter and re-enter PIN.
+            Check is PIN match and returns it to hash_password
+        :return: inputPwd
+        """
         inputPwd = self.view.getPIN()
         inputPwd2 = self.view.confirmPIN()
         if inputPwd == inputPwd2:
             return inputPwd
 
     def hash_password(self):
+        """
+            Creates a hashed password based on the commandline input
+             and returns it to the create_user_db method
+        :return: hash_str
+        """
         pwd = self.get_password()
         hash_str = str(int(pwd[0])*2)
         odd_num = ['3', '5', '7', '9']
