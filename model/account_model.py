@@ -212,7 +212,6 @@ class AccountModel:
                     if account['acc_type'] == 'Chequing':
                         if new_amount >= self._OVERDRAFT_LIMIT:
                             data[index]['acc_balance'] = str(new_amount)
-                            return_msg = account['acc_type']
                             break
                         else:
                             return_msg = 'Exceeded Overdraft Limit'
@@ -220,7 +219,6 @@ class AccountModel:
                     elif account['acc_type'] == 'Savings':
                         if new_amount >= 0:
                             data[index]['acc_balance'] = str(new_amount)
-                            return_msg = account['acc_type']
                             break
                         else:
                             return_msg = 'Insufficient Funds'
