@@ -21,3 +21,6 @@ date,uid,account_type,account_number,transaction_type,amount
 2018-04-09 15:09:17.779596,1,Chequing,1003,Deposit,50.0
 2018-04-09 15:25:41.757464,1,Savings,1036,Deposit,1000.0
 2018-04-09 15:56:49.308713,1,Chequing,1004,Deposit,20.0
+2018-04-09 16:00:27.892395,1,Savings,1036,Deposit,1000.0
+2018-04-09 16:00:27.892395,1,Savings,1036,Deposit,1.0
+2018-04-09 16:01:46.981575,1,Savings,1036,Withdraw,5.0

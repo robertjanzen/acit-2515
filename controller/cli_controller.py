@@ -175,7 +175,7 @@ class CLIController:
                 accType = self.accounts.getAccountType(self.uid, self.accNum)
                 self.view.withdrawSuccess(amount)
                 if accType != '':
-                    self.trans.create_new_entry(self.uid, accType, self.accNum, 'Deposit', amount)
+                    self.trans.create_new_entry(self.uid, accType, self.accNum, 'Withdraw', amount)
                 else:
                     pass
             else:
