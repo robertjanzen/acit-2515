@@ -101,22 +101,23 @@ class TransactionModel:
             if os.path.getsize(filename) > 0:
                 with open(filename, 'r') as csv_file:
                     transaction_dic = {}
+                    
                     csv_file.readline()
                     full_file = csv_file.readlines()
 
                     account_list = []
-
+                    
                     for line in full_file:
                         line_data = line.rstrip('\n').split(',')
                         account_list = list(transaction_dic.keys())
-
+                        
                         if line_data[3] in account_list:
                             transaction_dic[line_data[3]].append(', '.join(line_data))
                         else:
                             transaction_dic[line_data[3]] = [', '.join(line_data)]
-
+                    
                     account_list.sort(key=str)
-
+                    
                     for account_num in account_list:
 
                         acc_specific_entry = [('Transactions for account no.' + account_num)]

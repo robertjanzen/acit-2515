@@ -22,6 +22,13 @@ class AccountModel:
         self.load_accounts()
 
     def load_accounts(self):
+        """
+            Load user all user accounts from the account_db JSON file into a list of objects
+
+        Returns:
+            None
+
+        """
         with open('model/account_db.json') as json_file:
             self.accounts = json.load(json_file)
         with open('model/next_acc_num.txt') as num_file:
@@ -29,6 +36,26 @@ class AccountModel:
             AccountModel._NEXT_ACC_NUMBER = int(num_file.readline())
 
     def create_new_account(self, acc_type, acc_name, acc_balance=0, uid = '', acc_num = ''):
+        """
+            Create a new chequing or savings account for an existing user. The account is saved to file
+            so it's persistent.
+
+        Args:
+            acc_type:
+                The type of account, can be chequing or savings
+            acc_name:
+                A descriptive name for the account like Vacation Fund, or Education Savings
+            acc_balance:
+                A starting balance for the account if money is being deposited right away
+            uid:
+                The UID of the user creating the account
+            acc_num:
+                An auto generated account number
+
+        Returns:
+            The UID which the account was created for
+
+        """
         if uid == '':
             uid = str(AccountModel._NEXT_UID)
             AccountModel._NEXT_UID += 1
@@ -46,6 +73,14 @@ class AccountModel:
         return uid
 
     def save_account_to_file(self, user_object):
+        """
+
+        Args:
+            user_object:
+                A
+        Returns:
+
+        """
         exists = False
         with open('model/next_acc_num.txt','w') as num_file:
             next_data = str(AccountModel._NEXT_UID)+'\n'+str(AccountModel._NEXT_ACC_NUMBER)

@@ -27,19 +27,20 @@ class CLIController:
             This is the functioned called to start the commandline interface.
             Calls the uid menu which allows to manager to perform uid tasks.
         """
-        user_name = self.view.getCLIName()
-        password = self.view.getCLIPwd()
-        if self.clidb.verify_account(user_name, password):
-            self.view.success()
-            if self.state == 0:
+        choice = False
+        while choice == False:
+            user_name = self.view.getCLIName()
+            password = self.view.getCLIPwd()
+            if self.clidb.verify_account(user_name, password):
+                choice = True
+                self.view.success()
                 self.uidMenu()
-            elif self.state == 1:
-                self.cli_acc_menu()
-        else:
-            self.view.incorrect()
+            else:
+                self.view.incorrect()
 
     def uidMenu(self):
         """Manage user or create new user"""
+        
         uInput = self.view.showUidMenu()
         if uInput == '1':
             self.cli_uid_menu()
@@ -54,14 +55,43 @@ class CLIController:
             exit(0)
 
     def cli_uid_menu(self):
-        self.uid = self.view.getUid()
-        self.cli_acc_menu()
+
+        uid_list = []
+        self.userdb.open_db_file()
+        for user in self.userdb.db_content:
+            uid_list.append(user['uid'])
+        
+        if not uid_list:
+            self.view.noUID()
+            self.uidMenu()
+        else:
+            choice = False
+            while choice == False:
+                self.uid = self.view.getUid()
+                if self.uid in uid_list:
+                    choice = True
+                    self.cli_acc_menu()
+                else:
+                    break
+                    
+            self.view.incorrectUID()
+            self.cli_uid_menu()
 
     def cli_acc_menu(self):
         self.state = 1
         aInput = self.view.showAccMenu()
         if aInput == '1':
-            self.cli_choose_account()
+
+            account_list = []
+            for index, account in enumerate(self.accounts.accounts):
+                if account['uid'] == self.uid:
+                    account_list.append(self.accounts.accounts[index]['acc_num'])
+
+            if not account_list:
+                self.view.noAccounts()
+                self.cli_acc_menu()
+            else:
+                self.cli_choose_account(account_list)
         elif aInput == '2':
             self.cli_create_acc()
             self.cli_acc_menu()
@@ -73,9 +103,16 @@ class CLIController:
         elif aInput == '5':
             exit(0)
 
-    def cli_choose_account(self):
-        self.view.showAccounts(self.uid, self.accounts.accounts)
-        self.accNum = self.view.getAccNum()
+    def cli_choose_account(self, accs):
+
+        self.view.showAccounts(self.uid, accs)
+        choice = False
+        while choice == False:
+            self.accNum = self.view.getAccNum()
+            if self.accNum in accs:
+                choice = True
+            else:
+                self.view.incorrectAcc()
         self.cli_man_acc()
 
     def cli_man_acc(self):
@@ -182,5 +219,3 @@ class CLIController:
 if __name__ == "__main__":
     controller = CLIController()
     controller.run()
-    # while True:
-    #     controller.run()
