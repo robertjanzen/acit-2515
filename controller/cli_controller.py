@@ -52,21 +52,35 @@ class CLIController:
         for user in self.userdb.db_content:
             uid_list.append(user['uid'])
 
-        choice = False
-        while choice == False:
-            self.uid = self.view.getUid()
-            if self.uid in uid_list:
-                choice = True
-            else:
-                self.view.incorrectUID()
-
-        self.cli_acc_menu()
+        if not uid_list:
+            self.view.noUID()
+            self.cli_uid_menu()
+        else:
+            choice = False
+            while choice == False:
+                self.uid = self.view.getUid()
+                if self.uid in uid_list:
+                    choice = True
+                    self.cli_acc_menu()
+                else:
+                    self.view.incorrectUID()
+                    self.cli_uid_menu()
 
     def cli_acc_menu(self):
         self.state = 1
         aInput = self.view.showAccMenu()
         if aInput == '1':
-            self.cli_choose_account()
+
+            account_list = []
+            for index, account in enumerate(self.accounts.accounts):
+                if account['uid'] == self.uid:
+                    account_list.append(self.accounts.accounts[index]['acc_num'])
+
+            if not account_list:
+                self.view.noAccounts()
+                self.cli_acc_menu()
+            else:
+                self.cli_choose_account(account_list)
         elif aInput == '2':
             self.cli_create_acc()
             self.cli_acc_menu()
@@ -78,16 +92,13 @@ class CLIController:
         elif aInput == '5':
             exit(0)
 
-    def cli_choose_account(self):
-        account_list = []
-        for index, account in enumerate(self.accounts.accounts):
-            if account['uid'] == self.uid:
-                account_list.append(self.accounts.accounts[index]['acc_num'])
-        self.view.showAccounts(self.uid, account_list)
+    def cli_choose_account(self, accs):
+
+        self.view.showAccounts(self.uid, accs)
         choice = False
         while choice == False:
             self.accNum = self.view.getAccNum()
-            if self.accNum in account_list:
+            if self.accNum in accs:
                 choice = True
             else:
                 self.view.incorrectAcc()

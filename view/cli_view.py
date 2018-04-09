@@ -77,6 +77,12 @@ class CLIView:
     def incorrectUID(self):
         print('\nSelected UID does not exist\n')
 
+    def noAccounts(self):
+        print('\nUser has no accounts')
+
+    def noUID(self):
+        print('\nBank has no users')
+
     def showManAccMenu(self):
         """
             Displays a list of available management options for the selected account
@@ -255,7 +261,7 @@ class CLIView:
             None
         """
         
-        print('\nIncorrect username password combination\n')
+        print('\nIncorrect username password combination')
 
     def printReport(self, report_content):
         """
