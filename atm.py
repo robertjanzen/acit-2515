@@ -10,6 +10,7 @@
 
 from tkinter import *
 from view.atm_view import View as atm_view
+import os
 
 from model.state_model import StateModel
 from model.user_model import UserDB
@@ -38,6 +39,7 @@ if __name__ == "__main__":
     atm_trans_ctrl = TransactionController(atm_View, state_db, account_model, trans_model)
     
     state_db.state = "Card"
-    
-    # cli_ctrl = CLIController()
+
+    cwd = os.getcwd()
+    print(cwd)
     mainloop()
