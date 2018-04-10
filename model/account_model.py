@@ -99,7 +99,7 @@ class AccountModel:
                 print('Account already exists')
 
         with open('model/account_db.json', 'w') as out_file:
-            json.dump(data, out_file)
+            json.dump(data, out_file, indent=4)
         return
 
     def delete_account(self, uid, acc_num):
@@ -124,7 +124,7 @@ class AccountModel:
                     else:
                         data.remove(account)
             json_file.seek(0)
-            json.dump(data, json_file)
+            json.dump(data, json_file, indent=4)
         return True
 
     # def interest_and_fee(self):
@@ -175,7 +175,7 @@ class AccountModel:
                 if (account['uid'] == uid) and (account['acc_num'] == acc_num):
                     data[index]['acc_name'] = str(accName)
             json_file.seek(0)
-            json.dump(data, json_file)
+            json.dump(data, json_file, indent=4)
         return True
 
     def withdraw(self, uid, account_num, amount):
@@ -230,7 +230,7 @@ class AccountModel:
                 with open('model/account_db.json', 'w') as json_file2:
                     
                     json_file2.seek(0)
-                    json.dump(data, json_file2)
+                    json.dump(data, json_file2, indent=4)
         else:
             return_msg = 'Invalid Input'
             
@@ -265,7 +265,7 @@ class AccountModel:
             with open('model/account_db.json', 'w') as json_file2:
             
                 json_file2.seek(0)
-                json.dump(data, json_file2)
+                json.dump(data, json_file2, indent=4)
         return account_type
 
     def get_balance(self, uid, account_num):
