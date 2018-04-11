@@ -94,7 +94,8 @@ class TransactionController(Observer):
                         if self.usr_target_acc is None:
                             self.state_db.state = 'Error'
                         else:
-                            self.state_db.state = 'Done'
+                            self.info_msg = dollar_amt
+                            self.state_db.state = 'DConfirm'
 
                 elif self.state_db.state == 'Cash':
 
@@ -116,10 +117,10 @@ class TransactionController(Observer):
                         
                         else:
                             self.info_msg = entry
-                            self.state_db.state = 'Confirm'
+                            self.state_db.state = 'WConfirm'
             
             elif input_cmd == 'Continue':
-                if self.state_db.state == 'Confirm':
+                if self.state_db.state in ['WConfirm', 'DConfirm']:
                     self.state_db.state = 'Done'
 
             elif input_cmd == '':
@@ -159,7 +160,7 @@ class TransactionController(Observer):
                         
                     else:
                         self.info_msg = amount
-                        self.state_db.state = 'Confirm'
+                        self.state_db.state = 'WConfirm'
 
                 elif self.state_db.state == 'Done':
                     if input_cmd == 'Yes':
@@ -208,7 +209,8 @@ class TransactionController(Observer):
                 self.update_tgt_acc_info(self.state_db.uid, self.usr_target_acc['acc_num'])
                 if self.usr_target_acc is None:
                     self.view.render_error("Account Not Found")
-                self.view.render_balance('Your Current Balance:', '${}'.format(self.usr_target_acc['acc_balance']),
+                else:
+                    self.view.render_balance('Your Current Balance:', '${}'.format(self.usr_target_acc['acc_balance']),
                                          'Cancel', 'Back')
 
             elif new_state == 'Deposit':
@@ -229,8 +231,11 @@ class TransactionController(Observer):
             elif new_state == 'Error':
                 self.view.render_error(self.error_msg)
             
-            elif new_state == 'Confirm':
+            elif new_state == 'WConfirm':
                 self.view.render_withdrawal_confirmation(self.info_msg)
+            
+            elif new_state == 'DConfirm':
+                self.view.render_deposit_confirmation(self.info_msg)
 
     def update_tgt_acc_info(self, uid, acc_num):
         """

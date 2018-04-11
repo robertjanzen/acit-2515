@@ -250,9 +250,20 @@ class View:
         Returns:
             None
         """
-        message = 'Withdrawn ${0:.2f}, please take out the cash from bellow.'.format(round(float(input_amount), 2))
+        message = '${0:.2f} withdrawn from account, please take out the cash from below.'.format(round(float(input_amount), 2))
         self.display_info_page('Notice', message, '', 'Continue')
         
+    def render_deposit_confirmation(self, input_amount):
+        """
+            Renders the screen for withdrawal confirmation
+        Args:
+            input_amount:
+                Amount that was withdrawn
+        Returns:
+            None
+        """
+        message = '${0:.2f} deposited into account.'.format(round(float(input_amount), 2))
+        self.display_info_page('Notice', message, '', 'Continue')
 
     def clear_screen(self):
         """
@@ -453,6 +464,7 @@ class View:
         
         self.ml9.configure(text=lb3_lab)
         self.ml12.configure(text=rb3_lab)
+
 
 if __name__ == "__main__":
     print('atm_view.py')
