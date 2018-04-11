@@ -57,7 +57,7 @@ class View:
 
         # other middle frame widgets
         self.mid_title_label = Label(self.top_middle_frame, text="Title", height=5, font=("Helvetica", 9))
-        self.mid_title_input = Entry(self.top_middle_frame, width=48)
+        self.mid_title_input = Entry(self.top_middle_frame, width=48, justify=RIGHT)
         
         self.mid_acc_info_title_label = Label(self.top_middle_frame, height=5)
         self.mid_acc_info_body_label = Label(self.top_middle_frame, height=5)

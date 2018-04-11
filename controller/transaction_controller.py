@@ -20,7 +20,7 @@ class TransactionController(Observer):
         self.state_db.add_observer(self)
         self.account_model = account_model
         self.transaction_model = trans_model
-
+        self.current_total = 0.0
         self.usr_acc_dic = None
         self.usr_target_acc = None
         self.selection_page_num = -1
@@ -46,7 +46,12 @@ class TransactionController(Observer):
             input_value = kwargs['entry']
 
             if self.state_db.state in ['Deposit', 'Cash']:
-                self.view.mid_title_input.insert(END, input_value)
+                new_digit = float(input_value) * 0.01
+                self.current_total *= 10.0
+                rounded = round((self.current_total + new_digit), 2)
+                self.current_total = rounded
+                self.view.mid_title_input.delete(0, END)
+                self.view.mid_title_input.insert(END, rounded)
 
         elif 'input' in updated_data:
             input_cmd = kwargs['input']
@@ -54,7 +59,7 @@ class TransactionController(Observer):
             if input_cmd == 'Back':
 
                 prev_state = self.state_db.prev_state
-
+                self.current_total = 0.0
                 self.state_db.state = prev_state
 
             elif input_cmd == 'Other':
