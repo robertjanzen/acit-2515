@@ -17,7 +17,7 @@ class TransactionModel:
     def __init__(self):
         pass
 
-    def createNewEntry(self, uid, account_type, account_num, transaction_type, amount, date=datetime.datetime.now()):
+    def createNewEntry(self, uid, account_type, account_num, transaction_type, amount, date=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')):
         """
             Creates a new transaction log entry to be saved to file
             
@@ -38,7 +38,7 @@ class TransactionModel:
         Returns:
             None
         """
-        row = '{0},{1},{2},{3},{4},{5}'.format(str(date), uid, account_type, account_num, transaction_type, str(float(amount)), )
+        row = '{0},{1},{2},{3},{4},{5}'.format(date, uid, account_type, account_num, transaction_type, str(float(amount)), )
         self.saveTransaction(uid, row)
 
     def saveTransaction(self, uid, row):
@@ -68,7 +68,7 @@ class TransactionModel:
                 output = self._TRANSACTION_COLUMNS + '\n' + row
                 csv_file.write(output)
                 
-    def createNewActionEntry(self, uid, account_type, account_num, action_type, date=datetime.datetime.now()):
+    def createNewActionEntry(self, uid, account_type, account_num, action_type, date=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')):
         """
             Creates a new account action entry in the transaction log
         Args:
@@ -85,7 +85,7 @@ class TransactionModel:
         Returns:
             None
         """
-        row = '{0},{1},{2},{3},{4}'.format(str(date), uid, account_type, account_num, action_type)
+        row = '{0},{1},{2},{3},{4}'.format(date, uid, account_type, account_num, action_type)
         self.saveTransaction(uid, row)
                 
     def displayReport(self, uid):
