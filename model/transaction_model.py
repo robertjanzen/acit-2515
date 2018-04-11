@@ -94,7 +94,6 @@ class TransactionModel:
             None
         """
         filename = 'model/logs/' + str(uid) + '-transactions.csv'
-        # filename = 'logs/' + str(uid) + '-transactions.csv'
         report_content = [['Comprehensive report for user no. ' + uid]]
 
         try:
@@ -126,16 +125,6 @@ class TransactionModel:
                         report_content.append(acc_specific_entry)
 
                 return report_content
-            # print()
-            # print('{0:^65}'.format('----- Beginning of Report -----\n'))
-            # for item in report_content:
-            #     print(item[0])
-            #     print()
-            #     for x in range(1, len(item)):
-            #         print(item[x])
-            #     print()
-            # print('{0:^65}'.format('----- End of Report -----'))
-
         except:
             print('Error Generating Report...')
 
