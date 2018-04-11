@@ -25,14 +25,13 @@ class ButtonController(Observer):
         Returns:
             None
         """
-        
         self.view.rb1.configure(command=lambda: self.buttonInput(self.view.ml4.cget("text")))
         self.view.rb2.configure(command=lambda: self.buttonInput(self.view.ml8.cget("text")))
         self.view.rb3.configure(command=lambda: self.buttonInput(self.view.ml12.cget("text")))
 
         self.view.lb1.configure(command=lambda: self.buttonInput(self.view.ml1.cget("text")))
         self.view.lb2.configure(command=lambda: self.buttonInput(self.view.ml5.cget("text")))
-        self.view.lb3.configure(command=self.cancel_session)
+        self.view.lb3.configure(command=self.cancelSession)
 
         self.view.npb1.configure(command=lambda: self.keypadEntry(1))
         self.view.npb2.configure(command=lambda: self.keypadEntry(2))
@@ -58,7 +57,6 @@ class ButtonController(Observer):
         Returns:
             None
         """
-        
         self.inputCmd(btn_input)
 
     def keypadEntry(self, input_value):
@@ -72,8 +70,6 @@ class ButtonController(Observer):
         Returns:
             None
         """
-        
-        
         self.state_model.entry = input_value
 
     def inputCmd(self, user_input):
@@ -87,17 +83,15 @@ class ButtonController(Observer):
         Returns:
             None
         """
-        
         self.state_model.input = user_input
 
-    def cancel_session(self):
+    def cancelSession(self):
         """
             Sets the state of the atm to the Card state
             
         Returns:
             None
         """
-        
         if self.state_model != "Card":
             self.state_model.state = "Card"
 
