@@ -16,12 +16,10 @@ from model.state_model import StateModel
 from model.user_model import UserModel
 from model.transaction_model import TransactionModel
 from model.account_model import AccountModel
-from model.cli_model import CLIModel
 
 from controller.button_controller import ButtonController
 from controller.login_controller import LoginController
 from controller.transaction_controller import TransactionController
-# from controller.cli_controller import CLIController
 
 from constants import *
 
