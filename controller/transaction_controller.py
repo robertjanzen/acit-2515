@@ -53,28 +53,28 @@ class TransactionController(Observer):
                 self.view.mid_title_input.insert(END, '{0:.2f}'.format(self.current_total))
 
         elif 'input' in updated_data:
-            inputCmd = kwargs['input']
+            input_command = kwargs['input']
 
-            if inputCmd == 'Back':
+            if input_command == 'Back':
 
                 prev_state = self.state_model.prev_state
                 self.current_total = 0.0
                 self.state_model.state = prev_state
 
-            elif inputCmd == 'Other':
+            elif input_command == 'Other':
                 if self.state_model.state == 'Selection':
                     self.selection_page_num += 1
                     self.state_model.state = 'Selection'
                 elif self.state_model.state == 'Withdraw':
                     self.state_model.state = 'Cash'
 
-            elif inputCmd == 'DEL':
+            elif input_command == 'DEL':
                 if self.state_model.state in ['Deposit', 'Cash']:
                     self.current_total = 0.00
                     self.view.mid_title_input.delete(0, END)
                     self.view.mid_title_input.insert(END, '{0:.2f}'.format(self.current_total))
 
-            elif inputCmd == 'OK':
+            elif input_command == 'OK':
 
                 entry = self.view.mid_title_input.get()
                 if entry == '':
@@ -114,17 +114,17 @@ class TransactionController(Observer):
                             self.info_msg = entry
                             self.state_model.state = 'WConfirm'
             
-            elif inputCmd == 'Continue':
+            elif input_command == 'Continue':
                 if self.state_model.state in ['WConfirm', 'DConfirm']:
                     self.state_model.state = 'Done'
 
-            elif inputCmd == '':
+            elif input_command == '':
                 return
 
             else:
                 if self.state_model.state == 'Selection':
 
-                    offset = int(inputCmd[0]) - 1
+                    offset = int(input_command[0]) - 1
 
                     target_acc_num = list(self.user_accounts.keys())[self.selection_page_num * 4 + offset]
                     self.updateTargetAccountInfo(self.state_model.uid, target_acc_num)
@@ -136,17 +136,17 @@ class TransactionController(Observer):
                         self.state_model.state = 'Overview'
 
                 elif self.state_model.state == 'Overview':
-                    if inputCmd == 'Balance':
+                    if input_command == 'Balance':
                         self.state_model.state = 'Balance'
 
-                    elif inputCmd == 'Deposit':
+                    elif input_command == 'Deposit':
                         self.state_model.state = 'Deposit'
 
-                    elif inputCmd == 'Withdraw':
+                    elif input_command == 'Withdraw':
                         self.state_model.state = 'Withdraw'
 
                 elif self.state_model.state == 'Withdraw':
-                    amount = inputCmd.strip('$')
+                    amount = input_command.strip('$')
                     
                     result = self.withdraw(amount)
                     if result != '':
@@ -158,10 +158,10 @@ class TransactionController(Observer):
                         self.state_model.state = 'WConfirm'
 
                 elif self.state_model.state == 'Done':
-                    if inputCmd == 'Yes':
+                    if input_command == 'Yes':
                         self.state_model.state = 'Card'
 
-                    elif inputCmd == 'No':
+                    elif input_command == 'No':
                         self.state_model.state = 'Overview'
 
         elif 'state' in updated_data:

@@ -129,13 +129,13 @@ class LoginController(Observer):
                 self.view.mid_title_input.insert(END, input_value)
 
         elif 'input' in updated_data:
-            inputCmd = kwargs['input']
+            input_command = kwargs['input']
             if self.state_model.state == "Card" or self.state_model.state == "PIN":
-                if inputCmd == 'DEL':
+                if input_command == 'DEL':
                     last_index = len(self.view.mid_title_input.get()) - 1
                     self.view.mid_title_input.delete(last_index)
 
-                elif inputCmd == 'OK':
+                elif input_command == 'OK':
                     entry = self.view.mid_title_input.get()
 
                     if self.state_model.state == "Card":

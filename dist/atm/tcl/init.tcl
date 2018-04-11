@@ -542,7 +542,7 @@ proc auto_qualify {cmd namespace} {
 
     # Before each return case we give an example of which category it is
     # with the following form :
-    # (inputCmd, inputNameSpace) -> output
+    # (input_command, inputNameSpace) -> output
 
     if {[string match ::* $cmd]} {
 	if {$n > 1} {

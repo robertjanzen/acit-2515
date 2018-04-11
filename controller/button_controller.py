@@ -42,9 +42,9 @@ class ButtonController(Observer):
         self.view.npb7.configure(command=lambda: self.keypadEntry(7))
         self.view.npb8.configure(command=lambda: self.keypadEntry(8))
         self.view.npb9.configure(command=lambda: self.keypadEntry(9))
-        self.view.npb10.configure(command=lambda: self.inputCmd("DEL"))
+        self.view.npb10.configure(command=lambda: self.input_command("DEL"))
         self.view.npb11.configure(command=lambda: self.keypadEntry(0))
-        self.view.npb12.configure(command=lambda: self.inputCmd("OK"))
+        self.view.npb12.configure(command=lambda: self.input_command("OK"))
 
     def buttonInput(self, btn_input):
         """
@@ -57,7 +57,7 @@ class ButtonController(Observer):
         Returns:
             None
         """
-        self.inputCmd(btn_input)
+        self.input_command(btn_input)
 
     def keypadEntry(self, input_value):
         """
@@ -72,7 +72,7 @@ class ButtonController(Observer):
         """
         self.state_model.entry = input_value
 
-    def inputCmd(self, user_input):
+    def input_command(self, user_input):
         """
             Sends input to the state model
             
