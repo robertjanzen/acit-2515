@@ -17,9 +17,6 @@ class TransactionModel:
     def __init__(self):
         pass
 
-    def openTransactionFile(self):
-        pass
-
     def createNewEntry(self, uid, account_type, account_num, transaction_type, amount, date=datetime.datetime.now()):
         """
             Creates a new transaction log entry to be saved to file
@@ -43,14 +40,6 @@ class TransactionModel:
         """
         row = '{0},{1},{2},{3},{4},{5}'.format(str(date), uid, account_type, account_num, transaction_type, str(float(amount)), )
         self.saveTransaction(uid, row)
-
-    # To be used with CLI only
-    def deleteFromFile(self, uid):
-        pass
-
-    # To be used with CLI only
-    def editEntry(self, uid, type, amount):
-        pass
 
     def saveTransaction(self, uid, row):
         """
