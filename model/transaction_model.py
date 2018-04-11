@@ -127,7 +127,6 @@ class TransactionModel:
                     for line in full_file:
                         
                         line_data = line.rstrip('\n').split(',')
-                        print(line_data)
                         
                         if line_data[3] in account_list:
                             transaction_dic[line_data[3]].append(', '.join(line_data))
@@ -147,7 +146,7 @@ class TransactionModel:
 
                 return report_content
         except:
-            print('Error Generating Report...')
+            return 'Error Generating Report...'
 
 if __name__ == '__main__':
     test = TransactionModel()

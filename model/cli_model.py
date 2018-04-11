@@ -70,19 +70,21 @@ class CLIModel:
                 Password for the new account
                 
         Returns:
-            None
+            Empty string if successful, error message if failed
         """
         duplicate = False
-        
+        message = ''
         for entry in self._acc_model_content:
             if entry[self._ACC_MODEL_FIELDS[0]] == usr:
-                print("User already exists")
+                message = "User already exists"
                 duplicate = True
                 break
                 
         if not duplicate:
             self._acc_model_content.append({self._ACC_MODEL_FIELDS[0]: usr, self._ACC_MODEL_FIELDS[1]: self.hashPassword(pwd)})
             self.saveAccount()
+            
+        return message
     
     def loadAccount(self):
         """
@@ -109,8 +111,9 @@ class CLIModel:
             Saves value of self._acc_model_content into the user account file
             
         Returns:
-            None
+            Success message if saved properly, empty string if not saved properly
         """
+        message = ''
         try:
             with open(self._model_file, 'w', newline='') as csv_file:
                 fields = self._ACC_MODEL_FIELDS
@@ -119,9 +122,11 @@ class CLIModel:
                 writer.writeheader()
                 for entry in self._acc_model_content:
                     writer.writerow(entry)
-                print("Saved to %s" % self._model_file)
+                message = "Saved to %s" % self._model_file
         except:
-            return
+            message = ''
+            
+        return message
         
     def hashPassword(self, pwd):
         """
@@ -152,6 +157,4 @@ class CLIModel:
 
 
 if __name__ == "__main__":
-    test_model = CLIModel('cli_account_model.csv')
-    test_model.createAccount('manager', 'password')
-    print(test_model.verifyAccount('manager', 'password'))
+    pass

@@ -166,6 +166,19 @@ class CLIView:
         """
         print('\nSuccessfully deposited: ${0}'.format(float(amount)))
 
+    def depositFailure(self, message):
+        """
+            Displays a failure message for failed deposit attempts
+
+        Args:
+            message:
+                String which contains the error message regarding the failed deposit attempt
+
+        Returns:
+            None
+        """
+        print('\ndeposit failure: {0}'.format(message))
+
     def getWithdraw(self):
         """
             Prompts the user for a value to be withdrawn from an account

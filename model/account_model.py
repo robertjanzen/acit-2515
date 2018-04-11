@@ -103,8 +103,6 @@ class AccountModel:
                     exists = True
             if not exists:
                 data.append(user_object)
-            else:
-                print('Account already exists')
 
         with open('model/account_model.json', 'w') as out_file:
             json.dump(data, out_file, indent=4)
@@ -275,10 +273,8 @@ class AccountModel:
             if float(value) >= 0.0:
                 return True
             else:
-                print('Invalid value, please re-enter amount.')
                 return False
         except ValueError:
-            print('Invalid value, please re-enter amount.')
             return False
 
     def getAccountType(self, uid, acc_num):
