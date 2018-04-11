@@ -1,2 +1,26 @@
-To run the ATM GUI, type: python atm.py
-To run the CLI, type: python cli.py
+// -------------- Running from executable -------------- //
+ATM Graphical User Interface - atm.exe
+Command Line Interface       - cli.exe
+
+// -------------- Running from command line -------------- //
+To run the ATM GUI           - python atm.py
+To run the CLI               - python cli.py
+
+// -------------- Example User Information -------------- //
+For the Command Line Interface:
+    username                 - manager
+    password                 - password
+
+    manage customer UID      - 1
+    manage account number    - 1001
+
+ATM Graphical User Interface:
+    card number              - 1
+    PIN number               - 12956
+
+// -------------- Data File Paths -------------- //
+Bank employees:              /model/cli_account_model.csv
+Account numbers:             /model/next_account_numbers.txt
+Users and PINs:              /model/user_model.csv
+Account info:                /model/account_model.json
+User logs:                   /model/logs/uid-transacions.csv
