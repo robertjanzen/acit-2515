@@ -173,14 +173,14 @@ class CLIController:
             amount = self.view.getDeposit()
             acc_type = self.accounts.deposit(self.uid, self.accNum, amount)
             self.trans.create_new_entry(self.uid, acc_type, self.accNum, 'Deposit', amount)
-            self.view.depositSuccess(amount)
+            self.view.depositSuccess(str(round(float(amount), 2)))
             self.cli_man_acc()
         elif maInput == '2':
             amount = self.view.getWithdraw()
             msg = self.accounts.withdraw(self.uid, self.accNum, amount)
             if msg == '':
                 accType = self.accounts.getAccountType(self.uid, self.accNum)
-                self.view.withdrawSuccess(amount)
+                self.view.withdrawSuccess(str(round(float(amount), 2)))
                 if accType != '':
                     self.trans.create_new_entry(self.uid, accType, self.accNum, 'Withdraw', amount)
                 else:
