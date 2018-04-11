@@ -243,5 +243,12 @@
         "acc_type": "Chequing",
         "acc_name": "aldrich",
         "acc_balance": "2"
+    },
+    {
+        "uid": "34",
+        "acc_num": "1067",
+        "acc_type": "Savings",
+        "acc_name": "2",
+        "acc_balance": "2"
     }
 ]
