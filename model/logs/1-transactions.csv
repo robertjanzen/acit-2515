@@ -55,3 +55,12 @@ date,uid,account_type,account_number,transaction_type,amount
 2018-04-11 11:58:10.385413,1,Chequing,1004,Withdraw,20.0
 2018-04-11 12:05:05.840444,1,Chequing,1002,Withdraw,500.0
 2018-04-11 12:05:05.840444,1,Chequing,1002,Withdraw,20.0
+2018-04-11 12:07:01.273873,1,Chequing,1002,Withdraw,12.5
+2018-04-11 12:07:31.964623,1,Chequing,1004,Withdraw,500.0
+2018-04-11 12:07:57.630086,1,Chequing,1002,Withdraw,500.0
+2018-04-11 12:07:57.630086,1,Chequing,1002,Withdraw,2.5
+2018-04-11 12:08:47.334925,1,Chequing,1002,Withdraw,500.0
+2018-04-11 12:08:47.334925,1,Chequing,1002,Withdraw,369.79
+2018-04-11 12:09:26.776380,1,Chequing,1002,Withdraw,500.0
+2018-04-11 12:09:26.776380,1,Chequing,1002,Withdraw,214.15
+2018-04-11 12:09:26.776380,1,Chequing,1002,Deposit,125.33

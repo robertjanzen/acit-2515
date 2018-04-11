@@ -250,7 +250,7 @@ class View:
         Returns:
             None
         """
-        message = 'Withdrawn ${}, please take out the cash from bellow.'.format(input_amount)
+        message = 'Withdrawn ${0:.2f}, please take out the cash from bellow.'.format(round(float(input_amount), 2))
         self.display_info_page('Notice', message, '', 'Continue')
         
 
