@@ -135,7 +135,7 @@ class AccountModel:
             json.dump(data, json_file2, indent=4)
         return True
 
-    def changeName(self, uid, acc_num, accName):
+    def changeName(self, uid, acc_num, account_name):
         """
             Change the name of a bank account. For example change an account called "Vacation Fund" to "Wedding Fund"
 
@@ -144,7 +144,7 @@ class AccountModel:
                 The user ID which owns that account being renamed
             acc_num:
                 The account number for the account which is being renamed
-            accName:
+            account_name:
                 The new account name
 
         Returns:
@@ -155,7 +155,7 @@ class AccountModel:
             data = json.load(json_file)
             for index, account in enumerate(data):
                 if (account['uid'] == uid) and (account['acc_num'] == acc_num):
-                    data[index]['acc_name'] = str(accName)
+                    data[index]['acc_name'] = str(account_name)
             json_file.seek(0)
             json.dump(data, json_file, indent=4)
         return True

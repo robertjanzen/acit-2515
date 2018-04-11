@@ -23,14 +23,14 @@ class CLIController:
             loads imported functions into self parameters
         """
         self.view = CLIView()
-        self.clidb = CLIDB('model/cli_account_model.csv')
+        self.cli_model = CLIDB('model/cli_account_model.csv')
         self.accounts = AccountModel()
-        self.userdb = UserModel('model/user_model.csv')
-        self.trans = TransactionModel()
+        self.user_model = UserModel('model/user_model.csv')
+        self.transaction_model = TransactionModel()
         self.state = 0
         self.uid = ''
-        self.accNum = ''
-        self.accType = ''
+        self.account_number = ''
+        self.account_type = ''
 
     def run(self):
         """
@@ -42,7 +42,7 @@ class CLIController:
         while choice == False:
             user_name = self.view.getCLIName()
             password = self.view.getCLIPwd()
-            if self.clidb.verifyAccount(user_name, password):
+            if self.cli_model.verifyAccount(user_name, password):
                 choice = True
                 self.view.success()
                 self.mainMenu()
@@ -61,14 +61,14 @@ class CLIController:
             5. Exit the command line interface
         """
         
-        uInput = self.view.showMainMenu()
-        if uInput == '1':
+        user_input = self.view.showMainMenu()
+        if user_input == '1':
             self.chooseUser()
-        elif uInput == '2':
+        elif user_input == '2':
             self.createUser()
-        elif uInput == '3':
+        elif user_input == '3':
             self.run()
-        elif uInput == '4':
+        elif user_input == '4':
             exit(0)
         else:
             self.mainMenu()
@@ -80,8 +80,8 @@ class CLIController:
             Else calls view to display error, return this menu and ask for uid.
         """
         uid_list = []
-        self.userdb.openModelFile()
-        for user in self.userdb.model_content:
+        self.user_model.openModelFile()
+        for user in self.user_model.model_content:
             uid_list.append(user['uid'])
         
         if not uid_list:
@@ -116,8 +116,8 @@ class CLIController:
         """
         self.accounts.loadAccount()
         self.state = 1
-        aInput = self.view.showAccMenu()
-        if aInput == '1':
+        user_input = self.view.showAccMenu()
+        if user_input == '1':
 
             account_list = []
             for index, account in enumerate(self.accounts.accounts):
@@ -129,15 +129,15 @@ class CLIController:
                 self.manageUser()
             else:
                 self.chooseAccount(account_list)
-        elif aInput == '2':
-            self.createAccountount()
+        elif user_input == '2':
+            self.createAccount()
             self.manageUser()
-        elif aInput == '3':
+        elif user_input == '3':
             self.getReport()
             self.manageUser()
-        elif aInput == '4':
+        elif user_input == '4':
             self.mainMenu()
-        elif aInput == '5':
+        elif user_input == '5':
             exit(0)
         else:
             self.manageUser()
@@ -150,8 +150,8 @@ class CLIController:
         self.view.showAccounts(self.uid, accs)
         choice = False
         while choice == False:
-            self.accNum = self.view.getAccNum()
-            if self.accNum in accs:
+            self.account_number = self.view.getAccNum()
+            if self.account_number in accs:
                 choice = True
             else:
                 self.view.incorrectAcc()
@@ -168,48 +168,48 @@ class CLIController:
             6. Exit program
         """
         self.accounts.loadAccount()
-        maInput = self.view.showManAccMenu()
-        if maInput == '1':
+        user_input = self.view.showManAccMenu()
+        if user_input == '1':
             amount = self.view.getDeposit()
-            acc_type = self.accounts.deposit(self.uid, self.accNum, amount)
-            self.trans.createNewEntry(self.uid, acc_type, self.accNum, 'Deposit', amount)
+            acc_type = self.accounts.deposit(self.uid, self.account_number, amount)
+            self.transaction_model.createNewEntry(self.uid, acc_type, self.account_number, 'Deposit', amount)
             self.view.depositSuccess(str(round(float(amount), 2)))
             self.manageAccount()
-        elif maInput == '2':
+        elif user_input == '2':
             amount = self.view.getWithdraw()
-            msg = self.accounts.withdraw(self.uid, self.accNum, amount)
+            msg = self.accounts.withdraw(self.uid, self.account_number, amount)
             if msg == '':
-                accType = self.accounts.getAccountType(self.uid, self.accNum)
+                account_type = self.accounts.getAccountType(self.uid, self.account_number)
                 self.view.withdrawSuccess(str(round(float(amount), 2)))
-                if accType != '':
-                    self.trans.createNewEntry(self.uid, accType, self.accNum, 'Withdraw', amount)
+                if account_type != '':
+                    self.transaction_model.createNewEntry(self.uid, account_type, self.account_number, 'Withdraw', amount)
                 else:
                     pass
             else:
                 self.view.withdrawFailure(msg)
             self.manageAccount()
-        elif maInput == '3':
-            balance = self.accounts.getBalance(self.uid, self.accNum)
+        elif user_input == '3':
+            balance = self.accounts.getBalance(self.uid, self.account_number)
             self.view.showBalance(balance)
             self.manageAccount()
-        elif maInput == '4':
-            selected_acc_type = self.accounts.getAccountType(self.uid, self.accNum)
-            if self.accounts.deleteAccount(self.uid, self.accNum):
+        elif user_input == '4':
+            selected_acc_type = self.accounts.getAccountType(self.uid, self.account_number)
+            if self.accounts.deleteAccount(self.uid, self.account_number):
                 new_msg = 'Account closed'
-                self.trans.createNewActionEntry(self.uid, selected_acc_type, self.accNum, new_msg)
+                self.transaction_model.createNewActionEntry(self.uid, selected_acc_type, self.account_number, new_msg)
                 self.view.close_account_success()
                 self.mainMenu()
             else:
                 self.view.close_account_fail()
                 self.manageAccount()
-        elif maInput == '5':
+        elif user_input == '5':
             self.manageUser()
-        elif maInput == '6':
+        elif user_input == '6':
             exit(0)
         else:
             self.manageAccount()
 
-    def createAccountount(self):
+    def createAccount(self):
         """
             Method to create a new account for an existing user.
             Previous function sets the uid to use.
@@ -217,22 +217,22 @@ class CLIController:
             Gets the initial deposit amount from user
             Use the account_model to create new accout and write to file
         """
-        tInput = self.view.getAccType()
-        if tInput == '1':
-            accType = 'Chequing'
-        elif tInput == '2':
-            accType = 'Savings'
-        elif tInput == '3':
+        user_input = self.view.getAccType()
+        if user_input == '1':
+            account_type = 'Chequing'
+        elif user_input == '2':
+            account_type = 'Savings'
+        elif user_input == '3':
             self.manageUser()
-        elif tInput == '4':
+        elif user_input == '4':
             self.manageAccount()
         else:
-            self.createAccountount()
-        accName = self.view.getAccName()
-        initDep = self.view.getDeposit()
-        new_acc_num = self.accounts.createNewAccount(accType, accName, initDep, self.uid)
-        new_msg = 'Account created with balance of: ${}'.format(str(round(float(initDep), 2)))
-        self.trans.createNewActionEntry(self.uid, accType, new_acc_num, new_msg)
+            self.createAccount()
+        account_name = self.view.getAccName()
+        deposit_amount = self.view.getDeposit()
+        new_acc_num = self.accounts.createNewAccount(account_type, account_name, deposit_amount, self.uid)
+        new_msg = 'Account created with balance of: ${}'.format(str(round(float(deposit_amount), 2)))
+        self.transaction_model.createNewActionEntry(self.uid, account_type, new_acc_num, new_msg)
         self.view.accountCreationSuccess(new_acc_num)
 
     def createUser(self):
@@ -243,22 +243,22 @@ class CLIController:
             3. Go back
             returns to uid menu once account is created successfully
         """
-        tInput = self.view.getAccType()
-        if tInput == '1':
-            accType = 'Chequing'
-        elif tInput == '2':
-            accType = 'Savings'
-        elif tInput == '3':
+        user_input = self.view.getAccType()
+        if user_input == '1':
+            account_type = 'Chequing'
+        elif user_input == '2':
+            account_type = 'Savings'
+        elif user_input == '3':
             self.mainMenu()
         else:
             self.createUser()
-        accName = self.view.getAccName()
-        initDep = self.view.getDeposit()
-        self.accounts.createNewAccount(accType, accName, initDep)
+        account_name = self.view.getAccName()
+        deposit_amount = self.view.getDeposit()
+        self.accounts.createNewAccount(account_type, account_name, deposit_amount)
         self.uid = self.accounts.accounts[-1]['uid']
-        self.accNum = self.accounts.accounts[-1]['acc_num']
-        new_msg = 'Account created with balance of: ${}'.format(str(round(float(initDep), 2)))
-        self.trans.createNewActionEntry(self.uid, accType, self.accNum, new_msg)
+        self.account_number = self.accounts.accounts[-1]['acc_num']
+        new_msg = 'Account created with balance of: ${}'.format(str(round(float(deposit_amount), 2)))
+        self.transaction_model.createNewActionEntry(self.uid, account_type, self.account_number, new_msg)
         self.generateUser()
         self.view.userCreationSuccess(self.uid)
         self.accounts.loadAccount()
@@ -271,19 +271,19 @@ class CLIController:
             Generate a hashed PIN
             Calls user_model method to create new user and write to file
         """
-        cardNum = self.generateCardNum(self.uid)
-        pwdHash = self.hashPassword()
-        self.userdb.createNewEntry(self.uid, cardNum, pwdHash)
+        card_number = self.generateCardNum(self.uid)
+        hashed_password = self.hashPassword()
+        self.user_model.createNewEntry(self.uid, card_number, hashed_password)
 
     def generateCardNum(self, uid):
         """
-            This function creates a cardNum starting from 10000000 and uid.
+            This function creates a card_number starting from 10000000 and uid.
         :param uid:uid of this user
-        :return: cardNum string
+        :return: card_number string
         """
         init_cardNum = 10000000
-        cardNum = init_cardNum+int(uid)
-        return str(cardNum)
+        card_number = init_cardNum+int(uid)
+        return str(card_number)
 
     def getPassword(self):
         """
@@ -325,7 +325,7 @@ class CLIController:
         return hash_str
 
     def getReport(self):
-        report = self.trans.displayReport(self.uid)
+        report = self.transaction_model.displayReport(self.uid)
         self.view.printReport(report)
 
 
