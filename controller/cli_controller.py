@@ -284,10 +284,22 @@ class CLIController:
             Check is PIN match and returns it to hash_password
         :return: inputPwd
         """
-        inputPwd = self.view.getPIN()
-        inputPwd2 = self.view.confirmPIN()
-        if inputPwd == inputPwd2:
-            return inputPwd
+        valid_PIN = False
+        while not valid_PIN:
+            inputPwd = self.view.getPIN()
+            inputPwd2 = self.view.confirmPIN()
+            
+            if inputPwd == inputPwd2:
+                try:
+                    int(inputPwd)
+                    valid_PIN = True
+                except:
+                    self.view.non_numeric_PIN()
+                    valid_PIN = False
+            else:
+                self.view.PIN_mismatch()
+            
+        return inputPwd
 
     def hash_password(self):
         """

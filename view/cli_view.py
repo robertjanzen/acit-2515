@@ -299,9 +299,27 @@ class CLIView:
         print('\nSuccessfully closed account')
 
     def accountCreationSuccess(self, new_account_num):
+        """
+            Displays a success message for successful account creation attempt
+        Args:
+            new_account_num:
+                New account_number assigned to the newly created acction
+        Returns:
+            None
+        """
+        
         print('\nSuccessfully created account with number: {0}'.format(new_account_num))
 
     def userCreationSuccess(self, new_uid):
+        """
+            Displays a success message for successful user creation attempt
+        Args:
+            new_uid:
+                New uid assigned to the new user
+        Returns:
+            None
+        """
+        
         print('\nSuccessfully created new user with UID: {0}'.format(new_uid))
 
     def close_account_fail(self):
@@ -311,3 +329,21 @@ class CLIView:
             None
         """
         print('\nFailed to close account. Account balance must be 0\n')
+        
+    def non_numeric_PIN(self):
+        """
+            Displays a failure message for non-numeric PIN inputs
+        Returns:
+            None
+        """
+        
+        print('\nError: PIN contains non-numeric values\n')
+    
+    def PIN_mismatch(self):
+        """
+            Displays a failure message for mismatched PIN inputs
+        Returns:
+            None
+        """
+        
+        print('\nError: PINs do not match\n')
