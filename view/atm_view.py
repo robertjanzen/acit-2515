@@ -57,7 +57,7 @@ class View:
 
         # other middle frame widgets
         self.mid_title_label = Label(self.top_middle_frame, text="Title", height=5, font=("Helvetica", 9))
-        self.mid_title_input = Entry(self.top_middle_frame, width=50)
+        self.mid_title_input = Entry(self.top_middle_frame, width=48)
         
         self.mid_acc_info_title_label = Label(self.top_middle_frame, height=5)
         self.mid_acc_info_body_label = Label(self.top_middle_frame, height=5)
@@ -240,6 +240,19 @@ class View:
             
         else:
             self.display_info_page('ERROR', error_msg, 'Cancel', 'Back')
+    
+    def render_withdrawal_confirmation(self, input_amount):
+        """
+            Renders the screen for withdrawal confirmation
+        Args:
+            input_amount:
+                Amount that was withdrawn
+        Returns:
+            None
+        """
+        
+        self.display_info_page('', 'Withdrawn ${}, please take out the cash from bellow.'.format(input_amount), '', 'Continue')
+        
 
     def clear_screen(self):
         """

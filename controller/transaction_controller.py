@@ -24,7 +24,7 @@ class TransactionController(Observer):
         self.usr_acc_dic = None
         self.usr_target_acc = None
         self.selection_page_num = -1
-        
+        self.info_msg = ''
         self.error_msg = ''
 
     def update(self, publisher, **kwargs):
@@ -110,7 +110,12 @@ class TransactionController(Observer):
                             self.state_db.state = 'Error'
                         
                         else:
-                            self.state_db.state = 'Done'
+                            self.info_msg = entry
+                            self.state_db.state = 'Confirm'
+            
+            elif input_cmd == 'Continue':
+                if self.state_db.state == 'Confirm':
+                    self.state_db.state = 'Done'
 
             elif input_cmd == '':
                 return
@@ -148,7 +153,8 @@ class TransactionController(Observer):
                         self.state_db.state = 'Error'
                         
                     else:
-                        self.state_db.state = 'Done'
+                        self.info_msg = amount
+                        self.state_db.state = 'Confirm'
 
                 elif self.state_db.state == 'Done':
                     if input_cmd == 'Yes':
@@ -217,6 +223,9 @@ class TransactionController(Observer):
                 
             elif new_state == 'Error':
                 self.view.render_error(self.error_msg)
+            
+            elif new_state == 'Confirm':
+                self.view.render_withdrawal_confirmation(self.info_msg)
 
     def update_tgt_acc_info(self, uid, acc_num):
         """
@@ -264,6 +273,8 @@ class TransactionController(Observer):
         self.usr_target_acc = None
         self.usr_acc_dic = None
         self.selection_page_num = -1
+        self.info_msg = ''
+        self.error_msg = ''
 
     def deposit(self, amount):
         """

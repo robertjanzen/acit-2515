@@ -49,3 +49,7 @@ date,uid,account_type,account_number,transaction_type,amount
 2018-04-11 10:37:50.762627,1,Chequing,1062,Withdraw,20.0
 2018-04-11 10:10:04.439228,1,Chequing,1062,Withdraw,16.0
 2018-04-11 10:37:50.762627,1,Chequing,1061,Withdraw,12.0
+2018-04-11 11:56:34.864044,1,Chequing,1001,Withdraw,20.0
+2018-04-11 11:56:34.864044,1,Chequing,1001,Withdraw,50.0
+2018-04-11 11:58:10.385413,1,Chequing,1004,Withdraw,500.0
+2018-04-11 11:58:10.385413,1,Chequing,1004,Withdraw,20.0
