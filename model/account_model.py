@@ -216,7 +216,7 @@ class AccountModel:
                 
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
                     
-                    new_amount = float(data[index]['acc_balance']) - float(amount)
+                    new_amount = round(float(data[index]['acc_balance']) - float(amount), 2)
                     
                     if account['acc_type'] == 'Chequing':
                         if new_amount >= self._OVERDRAFT_LIMIT:
@@ -269,7 +269,7 @@ class AccountModel:
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
                     account_type = account['acc_type']
                     curr_amount = float(data[index]['acc_balance'])
-                    new_amount = curr_amount + float(amount)
+                    new_amount = round(curr_amount + float(amount), 2)
                     data[index]['acc_balance'] = str(new_amount)
             with open('model/account_db.json', 'w') as json_file2:
             
@@ -294,7 +294,7 @@ class AccountModel:
             data = json.load(json_file)
             for index, account in enumerate(data):
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
-                    return float(data[index]['acc_balance'])
+                    return round(float(data[index]['acc_balance']), 2)
 
     def check_float(self, value):
         """
