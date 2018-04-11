@@ -4,7 +4,7 @@
 #
 # Team alroda
 #
-# Aldrich Huamg A01026502 2B
+# Aldrich Huang A01026502 2B
 # Robert Janzen A01029341 2B
 # David Xiao A00725026 2B
 
@@ -84,7 +84,7 @@ class View:
         self.lb2.grid(row=1, column=0, columnspan=2, sticky=E, padx=5, pady=5)
         self.lb3.grid(row=2, column=0, columnspan=2, sticky=E, padx=5, pady=5)
 
-        self.display_blank_page()
+        self.displayBlankPage()
 
         self.rb1.grid(row=0, column=0, columnspan=2, sticky=W, padx=5, pady=5)
         self.rb2.grid(row=1, column=0, columnspan=2, sticky=W, padx=5, pady=5)
@@ -103,27 +103,25 @@ class View:
         self.npb11.grid(row=3, column=1)
         self.npb12.grid(row=3, column=3)
 
-    def render_card(self):
+    def renderCard(self):
         """
             Render the card number entry page
         
         Returns:
             None
         """
-        
-        self.display_entry_page("Enter Card Number")
+        self.displayEntryPage("Enter Card Number")
 
-    def render_pin(self):
+    def renderPin(self):
         """
             Renders the PIN entry page
         Returns:
             None
         """
-        
-        self.display_entry_page("Enter PIN", True)
+        self.displayEntryPage("Enter PIN", True)
         self.mid_title_input.configure(show='*')
 
-    def render_selection(self, option1, option2, option3, option4, option5):
+    def renderSelection(self, option1, option2, option3, option4, option5):
         """
             Renders the Selection page, which allows users to select which account to use for transactions
             
@@ -142,11 +140,10 @@ class View:
         Returns:
             None
         """
-        
-        self.display_options_page(lb1_lab=option1, lb2_lab=option2, lb3_lab="Cancel", rb1_lab=option3, rb2_lab=option4,
+        self.displayOptionsPage(lb1_lab=option1, lb2_lab=option2, lb3_lab="Cancel", rb1_lab=option3, rb2_lab=option4,
                                   rb3_lab=option5)
     
-    def render_overview(self, acc_name, acc_type, acc_number):
+    def renderOverview(self, acc_name, acc_type, acc_number):
         """
             Renders the account overview page
             
@@ -161,10 +158,9 @@ class View:
         Returns:
             None
         """
-        
-        self.display_overview_page(acc_name, acc_type, acc_number)
+        self.displayOverviewPage(acc_name, acc_type, acc_number)
 
-    def render_balance(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+    def renderBalance(self, input_title, input_info, lb3_lab='', rb3_lab=''):
         """
             Renders the balance page which displays the current balance of the account
             
@@ -181,51 +177,46 @@ class View:
         Returns:
             None
         """
-        
-        self.display_info_page(input_title, input_info, lb3_lab, rb3_lab)
+        self.displayInfoPage(input_title, input_info, lb3_lab, rb3_lab)
     
-    def render_deposit(self):
+    def renderDeposit(self):
         """
             Renders the deposit page
             
         Returns:
             None
         """
+        self.displayEntryPage("Enter Deposit Amount", True, True)
         
-        self.display_entry_page("Enter Deposit Amount", True, True)
-        
-    def render_withdraw(self):
+    def renderWithdraw(self):
         """
             Renders the withdraw page
             
         Returns:
             None
         """
-        
-        self.display_options_page(lb1_lab="$20", lb2_lab="$100", lb3_lab="Cancel", rb1_lab="$500", rb2_lab="Other",
+        self.displayOptionsPage(lb1_lab="$20", lb2_lab="$100", lb3_lab="Cancel", rb1_lab="$500", rb2_lab="Other",
                                   rb3_lab="Back")
         
-    def render_cash(self):
+    def renderCash(self):
         """
             Renders the custom withdraw amount entry page
             
         Returns:
             None
         """
-        
-        self.display_entry_page("Enter Custom Withdrawal Amount", True, True)
+        self.displayEntryPage("Enter Custom Withdrawal Amount", True, True)
 
-    def render_done(self):
+    def renderDone(self):
         """
             Renders the done page
             
         Returns:
             None
         """
+        self.displayInfoPage('Done?', '', 'Yes', 'No')
         
-        self.display_info_page('Done?', '', 'Yes', 'No')
-        
-    def render_error(self, error_msg):
+    def renderError(self, error_msg):
         """
             Renders the error page
         Args:
@@ -236,12 +227,12 @@ class View:
             None
         """
         if error_msg == "Account Not Found":
-            self.display_info_page('ERROR', error_msg, 'Cancel')
+            self.displayInfoPage('ERROR', error_msg, 'Cancel')
             
         else:
-            self.display_info_page('ERROR', error_msg, 'Cancel', 'Back')
+            self.displayInfoPage('ERROR', error_msg, 'Cancel', 'Back')
     
-    def render_withdrawal_confirmation(self, input_amount):
+    def renderWithdrawalConfirmation(self, input_amount):
         """
             Renders the screen for withdrawal confirmation
         Args:
@@ -251,9 +242,9 @@ class View:
             None
         """
         message = '${0:.2f} withdrawn from account, please take out the cash from below.'.format(round(float(input_amount), 2))
-        self.display_info_page('Notice', message, '', 'Continue')
+        self.displayInfoPage('Notice', message, '', 'Continue')
         
-    def render_deposit_confirmation(self, input_amount):
+    def renderDepositConfirmation(self, input_amount):
         """
             Renders the screen for withdrawal confirmation
         Args:
@@ -263,16 +254,15 @@ class View:
             None
         """
         message = '${0:.2f} deposited into account.'.format(round(float(input_amount), 2))
-        self.display_info_page('Notice', message, '', 'Continue')
+        self.displayInfoPage('Notice', message, '', 'Continue')
 
-    def clear_screen(self):
+    def clearScreen(self):
         """
             Clears the contents of the view
             
         Returns:
             None
         """
-        
         self.mid_title_label.configure(text='')
         self.mid_title_input.configure(show='')
         self.mid_title_input.delete(0, END)
@@ -292,15 +282,14 @@ class View:
         self.ml11.configure(text='')
         self.ml12.configure(text='')
 
-    def display_blank_page(self):
+    def displayBlankPage(self):
         """
             Renders a blank page
             
         Returns:
             None
         """
-        
-        self.clear_screen()
+        self.clearScreen()
 
         self.mid_title_label.grid_forget()
         self.mid_title_input.grid_forget()
@@ -319,7 +308,7 @@ class View:
         self.ml11.grid(row=2, column=2)
         self.ml12.grid(row=2, column=3)
         
-    def display_entry_page(self, title='', enable_cancel=False, enable_back=False):
+    def displayEntryPage(self, title='', enable_cancel=False, enable_back=False):
         """
             Configures widgets to display an entry page. The entry page mainly consists of a title label at the top,
             and an entry widget at the middly.
@@ -335,8 +324,7 @@ class View:
         Returns:
             None
         """
-        
-        self.display_blank_page()
+        self.displayBlankPage()
 
         self.ml1.grid_forget()
         self.ml2.grid_forget()
@@ -355,7 +343,7 @@ class View:
         if enable_back:
             self.ml12.configure(text="Back")
             
-    def display_options_page(self, lb1_lab='', lb2_lab='', lb3_lab='', rb1_lab='', rb2_lab='', rb3_lab=''):
+    def displayOptionsPage(self, lb1_lab='', lb2_lab='', lb3_lab='', rb1_lab='', rb2_lab='', rb3_lab=''):
         """
             Configures widgets to display an options page. The options page mainly consists of widgets on the left and
             right side with lables that describes the function that the side buttons have
@@ -377,8 +365,7 @@ class View:
         Returns:
             None
         """
-        
-        self.display_blank_page()
+        self.displayBlankPage()
         
         self.ml1.configure(text=lb1_lab, anchor=W)
         self.ml5.configure(text=lb2_lab, anchor=W)
@@ -388,7 +375,7 @@ class View:
         self.ml8.configure(text=rb2_lab, anchor=E)
         self.ml12.configure(text=rb3_lab, anchor=E)
     
-    def display_overview_page(self, input_name, input_type, input_number):
+    def displayOverviewPage(self, input_name, input_type, input_number):
         """
             Configures widgets to display the account overview page
             
@@ -403,8 +390,7 @@ class View:
         Returns:
             None
         """
-        
-        self.display_blank_page()
+        self.displayBlankPage()
 
         self.ml2.grid_forget()
         
@@ -426,7 +412,7 @@ class View:
         self.ml8.configure(text="Deposit")
         self.ml12.configure(text="Back")
         
-    def display_info_page(self, input_title, input_info, lb3_lab='', rb3_lab=''):
+    def displayInfoPage(self, input_title, input_info, lb3_lab='', rb3_lab=''):
         """
             Configures widgets to display an information page. The info consists of a title and a middle text label
             
@@ -443,8 +429,7 @@ class View:
         Returns:
             None
         """
-        
-        self.display_blank_page()
+        self.displayBlankPage()
         
         self.ml1.grid_forget()
         self.ml2.grid_forget()
@@ -464,7 +449,6 @@ class View:
         
         self.ml9.configure(text=lb3_lab)
         self.ml12.configure(text=rb3_lab)
-
 
 if __name__ == "__main__":
     print('atm_view.py')

@@ -14,14 +14,14 @@ from observe.observer import Observer
 class LoginController(Observer):
     def __init__(self, view, state_model, user_db):
         self.view = view
-        self.state_db = state_model
-        self.state_db.add_observer(self)
+        self.state_model = state_model
+        self.state_model.addObserver(self)
         self._usr_db = user_db
-        self._db = self._usr_db.db_content
+        self._db = self._usr_db.model_content
         
         self.msg = ''
 
-    def check_card_num(self, input_number):
+    def checkCardNum(self, input_number):
         """
             Checks the inputted card number to see if it is a valid card number
             
@@ -35,14 +35,14 @@ class LoginController(Observer):
         
         for account in self.db:
             if account["card_number"] == input_number:
-                self.state_db.uid = account["uid"]
-                self.state_db.state = "PIN"
+                self.state_model.uid = account["uid"]
+                self.state_model.state = "PIN"
                 return
             
         self.msg = 'Invalid Card Number'
-        self.state_db.state = 'LoginError'
+        self.state_model.state = 'LoginError'
 
-    def check_pin(self, input_PIN):
+    def checkPin(self, input_PIN):
         """
             Checks the PIN to see if it matches
             
@@ -61,19 +61,19 @@ class LoginController(Observer):
             partial_hash += str(int(digit) * 2)
 
         for account in self.db:
-            if account["uid"] == self.state_db.uid:
+            if account["uid"] == self.state_model.uid:
                 target_account = account
                 break
 
-        if self.unrand(target_account["PIN"]) == partial_hash:
-            self.state_db.state = "Selection"
+        if self.reverseHash(target_account["PIN"]) == partial_hash:
+            self.state_model.state = "Selection"
 
         else:
             self.msg = 'Invalid PIN'
-            self.state_db.state = "LoginError"
+            self.state_model.state = "LoginError"
             
     @staticmethod
-    def unrand(input_hash):
+    def reverseHash(input_hash):
         """
             Function for removing randomized dummy values from the hashed PIN
             
@@ -102,8 +102,8 @@ class LoginController(Observer):
 
     @property
     def db(self):
-        self._usr_db.open_db_file()
-        self._db = self._usr_db.db_content
+        self._usr_db.openModelFile()
+        self._db = self._usr_db.model_content
         return self._db
 
     def update(self, publisher, **kwargs):
@@ -125,34 +125,34 @@ class LoginController(Observer):
         if 'entry' in updated_data:
             input_value = kwargs['entry']
 
-            if self.state_db.state == "Card" or self.state_db.state == "PIN":
+            if self.state_model.state == "Card" or self.state_model.state == "PIN":
                 self.view.mid_title_input.insert(END, input_value)
 
         elif 'input' in updated_data:
-            input_cmd = kwargs['input']
-            if self.state_db.state == "Card" or self.state_db.state == "PIN":
-                if input_cmd == 'DEL':
+            inputCmd = kwargs['input']
+            if self.state_model.state == "Card" or self.state_model.state == "PIN":
+                if inputCmd == 'DEL':
                     last_index = len(self.view.mid_title_input.get()) - 1
                     self.view.mid_title_input.delete(last_index)
 
-                elif input_cmd == 'OK':
+                elif inputCmd == 'OK':
                     entry = self.view.mid_title_input.get()
 
-                    if self.state_db.state == "Card":
-                        self.check_card_num(entry)
-                    elif self.state_db.state == "PIN":
-                        self.check_pin(entry)
+                    if self.state_model.state == "Card":
+                        self.checkCardNum(entry)
+                    elif self.state_model.state == "PIN":
+                        self.checkPin(entry)
                     else:
                         pass
 
         elif 'state' in updated_data:
             new_state = kwargs['state']
             if new_state == "Card":
-                self.state_db.reset()
-                self.view.render_card()
+                self.state_model.reset()
+                self.view.renderCard()
 
             elif new_state == "PIN":
-                self.view.render_pin()
+                self.view.renderPin()
             
             elif new_state == "LoginError":
-                self.view.render_error(self.msg)
+                self.view.renderError(self.msg)

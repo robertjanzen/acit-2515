@@ -38,7 +38,7 @@ class CLIView:
         # password = getpass.getpass(prompt="Enter your password:  ")
         return password
 
-    def showUidMenu(self):
+    def showMainMenu(self):
         """
             Displays a list of available customer management options for the users, then prompts for an input
             
@@ -307,7 +307,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSuccessfully created account with number: {0}'.format(new_account_num))
 
     def userCreationSuccess(self, new_uid):
@@ -319,7 +318,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSuccessfully created new user with UID: {0}'.format(new_uid))
 
     def close_account_fail(self):
@@ -336,7 +334,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nError: PIN contains non-numeric values\n')
     
     def PIN_mismatch(self):
@@ -345,5 +342,4 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nError: PINs do not match\n')

@@ -17,10 +17,10 @@ class TransactionModel:
     def __init__(self):
         pass
 
-    def open_transaction_file(self):
+    def openTransactionFile(self):
         pass
 
-    def create_new_entry(self, uid, account_type, account_num, transaction_type, amount, date=datetime.datetime.now()):
+    def createNewEntry(self, uid, account_type, account_num, transaction_type, amount, date=datetime.datetime.now()):
         """
             Creates a new transaction log entry to be saved to file
             
@@ -42,17 +42,17 @@ class TransactionModel:
             None
         """
         row = '{0},{1},{2},{3},{4},{5}'.format(str(date), uid, account_type, account_num, transaction_type, str(float(amount)), )
-        self.save_transaction(uid, row)
+        self.saveTransaction(uid, row)
 
     # To be used with CLI only
-    def delete_from_file(self, uid):
+    def deleteFromFile(self, uid):
         pass
 
     # To be used with CLI only
-    def edit_entry(self, uid, type, amount):
+    def editEntry(self, uid, type, amount):
         pass
 
-    def save_transaction(self, uid, row):
+    def saveTransaction(self, uid, row):
         """
             Saves the new entry to the transaction log file
             
@@ -79,7 +79,7 @@ class TransactionModel:
                 output = self._TRANSACTION_COLUMNS + '\n' + row
                 csv_file.write(output)
                 
-    def create_new_action_entry(self, uid, account_type, account_num, action_type, date=datetime.datetime.now()):
+    def createNewActionEntry(self, uid, account_type, account_num, action_type, date=datetime.datetime.now()):
         """
             Creates a new account action entry in the transaction log
         Args:
@@ -97,9 +97,9 @@ class TransactionModel:
             None
         """
         row = '{0},{1},{2},{3},{4}'.format(str(date), uid, account_type, account_num, action_type)
-        self.save_transaction(uid, row)
+        self.saveTransaction(uid, row)
                 
-    def display_report(self, uid):
+    def displayReport(self, uid):
         """
             Displays a report of all recorded transactions for accounts owned by the User with the ID uid. The report
             is displayed in the CLI
@@ -149,8 +149,6 @@ class TransactionModel:
         except:
             print('Error Generating Report...')
 
-
 if __name__ == '__main__':
     test = TransactionModel()
-    
-    test.display_report('1')
+    test.displayReport('1')

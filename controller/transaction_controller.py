@@ -16,13 +16,13 @@ class TransactionController(Observer):
 
     def __init__(self, view, state_model, account_model, trans_model):
         self.view = view
-        self.state_db = state_model
-        self.state_db.add_observer(self)
+        self.state_model = state_model
+        self.state_model.addObserver(self)
         self.account_model = account_model
         self.transaction_model = trans_model
         self.current_total = 0.0
-        self.usr_acc_dic = None
-        self.usr_target_acc = None
+        self.user_accounts = None
+        self.selected_account_info = None
         self.selection_page_num = -1
         self.info_msg = ''
         self.error_msg = ''
@@ -45,7 +45,7 @@ class TransactionController(Observer):
         if 'entry' in updated_data:
             input_value = kwargs['entry']
 
-            if self.state_db.state in ['Deposit', 'Cash']:
+            if self.state_model.state in ['Deposit', 'Cash']:
                 new_digit = float(input_value) * 0.01
                 self.current_total *= 10.0
                 self.current_total = round((self.current_total + new_digit), 2)
@@ -53,34 +53,34 @@ class TransactionController(Observer):
                 self.view.mid_title_input.insert(END, '{0:.2f}'.format(self.current_total))
 
         elif 'input' in updated_data:
-            input_cmd = kwargs['input']
+            inputCmd = kwargs['input']
 
-            if input_cmd == 'Back':
+            if inputCmd == 'Back':
 
-                prev_state = self.state_db.prev_state
+                prev_state = self.state_model.prev_state
                 self.current_total = 0.0
-                self.state_db.state = prev_state
+                self.state_model.state = prev_state
 
-            elif input_cmd == 'Other':
-                if self.state_db.state == 'Selection':
+            elif inputCmd == 'Other':
+                if self.state_model.state == 'Selection':
                     self.selection_page_num += 1
-                    self.state_db.state = 'Selection'
-                elif self.state_db.state == 'Withdraw':
-                    self.state_db.state = 'Cash'
+                    self.state_model.state = 'Selection'
+                elif self.state_model.state == 'Withdraw':
+                    self.state_model.state = 'Cash'
 
-            elif input_cmd == 'DEL':
-                if self.state_db.state in ['Deposit', 'Cash']:
+            elif inputCmd == 'DEL':
+                if self.state_model.state in ['Deposit', 'Cash']:
                     self.current_total = 0.00
                     self.view.mid_title_input.delete(0, END)
                     self.view.mid_title_input.insert(END, '{0:.2f}'.format(self.current_total))
 
-            elif input_cmd == 'OK':
+            elif inputCmd == 'OK':
 
                 entry = self.view.mid_title_input.get()
                 if entry == '':
                     return
 
-                if self.state_db.state == 'Deposit':
+                if self.state_model.state == 'Deposit':
                     self.current_total = 0.0
                     try:
                         dollar_amt = float(entry)
@@ -91,13 +91,13 @@ class TransactionController(Observer):
                     if converted:
                         self.deposit(entry)
                         
-                        if self.usr_target_acc is None:
-                            self.state_db.state = 'Error'
+                        if self.selected_account_info is None:
+                            self.state_model.state = 'Error'
                         else:
                             self.info_msg = dollar_amt
-                            self.state_db.state = 'DConfirm'
+                            self.state_model.state = 'DConfirm'
 
-                elif self.state_db.state == 'Cash':
+                elif self.state_model.state == 'Cash':
                     try:
                         dollar_amt = float(entry)
                         converted = True
@@ -109,72 +109,72 @@ class TransactionController(Observer):
                         
                         if withdrawal_result != '':
                             self.error_msg = withdrawal_result
-                            self.state_db.state = 'Error'
+                            self.state_model.state = 'Error'
                         else:
                             self.info_msg = entry
-                            self.state_db.state = 'WConfirm'
+                            self.state_model.state = 'WConfirm'
             
-            elif input_cmd == 'Continue':
-                if self.state_db.state in ['WConfirm', 'DConfirm']:
-                    self.state_db.state = 'Done'
+            elif inputCmd == 'Continue':
+                if self.state_model.state in ['WConfirm', 'DConfirm']:
+                    self.state_model.state = 'Done'
 
-            elif input_cmd == '':
+            elif inputCmd == '':
                 return
 
             else:
-                if self.state_db.state == 'Selection':
+                if self.state_model.state == 'Selection':
 
-                    offset = int(input_cmd[0]) - 1
+                    offset = int(inputCmd[0]) - 1
 
-                    target_acc_num = list(self.usr_acc_dic.keys())[self.selection_page_num * 4 + offset]
-                    self.update_tgt_acc_info(self.state_db.uid, target_acc_num)
+                    target_acc_num = list(self.user_accounts.keys())[self.selection_page_num * 4 + offset]
+                    self.updateTargetAccountInfo(self.state_model.uid, target_acc_num)
                     
-                    if self.usr_target_acc is None:
-                        self.state_db.state = 'Error'
+                    if self.selected_account_info is None:
+                        self.state_model.state = 'Error'
                     else:
                         self.selection_page_num = -1
-                        self.state_db.state = 'Overview'
+                        self.state_model.state = 'Overview'
 
-                elif self.state_db.state == 'Overview':
-                    if input_cmd == 'Balance':
-                        self.state_db.state = 'Balance'
+                elif self.state_model.state == 'Overview':
+                    if inputCmd == 'Balance':
+                        self.state_model.state = 'Balance'
 
-                    elif input_cmd == 'Deposit':
-                        self.state_db.state = 'Deposit'
+                    elif inputCmd == 'Deposit':
+                        self.state_model.state = 'Deposit'
 
-                    elif input_cmd == 'Withdraw':
-                        self.state_db.state = 'Withdraw'
+                    elif inputCmd == 'Withdraw':
+                        self.state_model.state = 'Withdraw'
 
-                elif self.state_db.state == 'Withdraw':
-                    amount = input_cmd.strip('$')
+                elif self.state_model.state == 'Withdraw':
+                    amount = inputCmd.strip('$')
                     
                     result = self.withdraw(amount)
                     if result != '':
                         self.error_msg = result
-                        self.state_db.state = 'Error'
+                        self.state_model.state = 'Error'
                         
                     else:
                         self.info_msg = amount
-                        self.state_db.state = 'WConfirm'
+                        self.state_model.state = 'WConfirm'
 
-                elif self.state_db.state == 'Done':
-                    if input_cmd == 'Yes':
-                        self.state_db.state = 'Card'
+                elif self.state_model.state == 'Done':
+                    if inputCmd == 'Yes':
+                        self.state_model.state = 'Card'
 
-                    elif input_cmd == 'No':
-                        self.state_db.state = 'Overview'
+                    elif inputCmd == 'No':
+                        self.state_model.state = 'Overview'
 
         elif 'state' in updated_data:
             new_state = kwargs['state']
             
             if new_state == 'Selection':
-                self.usr_target_acc = {}
-                self.usr_acc_dic = {}
-                self.get_account_list()
+                self.selected_account_info = {}
+                self.user_accounts = {}
+                self.getAccountList()
                 
                 if self.selection_page_num != -1:
                     options = []
-                    acc_pool = list(self.usr_acc_dic.keys())
+                    acc_pool = list(self.user_accounts.keys())
 
                     if self.selection_page_num >= math.ceil(len(acc_pool) / 4):
                         self.selection_page_num = 0
@@ -183,56 +183,56 @@ class TransactionController(Observer):
 
                     for x in range(4):
                         if start_index + x < len(acc_pool):
-                            options.append(str(x + 1) + '-' + self.usr_acc_dic[acc_pool[start_index + x]])
+                            options.append(str(x + 1) + '-' + self.user_accounts[acc_pool[start_index + x]])
                         else:
                             options.append('')
 
-                    self.view.render_selection(options[0], options[1], options[2], options[3], 'Other')
+                    self.view.renderSelection(options[0], options[1], options[2], options[3], 'Other')
 
                 else:
                     self.selection_page_num = 0
-                    self.state_db.state = "Selection"
+                    self.state_model.state = "Selection"
 
             elif new_state == 'Overview':
-                self.update_tgt_acc_info(self.state_db.uid, self.usr_target_acc['acc_num'])
-                if self.usr_target_acc is None:
-                    self.view.render_error("Account Not Found")
+                self.updateTargetAccountInfo(self.state_model.uid, self.selected_account_info['acc_num'])
+                if self.selected_account_info is None:
+                    self.view.renderError("Account Not Found")
                 else:
-                    self.view.render_overview('', '', '')
+                    self.view.renderOverview('', '', '')
 
             elif new_state == 'Balance':
-                self.update_tgt_acc_info(self.state_db.uid, self.usr_target_acc['acc_num'])
-                if self.usr_target_acc is None:
-                    self.view.render_error("Account Not Found")
+                self.updateTargetAccountInfo(self.state_model.uid, self.selected_account_info['acc_num'])
+                if self.selected_account_info is None:
+                    self.view.renderError("Account Not Found")
                 else:
-                    self.view.render_balance('Your Current Balance:', '${}'.format(self.usr_target_acc['acc_balance']),
+                    self.view.renderBalance('Your Current Balance:', '${}'.format(self.selected_account_info['acc_balance']),
                                          'Cancel', 'Back')
 
             elif new_state == 'Deposit':
-                self.view.render_deposit()
+                self.view.renderDeposit()
 
             elif new_state == 'Withdraw':
-                self.view.render_withdraw()
+                self.view.renderWithdraw()
 
             elif new_state == 'Cash':
-                self.view.render_cash()
+                self.view.renderCash()
 
             elif new_state == 'Done':
-                self.view.render_done()
+                self.view.renderDone()
 
             elif new_state == 'Card':
-                self.clear_controller_data()
+                self.clearControllerData()
                 
             elif new_state == 'Error':
-                self.view.render_error(self.error_msg)
+                self.view.renderError(self.error_msg)
             
             elif new_state == 'WConfirm':
-                self.view.render_withdrawal_confirmation(self.info_msg)
+                self.view.renderWithdrawalConfirmation(self.info_msg)
             
             elif new_state == 'DConfirm':
-                self.view.render_deposit_confirmation(self.info_msg)
+                self.view.renderDepositConfirmation(self.info_msg)
 
-    def update_tgt_acc_info(self, uid, acc_num):
+    def updateTargetAccountInfo(self, uid, acc_num):
         """
             Reloads the selected account's information
             
@@ -248,13 +248,13 @@ class TransactionController(Observer):
         
         for entry in self.account_model.accounts:
             if entry['uid'] == uid and entry['acc_num'] == acc_num:
-                self.usr_target_acc = entry
+                self.selected_account_info = entry
                 
                 return
         
-        self.usr_target_acc = None
+        self.selected_account_info = None
 
-    def get_account_list(self):
+    def getAccountList(self):
         """
             Get a list of accounts tied to the currently signed in user uid.
             
@@ -264,10 +264,10 @@ class TransactionController(Observer):
 
         for entry in self.account_model.accounts:
             
-            if entry['uid'] == self.state_db.uid:
-                self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
+            if entry['uid'] == self.state_model.uid:
+                self.user_accounts[entry['acc_num']] = entry['acc_name']
 
-    def clear_controller_data(self):
+    def clearControllerData(self):
         """
             Clears controller user session data
             
@@ -275,8 +275,8 @@ class TransactionController(Observer):
             None
         """
         
-        self.usr_target_acc = None
-        self.usr_acc_dic = None
+        self.selected_account_info = None
+        self.user_accounts = None
         self.selection_page_num = -1
         self.info_msg = ''
         self.error_msg = ''
@@ -293,13 +293,13 @@ class TransactionController(Observer):
             None
         """
         
-        uid = self.state_db.uid
+        uid = self.state_model.uid
 
-        account_num = self.usr_target_acc['acc_num']
-        account_type = self.usr_target_acc['acc_type']
+        account_num = self.selected_account_info['acc_num']
+        account_type = self.selected_account_info['acc_type']
 
-        self.update_tgt_acc_info(uid, account_num)
-        if self.usr_target_acc is None:
+        self.updateTargetAccountInfo(uid, account_num)
+        if self.selected_account_info is None:
             self.error_msg = 'Account Not Found'
             return
 
@@ -307,7 +307,7 @@ class TransactionController(Observer):
         self.account_model.deposit(uid, account_num, amount)
 
         # Step 2 save transaction to file
-        self.transaction_model.create_new_entry(uid, account_type, account_num, 'Deposit', amount)
+        self.transaction_model.createNewEntry(uid, account_type, account_num, 'Deposit', amount)
 
     def withdraw(self, input_value):
         """
@@ -321,14 +321,14 @@ class TransactionController(Observer):
             String containing the result of the withdraw attempt
         """
         
-        uid = self.state_db.uid
+        uid = self.state_model.uid
         
-        account_num = self.usr_target_acc['acc_num']
-        account_type = self.usr_target_acc['acc_type']
+        account_num = self.selected_account_info['acc_num']
+        account_type = self.selected_account_info['acc_type']
         
-        self.update_tgt_acc_info(uid, account_num)
+        self.updateTargetAccountInfo(uid, account_num)
         
-        if self.usr_target_acc is None:
+        if self.selected_account_info is None:
             return 'Account Not Found'
         
         else:
@@ -336,7 +336,7 @@ class TransactionController(Observer):
             transaction_result = self.account_model.withdraw(uid, account_num, input_value)
             
             if transaction_result == '':
-                self.transaction_model.create_new_entry(uid, account_type, account_num, 'Withdraw', input_value)
+                self.transaction_model.createNewEntry(uid, account_type, account_num, 'Withdraw', input_value)
             
             return transaction_result
     

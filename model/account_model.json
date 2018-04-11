@@ -158,14 +158,7 @@
         "acc_num": "1036",
         "acc_type": "Savings",
         "acc_name": "Vacation",
-        "acc_balance": "436.0"
-    },
-    {
-        "uid": "2",
-        "acc_num": "1038",
-        "acc_type": "Chequing",
-        "acc_name": "Vacation",
-        "acc_balance": "20000"
+        "acc_balance": "236.0"
     },
     {
         "uid": "25",
@@ -306,5 +299,12 @@
         "acc_type": "Savings",
         "acc_name": "test account",
         "acc_balance": "0"
+    },
+    {
+        "uid": "43",
+        "acc_num": "1078",
+        "acc_type": "Chequing",
+        "acc_name": "Business",
+        "acc_balance": "10000"
     }
 ]

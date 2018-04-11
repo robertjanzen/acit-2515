@@ -1,0 +1,5 @@
+date,uid,account_type,account_number,transaction_type,amount
+2018-04-11 14:23:44.726550,2,Chequing,1038,Deposit,50.0
+2018-04-11 14:23:44.726550,2,Chequing,1038,Withdraw,50.0
+2018-04-11 14:23:44.726550,2,Chequing,1038,Withdraw,20000.0
+2018-04-11 14:23:44.726550,2,Chequing,1038,Account closed

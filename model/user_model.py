@@ -10,44 +10,43 @@
 
 import csv
 
-class UserDB:
-    _DB_COLUMNS = ['uid', 'card_number', 'PIN']
+class UserModel:
+    _MODEL_COLUMNS = ['uid', 'card_number', 'PIN']
     
-    def __init__(self, db_file):
-        self._db_file = db_file
-        self._db_content = []
+    def __init__(self, model_file):
+        self._model_file = model_file
+        self._model_content = []
         
-        self.open_db_file()
+        self.openModelFile()
         
     @property
-    def db_content(self):
+    def model_content(self):
         """
-            Getter for the instance variable: self._db_content
+            Getter for the instance variable: self._model_content
             
         Returns:
-            Value of self._db_content
+            Value of self._model_content
         """
-        return self._db_content
+        return self._model_content
         
-    def open_db_file(self):
+    def openModelFile(self):
         """
-            Opens the data file and saves the content to the instance variable: self._db_content
+            Opens the data file and saves the content to the instance variable: self._model_content
             
         Returns:
             None
         """
-        
-        with open(self._db_file) as csv_file:
+        with open(self._model_file) as csv_file:
             reader = csv.DictReader(csv_file)
-            self._db_content = []
+            self._model_content = []
             for row in reader:
                 new_dict = {}
-                for category in self._DB_COLUMNS:
+                for category in self._MODEL_COLUMNS:
                     new_dict[category] = row[category]
                     
-                self._db_content.append(new_dict)
+                self._model_content.append(new_dict)
 
-    def create_new_entry(self, input_uid, input_cardnum, input_hash):
+    def createNewEntry(self, input_uid, input_cardnum, input_hash):
         """
             Takes inputted data then checks for duplicate card number in existing user account entries. Creates a new
             entry and saves to file of no duplicate is found.
@@ -63,21 +62,21 @@ class UserDB:
         Returns:
             None
         """
-        new_entry = {self._DB_COLUMNS[0]: input_uid,
-                     self._DB_COLUMNS[1]: input_cardnum,
-                     self._DB_COLUMNS[2]: input_hash}
+        new_entry = {self._MODEL_COLUMNS[0]: input_uid,
+                     self._MODEL_COLUMNS[1]: input_cardnum,
+                     self._MODEL_COLUMNS[2]: input_hash}
         
         duplicate = False
         
-        for entry in self.db_content:
+        for entry in self.model_content:
             if entry['uid'] == new_entry['uid']:
                 duplicate = True
                 
         if not duplicate:
-            self._db_content.append(new_entry)
-            self.save_to_file()
+            self._model_content.append(new_entry)
+            self.saveToFile()
 
-    def delete_from_file(self, input_uid):
+    def deleteFromFile(self, input_uid):
         """
             Deletes an entry from the user database
             
@@ -88,14 +87,13 @@ class UserDB:
         Returns:
             None
         """
-        
-        for x in range(len(self.db_content)):
-            if self.db_content[x]['uid'] == input_uid:
-                del self._db_content[x]
-                self.save_to_file()
+        for x in range(len(self.model_content)):
+            if self.model_content[x]['uid'] == input_uid:
+                del self._model_content[x]
+                self.saveToFile()
                 break
                 
-    def edit_entry(self, input_uid, input_category, input_value):
+    def editEntry(self, input_uid, input_category, input_value):
         """
             Edits the user account. Does not allow uid to be edited
             
@@ -110,32 +108,28 @@ class UserDB:
         Returns:
             None
         """
-        for item in self.db_content:
+        for item in self.model_content:
             if item['uid'] == input_uid:
-                if input_category in self._DB_COLUMNS and not 'uid':
+                if input_category in self._MODEL_COLUMNS and not 'uid':
                     item[input_category] = input_value
-                    self.save_to_file()
+                    self.saveToFile()
                     break
     
-    def save_to_file(self):
+    def saveToFile(self):
         """
-            Saves the value of the instance variable: self._db_content to the csv file
+            Saves the value of the instance variable: self._model_content to the csv file
             
         Returns:
             None
         """
-        
-        with open(self._db_file, 'w', newline='') as csv_file:
-            fields = self._DB_COLUMNS
+        with open(self._model_file, 'w', newline='') as csv_file:
+            fields = self._MODEL_COLUMNS
             writer = csv.DictWriter(csv_file, fieldnames=fields)
         
             writer.writeheader()
-            for entry in self.db_content:
+            for entry in self.model_content:
                 writer.writerow(entry)
 
-
 if __name__ == "__main__":
-    test = UserDB('model/user_db.csv')
-    test.create_new_entry('10000', '3333333333', '232323232')
-    # test.edit_entry('10000', 'uid', '10001')
-    # test.delete_from_file('10000')
+    test = UserModel('model/user_model.csv')
+    test.createNewEntry('10000', '3333333333', '232323232')

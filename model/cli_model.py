@@ -14,11 +14,11 @@ class CLIDB:
     _ACC_DB_FIELDS = ['name', 'pwd']
     
     def __init__(self, file_path):
-        self._acc_db_content = []
-        self._db_file = file_path
-        self.loadAcc()
+        self._acc_model_content = []
+        self._model_file = file_path
+        self.loadAccount()
 
-    def verify_account(self, usr, pwd):
+    def verifyAccount(self, usr, pwd):
         """
             Checks to see that the login credentials are valid
             
@@ -31,18 +31,17 @@ class CLIDB:
         Returns:
             Boolean indicating whether the inputted credentials are valid or not.
         """
-        
-        for entry in self._acc_db_content:
+        for entry in self._acc_model_content:
             if usr == entry[self._ACC_DB_FIELDS[0]]:
                 
-                if self.verifyPwd(entry[self._ACC_DB_FIELDS[1]], pwd):
+                if self.verifyPassword(entry[self._ACC_DB_FIELDS[1]], pwd):
                     
                     return True
                 else:
                     return False
         return False
 
-    def verifyPwd(self, hpwd, pwd):
+    def verifyPassword(self, hpwd, pwd):
         """
             Compares the inputted password and the saved password hash, return True if they are the same, false
             otherwise
@@ -55,12 +54,12 @@ class CLIDB:
             Boolean
         """
         
-        if self.pwd_hash(pwd) == hpwd:
+        if self.hashPassword(pwd) == hpwd:
             return True
         else:
             return False
         
-    def createAcc(self, usr, pwd):
+    def createAccount(self, usr, pwd):
         """
             Creates a new entry in the account file, which contains the username, and the password hash
             
@@ -76,17 +75,17 @@ class CLIDB:
         
         duplicate = False
         
-        for entry in self._acc_db_content:
+        for entry in self._acc_model_content:
             if entry[self._ACC_DB_FIELDS[0]] == usr:
                 print("User already exists")
                 duplicate = True
                 break
                 
         if not duplicate:
-            self._acc_db_content.append({self._ACC_DB_FIELDS[0]: usr, self._ACC_DB_FIELDS[1]: self.pwd_hash(pwd)})
-            self.saveAcc()
+            self._acc_model_content.append({self._ACC_DB_FIELDS[0]: usr, self._ACC_DB_FIELDS[1]: self.hashPassword(pwd)})
+            self.saveAccount()
     
-    def loadAcc(self):
+    def loadAccount(self):
         """
             Loads the content of th user account file
             
@@ -95,7 +94,7 @@ class CLIDB:
         """
         
         try:
-            with open(self._db_file) as csv_file:
+            with open(self._model_file) as csv_file:
                 reader = csv.DictReader(csv_file)
             
                 for row in reader:
@@ -103,31 +102,31 @@ class CLIDB:
                     for category in self._ACC_DB_FIELDS:
                         new_dict[category] = row[category]
                 
-                    self._acc_db_content.append(new_dict)
+                    self._acc_model_content.append(new_dict)
         except:
             return
     
-    def saveAcc(self):
+    def saveAccount(self):
         """
-            Saves value of self._acc_db_content into the user account file
+            Saves value of self._acc_model_content into the user account file
             
         Returns:
             None
         """
         
         try:
-            with open(self._db_file, 'w', newline='') as csv_file:
+            with open(self._model_file, 'w', newline='') as csv_file:
                 fields = self._ACC_DB_FIELDS
                 writer = csv.DictWriter(csv_file, fieldnames=fields)
             
                 writer.writeheader()
-                for entry in self._acc_db_content:
+                for entry in self._acc_model_content:
                     writer.writerow(entry)
-                print("Saved to %s" % self._db_file)
+                print("Saved to %s" % self._model_file)
         except:
             return
         
-    def pwd_hash(self, pwd):
+    def hashPassword(self, pwd):
         """
             Takes the inputted password and returns the hash
             
@@ -138,7 +137,6 @@ class CLIDB:
         Returns:
             Password hash
         """
-        
         ascii_list = []
         output = ''
         for character in pwd:
@@ -157,6 +155,6 @@ class CLIDB:
 
 
 if __name__ == "__main__":
-    test_db = CLIDB('cli_acc_db.csv')
-    test_db.createAcc('manager', 'password')
-    print(test_db.verify_account('manager', 'password'))
+    test_model = CLIDB('cli_account_model.csv')
+    test_model.createAccount('manager', 'password')
+    print(test_model.verifyAccount('manager', 'password'))

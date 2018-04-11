@@ -18,18 +18,18 @@ class AccountModel:
 
     def __init__(self):
         self._accounts = None
-        self.load_accounts()
+        self.loadAccount()
 
     @property
     def accounts(self):
-        self.load_accounts()
+        self.loadAccount()
         return self._accounts
 
     @accounts.setter
     def accounts(self, input_value):
         self._accounts = input_value
 
-    def load_accounts(self):
+    def loadAccount(self):
         """
             Load user all user accounts from the account_db JSON file into a list of objects
 
@@ -37,13 +37,13 @@ class AccountModel:
             None
 
         """
-        with open('model/account_db.json') as json_file:
+        with open('model/account_model.json') as json_file:
             self.accounts = json.load(json_file)
-        with open('model/next_acc_num.txt') as num_file:
+        with open('model/next_account_number.txt') as num_file:
             AccountModel._NEXT_UID = int(num_file.readline())
             AccountModel._NEXT_ACC_NUMBER = int(num_file.readline())
 
-    def create_new_account(self, acc_type, acc_name, acc_balance=0, uid = '', acc_num = ''):
+    def createNewAccount(self, acc_type, acc_name, acc_balance=0, uid = '', acc_num = ''):
         """
             Create a new chequing or savings account for an existing user, then request that the new account be
             saved to file.
@@ -77,10 +77,10 @@ class AccountModel:
             "acc_name": acc_name,
             "acc_balance": acc_balance
         }
-        self.save_account_to_file(user_object)
+        self.saveAccountToFile(user_object)
         return acc_num
 
-    def save_account_to_file(self, user_object):
+    def saveAccountToFile(self, user_object):
         """
             Using an object which contains the user's account information, save the data into a json file in local
             storage
@@ -93,10 +93,10 @@ class AccountModel:
 
         """
         exists = False
-        with open('model/next_acc_num.txt','w') as num_file:
+        with open('model/next_account_number.txt','w') as num_file:
             next_data = str(AccountModel._NEXT_UID)+'\n'+str(AccountModel._NEXT_ACC_NUMBER)
             num_file.write(next_data)
-        with open('model/account_db.json') as json_file:
+        with open('model/account_model.json') as json_file:
             data = json.load(json_file)
             for account in data:
                 if (account['uid'] == user_object['uid']) and (account['acc_num'] == user_object['acc_num']):
@@ -106,11 +106,11 @@ class AccountModel:
             else:
                 print('Account already exists')
 
-        with open('model/account_db.json', 'w') as out_file:
+        with open('model/account_model.json', 'w') as out_file:
             json.dump(data, out_file, indent=4)
         return
 
-    def delete_account(self, uid, acc_num):
+    def deleteAccount(self, uid, acc_num):
         """
             Delete a user's account by providing their UID and a specific account number
 
@@ -122,8 +122,7 @@ class AccountModel:
         Returns:
             Returns True if the account was deleted successfully, and False otherwise
         """
-
-        with open('model/account_db.json', 'r') as json_file:
+        with open('model/account_model.json', 'r') as json_file:
             data = json.load(json_file)
         for index, account in enumerate(data):
             if (account['uid'] == uid) and (account['acc_num'] == acc_num):
@@ -131,38 +130,12 @@ class AccountModel:
                     return False
                 else:
                     data.remove(account)
-        with open('model/account_db.json', 'w') as json_file2:
+        with open('model/account_model.json', 'w') as json_file2:
             json_file2.seek(0)
             json.dump(data, json_file2, indent=4)
         return True
 
-    # def interest_and_fee(self):
-    #     with open('model/account_db.json', 'r+') as json_file:
-    #         data = json.load(json_file)
-    #         for index, account in enumerate(data):
-    #             if data[index]['acc_type'] == 'Chequing':
-    #                 data[index]['acc_balance'] = str(self.chequing_intFee(data[index]['acc_balance']))
-    #             elif data[index]['acc_type'] == 'Saving':
-    #                 data[index]['acc_balance'] = str(self.saving_intFee(data[index]['acc_balance']))
-    #         json_file.seek(0)
-    #         json.dump(data, json_file)
-    #
-    # def chequing_intFee(self, balance):
-    #     che_fee = 0
-    #     if balance < 0:
-    #         """apply 3% interest on overdraft"""
-    #         che_fee = balance * odInterest
-    #     balance += che_fee
-    #     return balance
-    #
-    # def saving_intFee(self, balance):
-    #     sav_fee = balance * savInterest
-    #     if balance < savMin:
-    #         sav_fee -= 10
-    #     balance += sav_fee
-    #     return balance
-
-    def change_name(self, uid, acc_num, accName):
+    def changeName(self, uid, acc_num, accName):
         """
             Change the name of a bank account. For example change an account called "Vacation Fund" to "Wedding Fund"
 
@@ -178,7 +151,7 @@ class AccountModel:
             Returns True if the account name was successfully update, and False otherwise
 
         """
-        with open('model/account_db.json', 'r+') as json_file:
+        with open('model/account_model.json', 'r+') as json_file:
             data = json.load(json_file)
             for index, account in enumerate(data):
                 if (account['uid'] == uid) and (account['acc_num'] == acc_num):
@@ -206,9 +179,9 @@ class AccountModel:
         """
         return_msg = ''
 
-        if self.check_float(amount):
+        if self.checkFloat(amount):
 
-            with open('model/account_db.json') as json_file:
+            with open('model/account_model.json') as json_file:
 
                 data = json.load(json_file)
 
@@ -236,7 +209,7 @@ class AccountModel:
                         return_msg = 'Unknown Account Type'
                         
             if return_msg == '':
-                with open('model/account_db.json', 'w') as json_file2:
+                with open('model/account_model.json', 'w') as json_file2:
                     
                     json_file2.seek(0)
                     json.dump(data, json_file2, indent=4)
@@ -262,8 +235,8 @@ class AccountModel:
 
         """
         account_type = ''
-        if self.check_float(amount):
-            with open('model/account_db.json') as json_file:
+        if self.checkFloat(amount):
+            with open('model/account_model.json') as json_file:
                 data = json.load(json_file)
             for index, account in enumerate(data):
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
@@ -271,13 +244,13 @@ class AccountModel:
                     curr_amount = float(data[index]['acc_balance'])
                     new_amount = round(curr_amount + float(amount), 2)
                     data[index]['acc_balance'] = str(new_amount)
-            with open('model/account_db.json', 'w') as json_file2:
+            with open('model/account_model.json', 'w') as json_file2:
             
                 json_file2.seek(0)
                 json.dump(data, json_file2, indent=4)
         return account_type
 
-    def get_balance(self, uid, account_num):
+    def getBalance(self, uid, account_num):
         """
             Request the account balance when given a valid user ID and account number belonging to that user
 
@@ -290,13 +263,13 @@ class AccountModel:
         Returns:
             A float which is the current balance of the requested account
         """
-        with open('model/account_db.json', 'r+') as json_file:
+        with open('model/account_model.json', 'r+') as json_file:
             data = json.load(json_file)
             for index, account in enumerate(data):
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
                     return round(float(data[index]['acc_balance']), 2)
 
-    def check_float(self, value):
+    def checkFloat(self, value):
         """
             This function checks if the value can be made into a float, then checks to see if the value is greater
             than or equal to zero.
@@ -318,7 +291,7 @@ class AccountModel:
             return False
 
     def getAccountType(self, uid, acc_num):
-        self.load_accounts()
+        self.loadAccount()
         for acc in self.accounts:
             if acc['uid'] == uid and acc['acc_num'] == acc_num:
                 return acc['acc_type']
@@ -327,4 +300,4 @@ class AccountModel:
 
 if __name__ == '__main__':
     am = AccountModel()
-    am.create_new_account('Chequing','Chequing')
+    am.createNewAccount('Chequing','Chequing')
