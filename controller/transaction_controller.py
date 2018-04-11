@@ -98,23 +98,18 @@ class TransactionController(Observer):
                             self.state_db.state = 'DConfirm'
 
                 elif self.state_db.state == 'Cash':
-
-                    # Should probably check to see if account has enough balance
                     try:
                         dollar_amt = float(entry)
                         converted = True
-                        
                     except:
                         converted = False
                         
                     if converted:
-                        
                         withdrawal_result = self.withdraw(entry)
                         
                         if withdrawal_result != '':
                             self.error_msg = withdrawal_result
                             self.state_db.state = 'Error'
-                        
                         else:
                             self.info_msg = entry
                             self.state_db.state = 'WConfirm'
