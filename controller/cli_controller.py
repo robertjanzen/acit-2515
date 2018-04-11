@@ -58,11 +58,8 @@ class CLIController:
         elif uInput == '2':
             self.cli_new_uid()
         elif uInput == '3':
-            # self.charge_fees()
-            pass
-        elif uInput == '4':
             self.run()
-        elif uInput == '5':
+        elif uInput == '4':
             exit(0)
         else:
             self.uidMenu()
@@ -157,10 +154,9 @@ class CLIController:
             1. Prompt user for a deposit amount, update and write to file
             2. Prompt user for a withdraw amount, update and write to file
             3. Returns account balance for this account
-            4. TODO charge fees
-            5. Delete this account, only works if account balance = 0
-            6. Back to previous menu
-            7. Exit program
+            4. Delete this account, only works if account balance = 0
+            5. Back to previous menu
+            6. Exit program
         """
         self.accounts.load_accounts()
         maInput = self.view.showManAccMenu()
@@ -188,18 +184,15 @@ class CLIController:
             self.view.showBalance(balance)
             self.cli_man_acc()
         elif maInput == '4':
-            # TODO Charge fee
-            self.cli_acc_menu()
-        elif maInput == '5':
             if self.accounts.delete_account(self.uid, self.accNum):
                 self.view.close_account_success()
-                self.cli_acc_menu()
+                self.uidMenu()
             else:
                 self.view.close_account_fail()
                 self.cli_man_acc()
-        elif maInput == '6':
+        elif maInput == '5':
             self.cli_acc_menu()
-        elif maInput == '7':
+        elif maInput == '6':
             exit(0)
         else:
             self.cli_man_acc()
@@ -226,7 +219,8 @@ class CLIController:
             self.cli_create_acc()
         accName = self.view.getAccName()
         initDep = self.view.getDeposit()
-        self.accounts.create_new_account(accType, accName, initDep, self.uid)
+        new_acc_num = self.accounts.create_new_account(accType, accName, initDep, self.uid)
+        self.view.accountCreationSuccess(new_acc_num)
 
     def cli_new_uid(self):
         """
@@ -249,6 +243,7 @@ class CLIController:
         initDep = self.view.getDeposit()
         self.uid = self.accounts.create_new_account(accType, accName, initDep)
         self.create_user_db()
+        self.view.userCreationSuccess(self.uid)
         self.accounts.load_accounts()
         self.uidMenu()
 

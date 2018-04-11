@@ -187,5 +187,33 @@
         "acc_type": "Chequing",
         "acc_name": "Chess Fund",
         "acc_balance": "9999399.0"
+    },
+    {
+        "uid": "27",
+        "acc_num": "1043",
+        "acc_type": "Chequing",
+        "acc_name": "Business",
+        "acc_balance": "10000.25"
+    },
+    {
+        "uid": "28",
+        "acc_num": "1044",
+        "acc_type": "Savings",
+        "acc_name": "Vacation",
+        "acc_balance": "0"
+    },
+    {
+        "uid": "29",
+        "acc_num": "1045",
+        "acc_type": "Chequing",
+        "acc_name": "Business",
+        "acc_balance": "20000"
+    },
+    {
+        "uid": "30",
+        "acc_num": "1048",
+        "acc_type": "Savings",
+        "acc_name": "Business",
+        "acc_balance": "29990.0"
     }
 ]

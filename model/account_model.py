@@ -78,7 +78,7 @@ class AccountModel:
             "acc_balance": acc_balance
         }
         self.save_account_to_file(user_object)
-        return uid
+        return acc_num
 
     def save_account_to_file(self, user_object):
         """
@@ -127,7 +127,7 @@ class AccountModel:
             data = json.load(json_file)
         for index, account in enumerate(data):
             if (account['uid'] == uid) and (account['acc_num'] == acc_num):
-                if int(data[index]['acc_balance']) != 0:
+                if float(data[index]['acc_balance']) != 0.0:
                     return False
                 else:
                     data.remove(account)

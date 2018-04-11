@@ -49,7 +49,7 @@ class CLIView:
         """
         
         print('\nMain menu: ')
-        return input('\n1. Manage existing customer\n2. Create new customer\n3. Pay interest and charge fees\n4. Back\n5. Quit\n{}'.format(self._PROMPT_MESSAGE))
+        return input('\n1. Manage existing customer\n2. Create new customer\n3. Logout\n4. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
     def showAccMenu(self):
         """
@@ -98,7 +98,7 @@ class CLIView:
             None
         """
         
-        print('\nUser has no accounts\n')
+        print('\nUser has no accounts')
 
     def noUID(self):
         """
@@ -117,7 +117,7 @@ class CLIView:
             String containing the user's input, which indicates which option the user selects
         """
         
-        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Close account \n6. Back\n7. Quit\n{}'.format(self._PROMPT_MESSAGE))
+        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Close account \n5. Back\n6. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
 
     def showAccounts(self, uid, accounts):
@@ -277,7 +277,7 @@ class CLIView:
             None
         """
         
-        print('\nSuccessfully logged in.\n')
+        print('\nSuccessfully logged in')
 
     def incorrect(self):
         """
@@ -328,7 +328,13 @@ class CLIView:
             None
         """
         
-        print('\nSuccessfully closed account\n')
+        print('\nSuccessfully closed account')
+
+    def accountCreationSuccess(self, new_account_num):
+        print('\nSuccessfully created account with number: {0}'.format(new_account_num))
+
+    def userCreationSuccess(self, new_uid):
+        print('\nSuccessfully created new user with UID: {0}'.format(new_uid))
 
     def close_account_fail(self):
         """
