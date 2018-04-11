@@ -250,8 +250,8 @@ class View:
         Returns:
             None
         """
-        
-        self.display_info_page('', 'Withdrawn ${}, please take out the cash from bellow.'.format(input_amount), '', 'Continue')
+        message = 'Withdrawn ${}, please take out the cash from bellow.'.format(input_amount)
+        self.display_info_page('Notice', message, '', 'Continue')
         
 
     def clear_screen(self):
