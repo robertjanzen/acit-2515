@@ -5,12 +5,6 @@
 
 <h1>Running the Program</h1>
 <ul>
-  <li> Command Line Interface
-    <ul>
-      <li>python acc_mgt.py
-    </ul>
-  <li> ATM GUI
-    <ul>
-      <li>python atm.py
-     </ul>
+  <li> Command Line Interface > python cli.py
+  <li> ATM GUI > python atm.py
  </ul>
