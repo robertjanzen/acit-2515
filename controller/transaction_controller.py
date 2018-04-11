@@ -81,7 +81,7 @@ class TransactionController(Observer):
                     return
 
                 if self.state_db.state == 'Deposit':
-
+                    self.current_total = 0.0
                     try:
                         dollar_amt = float(entry)
                         converted = True
