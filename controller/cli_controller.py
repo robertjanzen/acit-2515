@@ -257,6 +257,9 @@ class CLIController:
         initDep = self.view.getDeposit()
         self.accounts.create_new_account(accType, accName, initDep)
         self.uid = self.accounts.accounts[-1]['uid']
+        self.accNum = self.accounts.accounts[-1]['acc_num']
+        new_msg = 'Account created with balance of: ${}'.format(str(round(float(initDep), 2)))
+        self.trans.create_new_action_entry(self.uid, accType, self.accNum, new_msg)
         self.create_user_db()
         self.view.userCreationSuccess(self.uid)
         self.accounts.load_accounts()
