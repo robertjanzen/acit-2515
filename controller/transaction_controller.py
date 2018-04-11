@@ -39,7 +39,6 @@ class TransactionController(Observer):
         Returns:
             None
         """
-        
         updated_data = kwargs.keys()
 
         if 'entry' in updated_data:
@@ -245,7 +244,6 @@ class TransactionController(Observer):
         Returns:
             None
         """
-        
         for entry in self.account_model.accounts:
             if entry['uid'] == uid and entry['acc_num'] == acc_num:
                 self.selected_account_info = entry
@@ -261,7 +259,6 @@ class TransactionController(Observer):
         Returns:
             None
         """
-
         for entry in self.account_model.accounts:
             
             if entry['uid'] == self.state_model.uid:
@@ -274,7 +271,6 @@ class TransactionController(Observer):
         Returns:
             None
         """
-        
         self.selected_account_info = None
         self.user_accounts = None
         self.selection_page_num = -1
@@ -292,7 +288,6 @@ class TransactionController(Observer):
         Returns:
             None
         """
-        
         uid = self.state_model.uid
 
         account_num = self.selected_account_info['acc_num']
@@ -320,7 +315,6 @@ class TransactionController(Observer):
         Returns:
             String containing the result of the withdraw attempt
         """
-        
         uid = self.state_model.uid
         
         account_num = self.selected_account_info['acc_num']
@@ -332,7 +326,6 @@ class TransactionController(Observer):
             return 'Account Not Found'
         
         else:
-        
             transaction_result = self.account_model.withdraw(uid, account_num, input_value)
             
             if transaction_result == '':
@@ -340,6 +333,5 @@ class TransactionController(Observer):
             
             return transaction_result
     
-
 if __name__ == '__main__':
     print('Transaction Controller')
