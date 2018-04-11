@@ -12,7 +12,7 @@
 # import getpass
 
 class CLIView:
-
+    _PROMPT_MESSAGE = "\nEnter your selection: "
     def __init__(self):
         # self.getp = getpass.getpass
         pass
@@ -49,7 +49,7 @@ class CLIView:
         """
         
         print('\nMain menu: ')
-        return input('\n1. Manage existing customer\n2. Create new customer\n3. Pay interest and charge fees\n4. Back\n5. Quit\n')
+        return input('\n1. Manage existing customer\n2. Create new customer\n3. Pay interest and charge fees\n4. Back\n5. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
     def showAccMenu(self):
         """
@@ -59,7 +59,7 @@ class CLIView:
             String containing the user's input, which indicates which option the user selects
         """
         
-        return input('\n1. Manage account\n2. Open new account\n3. User report\n4. Back\n5. Quit\n')
+        return input('\n1. Manage account\n2. Open new account\n3. User report\n4. Back\n5. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
     def getAccNum(self):
         """
@@ -98,7 +98,7 @@ class CLIView:
             None
         """
         
-        print('\nUser has no accounts')
+        print('\nUser has no accounts\n')
 
     def noUID(self):
         """
@@ -107,7 +107,7 @@ class CLIView:
             None
         """
         
-        print('\nBank has no users')
+        print('\nBank has no users\n')
 
     def showManAccMenu(self):
         """
@@ -117,7 +117,7 @@ class CLIView:
             String containing the user's input, which indicates which option the user selects
         """
         
-        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Close account \n6. Back\n7. Quit\n')
+        return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Charge fee\n5. Close account \n6. Back\n7. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
 
     def showAccounts(self, uid, accounts):
@@ -151,7 +151,7 @@ class CLIView:
             String containing the user input
         """
         
-        return input('\n1. Chequing\n2. Saving\n3. Back\n')
+        return input('\n1. Chequing\n2. Saving\n3. Back\n{}'.format(self._PROMPT_MESSAGE))
 
     def getAccName(self):
         """
@@ -179,7 +179,7 @@ class CLIView:
             
         Args:
             amount:
-                Amount that was deposited to an accound
+                Amount that was deposited to an account
 
         Returns:
             None
@@ -277,7 +277,7 @@ class CLIView:
             None
         """
         
-        print('\nSuccessfully logged in.')
+        print('\nSuccessfully logged in.\n')
 
     def incorrect(self):
         """
@@ -328,7 +328,7 @@ class CLIView:
             None
         """
         
-        print('Successfully closed account')
+        print('\nSuccessfully closed account\n')
 
     def close_account_fail(self):
         """
@@ -337,4 +337,4 @@ class CLIView:
             None
         """
         
-        print('Failed to close account. Account balance must be 0')
+        print('\nFailed to close account. Account balance must be 0\n')
