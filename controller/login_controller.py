@@ -11,7 +11,6 @@
 from tkinter import *
 from observe.observer import Observer
 
-
 class LoginController(Observer):
     def __init__(self, view, state_model, user_db):
         self.view = view

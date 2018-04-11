@@ -8,9 +8,7 @@
 # Robert Janzen A01029341 2B
 # David Xiao A00725026 2B
 
-
 from observe.observer import Observable
-
 
 class StateModel(Observable):
     def __init__(self):

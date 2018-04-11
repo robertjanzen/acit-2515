@@ -8,9 +8,7 @@
 # Robert Janzen A01029341 2B
 # David Xiao A00725026 2B
 
-
 import csv
-
 
 class UserDB:
     _DB_COLUMNS = ['uid', 'card_number', 'PIN']

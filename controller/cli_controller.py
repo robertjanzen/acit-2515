@@ -15,7 +15,6 @@ from model.user_model import UserDB
 from model.transaction_model import TransactionModel
 import random
 
-
 class CLIController:
 
     def __init__(self):

@@ -10,7 +10,6 @@
 
 import datetime
 import os
-import locale
 
 class TransactionModel:
     _TRANSACTION_COLUMNS = 'date,uid,account_type,account_number,transaction_type,amount'

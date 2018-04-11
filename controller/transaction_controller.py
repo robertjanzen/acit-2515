@@ -10,7 +10,6 @@
 
 from tkinter import *
 from observe.observer import Observer
-
 import math
 
 class TransactionController(Observer):

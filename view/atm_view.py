@@ -10,7 +10,6 @@
 
 from tkinter import *
 
-
 class View:
     def __init__(self, master):
         # create any instances of other support classes that are needed and save them
@@ -18,16 +17,9 @@ class View:
         self.master = master
 
         # set main window attributes such as title, geometry etc
-        #
         self.master.title('ATM')
         self.master.geometry('515x250')
         self.master.configure(background='grey')
-
-        # set up menus if there are any
-        # NO MENUS FOR ATM
-
-        # commands going in the file menu
-        # NO MENUS FOR ATM
 
         # define frames if needed
         self.top_frame = Frame(self.master)
@@ -43,9 +35,6 @@ class View:
         self.top_right_side_frame.grid(row=0, column=6, rowspan=3, columnspan=2, padx=5, pady=5)
 
         self.bottom_frame.grid(row=3, column=2, rowspan=4, columnspan=4, padx=10, pady=10)
-
-        # define/create widgets
-        #
 
         # left side buttons
         self.lb1 = Button(self.top_left_side_frame, text="LB1", width=10)
@@ -448,7 +437,6 @@ class View:
         
         self.ml9.configure(text=lb3_lab)
         self.ml12.configure(text=rb3_lab)
-
 
 if __name__ == "__main__":
     print('atm_view.py')

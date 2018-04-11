@@ -9,7 +9,6 @@
 # David Xiao A00725026 2B
 
 import json
-from model.constants import *
 
 class AccountModel:
 

@@ -10,7 +10,6 @@
 
 from observe.observer import Observer
 
-
 class ButtonController(Observer):
 
     def __init__(self, view, state_model):

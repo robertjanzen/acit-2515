@@ -8,11 +8,9 @@
 # Robert Janzen A01029341 2B
 # David Xiao A00725026 2B
 
-
 class Observer:
     def update(self, obj, **kwargs):
         raise NotImplementedError
-
 
 class Observable:
     def __init__(self):

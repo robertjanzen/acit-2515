@@ -13,8 +13,8 @@
 
 class CLIView:
     _PROMPT_MESSAGE = "\nEnter your selection: "
+
     def __init__(self):
-        # self.getp = getpass.getpass
         pass
 
     def getCLIName(self):
@@ -24,7 +24,6 @@ class CLIView:
         Returns:
             Username inputted by user
         """
-        
         user_name = input('\nEnter your username: ')
         return user_name
 
@@ -35,8 +34,6 @@ class CLIView:
         Returns:
             Password inputted by user
         """
-        
-        # password = getp('Enter your password: ')
         password = input('Enter your password: ')
         return password
 
@@ -47,7 +44,6 @@ class CLIView:
         Returns:
             String containing the user's input, which indicates which option the user selects
         """
-        
         print('\nMain menu: ')
         return input('\n1. Manage existing customer\n2. Create new customer\n3. Logout\n4. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
@@ -58,7 +54,6 @@ class CLIView:
         Returns:
             String containing the user's input, which indicates which option the user selects
         """
-        
         return input('\n1. Manage account\n2. Open new account\n3. User report\n4. Back\n5. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
     def getAccNum(self):
@@ -68,7 +63,6 @@ class CLIView:
         Returns:
             Account number inputted by the user
         """
-        
         return input('Enter account number: ')
 
     def incorrectAcc(self):
@@ -78,7 +72,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSelected account does not exist\n')
 
     def incorrectUID(self):
@@ -88,7 +81,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSelected UID does not exist\n')
 
     def noAccounts(self):
@@ -97,7 +89,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nUser has no accounts')
 
     def noUID(self):
@@ -106,7 +97,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nBank has no users\n')
 
     def showManAccMenu(self):
@@ -116,7 +106,6 @@ class CLIView:
         Returns:
             String containing the user's input, which indicates which option the user selects
         """
-        
         return input('\n1. Deposit\n2. Withdraw\n3. Balance\n4. Close account \n5. Back\n6. Quit\n{}'.format(self._PROMPT_MESSAGE))
 
 
@@ -134,14 +123,7 @@ class CLIView:
         Returns:
             None
         """
-        
-        # output = '\nAccounts for uid: {0} - '.format(target_uid)
-        # for account in accounts:
-        #     if account['uid'] == target_uid:
-        #         output += account['acc_num'] + ' '
-        # print(output + '\n')
         print('\nAccounts for uid: {0} - {1}\n'.format(uid, ' '.join(accounts)))
-
 
     def getAccType(self):
         """
@@ -150,7 +132,6 @@ class CLIView:
         Returns:
             String containing the user input
         """
-        
         return input('\n1. Chequing\n2. Saving\n3. Back\n{}'.format(self._PROMPT_MESSAGE))
 
     def getAccName(self):
@@ -160,7 +141,6 @@ class CLIView:
         Returns:
             String containing the new account name as inputted by the user
         """
-        
         return input('Enter account name: ')
 
     def getDeposit(self):
@@ -170,7 +150,6 @@ class CLIView:
         Returns:
             String containing the amount to be deposited
         """
-        
         return input('Enter deposit amount: ')
     
     def depositSuccess(self, amount):
@@ -184,7 +163,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSuccessfully deposited: ${0}'.format(float(amount)))
 
     def getWithdraw(self):
@@ -194,7 +172,6 @@ class CLIView:
         Returns:
             String containing the amount to be withdrawn
         """
-        
         return input('Enter withdraw amount: ')
 
     def withdrawSuccess(self, amount):
@@ -208,7 +185,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSuccessfully withdrew: ${0}'.format(float(amount)))
 
     def withdrawFailure(self, message):
@@ -222,7 +198,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nWithdraw failure: {0}'.format(message))
 
     def getUid(self):
@@ -232,7 +207,6 @@ class CLIView:
         Returns:
             Returns the inputted UID
         """
-        
         return input('Enter the user ID: ')
 
     def showBalance(self, balance):
@@ -246,7 +220,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('The current balance is: ', balance)
 
     def getPIN(self):
@@ -256,7 +229,6 @@ class CLIView:
         Returns:
             The inputted PIN
         """
-        
         return input('Enter your PIN: ')
 
     def confirmPIN(self):
@@ -266,7 +238,6 @@ class CLIView:
         Returns:
             The inputted PIN
         """
-        
         return input('Confirm PIN: ')
 
     def success(self):
@@ -276,7 +247,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSuccessfully logged in')
 
     def incorrect(self):
@@ -286,7 +256,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nIncorrect username password combination')
 
     def printReport(self, report_content):
@@ -318,7 +287,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('Successfully completed transactions')
 
     def close_account_success(self):
@@ -327,7 +295,6 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nSuccessfully closed account')
 
     def accountCreationSuccess(self, new_account_num):
@@ -342,5 +309,4 @@ class CLIView:
         Returns:
             None
         """
-        
         print('\nFailed to close account. Account balance must be 0\n')
