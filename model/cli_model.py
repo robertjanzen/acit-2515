@@ -10,8 +10,8 @@
 
 import csv
 
-class CLIDB:
-    _ACC_DB_FIELDS = ['name', 'pwd']
+class CLIModel:
+    _ACC_MODEL_FIELDS = ['name', 'pwd']
     
     def __init__(self, file_path):
         self._acc_model_content = []
@@ -32,9 +32,9 @@ class CLIDB:
             Boolean indicating whether the inputted credentials are valid or not.
         """
         for entry in self._acc_model_content:
-            if usr == entry[self._ACC_DB_FIELDS[0]]:
+            if usr == entry[self._ACC_MODEL_FIELDS[0]]:
                 
-                if self.verifyPassword(entry[self._ACC_DB_FIELDS[1]], pwd):
+                if self.verifyPassword(entry[self._ACC_MODEL_FIELDS[1]], pwd):
                     
                     return True
                 else:
@@ -72,17 +72,16 @@ class CLIDB:
         Returns:
             None
         """
-        
         duplicate = False
         
         for entry in self._acc_model_content:
-            if entry[self._ACC_DB_FIELDS[0]] == usr:
+            if entry[self._ACC_MODEL_FIELDS[0]] == usr:
                 print("User already exists")
                 duplicate = True
                 break
                 
         if not duplicate:
-            self._acc_model_content.append({self._ACC_DB_FIELDS[0]: usr, self._ACC_DB_FIELDS[1]: self.hashPassword(pwd)})
+            self._acc_model_content.append({self._ACC_MODEL_FIELDS[0]: usr, self._ACC_MODEL_FIELDS[1]: self.hashPassword(pwd)})
             self.saveAccount()
     
     def loadAccount(self):
@@ -92,14 +91,13 @@ class CLIDB:
         Returns:
             None
         """
-        
         try:
             with open(self._model_file) as csv_file:
                 reader = csv.DictReader(csv_file)
             
                 for row in reader:
                     new_dict = {}
-                    for category in self._ACC_DB_FIELDS:
+                    for category in self._ACC_MODEL_FIELDS:
                         new_dict[category] = row[category]
                 
                     self._acc_model_content.append(new_dict)
@@ -113,10 +111,9 @@ class CLIDB:
         Returns:
             None
         """
-        
         try:
             with open(self._model_file, 'w', newline='') as csv_file:
-                fields = self._ACC_DB_FIELDS
+                fields = self._ACC_MODEL_FIELDS
                 writer = csv.DictWriter(csv_file, fieldnames=fields)
             
                 writer.writeheader()
@@ -155,6 +152,6 @@ class CLIDB:
 
 
 if __name__ == "__main__":
-    test_model = CLIDB('cli_account_model.csv')
+    test_model = CLIModel('cli_account_model.csv')
     test_model.createAccount('manager', 'password')
     print(test_model.verifyAccount('manager', 'password'))

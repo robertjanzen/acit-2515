@@ -16,7 +16,7 @@ from model.state_model import StateModel
 from model.user_model import UserModel
 from model.transaction_model import TransactionModel
 from model.account_model import AccountModel
-from model.cli_model import CLIDB
+from model.cli_model import CLIModel
 
 from controller.button_controller import ButtonController
 from controller.login_controller import LoginController

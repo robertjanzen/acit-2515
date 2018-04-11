@@ -10,7 +10,7 @@
 
 from model.account_model import AccountModel
 from view.cli_view import CLIView
-from model.cli_model import CLIDB
+from model.cli_model import CLIModel
 from model.user_model import UserModel
 from model.transaction_model import TransactionModel
 import random
@@ -23,7 +23,7 @@ class CLIController:
             loads imported functions into self parameters
         """
         self.view = CLIView()
-        self.cli_model = CLIDB('model/cli_account_model.csv')
+        self.cli_model = CLIModel('model/cli_account_model.csv')
         self.accounts = AccountModel()
         self.user_model = UserModel('model/user_model.csv')
         self.transaction_model = TransactionModel()
