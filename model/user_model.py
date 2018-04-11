@@ -39,7 +39,7 @@ class UserDB:
         
         with open(self._db_file) as csv_file:
             reader = csv.DictReader(csv_file)
-            
+            self._db_content = []
             for row in reader:
                 new_dict = {}
                 for category in self._DB_COLUMNS:
