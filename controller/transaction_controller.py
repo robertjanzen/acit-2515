@@ -162,6 +162,9 @@ class TransactionController(Observer):
             
             if new_state == 'Selection':
                 self.usr_target_acc = {}
+                self.usr_acc_dic = {}
+                self.get_account_list()
+                
                 if self.selection_page_num != -1:
                     options = []
                     acc_pool = list(self.usr_acc_dic.keys())
@@ -181,16 +184,19 @@ class TransactionController(Observer):
 
                 else:
                     self.selection_page_num = 0
-                    self.usr_acc_dic = {}
-                    self.get_account_list()
                     self.state_db.state = "Selection"
 
             elif new_state == 'Overview':
                 self.update_tgt_acc_info(self.state_db.uid, self.usr_target_acc['acc_num'])
-                self.view.render_overview('', '', '')
+                if self.usr_target_acc is None:
+                    self.view.render_error("Account Not Found")
+                else:
+                    self.view.render_overview('', '', '')
 
             elif new_state == 'Balance':
                 self.update_tgt_acc_info(self.state_db.uid, self.usr_target_acc['acc_num'])
+                if self.usr_target_acc is None:
+                    self.view.render_error("Account Not Found")
                 self.view.render_balance('Your Current Balance:', '${}'.format(self.usr_target_acc['acc_balance']),
                                          'Cancel', 'Back')
 
@@ -226,7 +232,6 @@ class TransactionController(Observer):
             None
         """
         
-        self.account_model.load_accounts()
         for entry in self.account_model.accounts:
             if entry['uid'] == uid and entry['acc_num'] == acc_num:
                 self.usr_target_acc = entry
@@ -243,8 +248,8 @@ class TransactionController(Observer):
             None
         """
 
-        self.account_model.load_accounts()
         for entry in self.account_model.accounts:
+            
             if entry['uid'] == self.state_db.uid:
                 self.usr_acc_dic[entry['acc_num']] = entry['acc_name']
 
@@ -306,15 +311,18 @@ class TransactionController(Observer):
         account_type = self.usr_target_acc['acc_type']
         
         self.update_tgt_acc_info(uid, account_num)
+        
         if self.usr_target_acc is None:
             return 'Account Not Found'
         
-        transaction_result = self.account_model.withdraw(uid, account_num, input_value)
+        else:
         
-        if transaction_result == '':
-            self.transaction_model.create_new_entry(uid, account_type, account_num, 'Withdraw', input_value)
+            transaction_result = self.account_model.withdraw(uid, account_num, input_value)
             
-        return transaction_result
+            if transaction_result == '':
+                self.transaction_model.create_new_entry(uid, account_type, account_num, 'Withdraw', input_value)
+            
+            return transaction_result
     
 
 if __name__ == '__main__':

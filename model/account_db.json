@@ -158,7 +158,7 @@
         "acc_num": "1036",
         "acc_type": "Savings",
         "acc_name": "Vacation",
-        "acc_balance": "346.0"
+        "acc_balance": "436.0"
     },
     {
         "uid": "2",
@@ -215,5 +215,33 @@
         "acc_type": "Savings",
         "acc_name": "Business",
         "acc_balance": "29990.0"
+    },
+    {
+        "uid": "1",
+        "acc_num": "1050",
+        "acc_type": "Chequing",
+        "acc_name": "Amazing things",
+        "acc_balance": "47.0"
+    },
+    {
+        "uid": "31",
+        "acc_num": "1064",
+        "acc_type": "Chequing",
+        "acc_name": "test acc",
+        "acc_balance": "100"
+    },
+    {
+        "uid": "32",
+        "acc_num": "1065",
+        "acc_type": "Chequing",
+        "acc_name": "test",
+        "acc_balance": "100"
+    },
+    {
+        "uid": "33",
+        "acc_num": "1066",
+        "acc_type": "Chequing",
+        "acc_name": "aldrich",
+        "acc_balance": "2"
     }
 ]

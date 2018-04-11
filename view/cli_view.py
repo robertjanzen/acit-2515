@@ -35,6 +35,7 @@ class CLIView:
             Password inputted by user
         """
         password = input('Enter your password: ')
+        # password = getpass.getpass(prompt="Enter your password:  ")
         return password
 
     def showUidMenu(self):

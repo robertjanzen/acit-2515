@@ -105,14 +105,17 @@ class TransactionModel:
                     account_list = []
                     
                     for line in full_file:
+                        
                         line_data = line.rstrip('\n').split(',')
-                        account_list = list(transaction_dic.keys())
+                        print(line_data)
                         
                         if line_data[3] in account_list:
                             transaction_dic[line_data[3]].append(', '.join(line_data))
                         else:
                             transaction_dic[line_data[3]] = [', '.join(line_data)]
-                    
+                            
+                        account_list = list(transaction_dic.keys())
+                        
                     account_list.sort(key=str)
                     
                     for account_num in account_list:

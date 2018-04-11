@@ -22,6 +22,7 @@ class AccountModel:
 
     @property
     def accounts(self):
+        self.load_accounts()
         return self._accounts
 
     @accounts.setter

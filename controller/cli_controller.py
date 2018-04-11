@@ -250,7 +250,8 @@ class CLIController:
             self.cli_new_uid()
         accName = self.view.getAccName()
         initDep = self.view.getDeposit()
-        self.uid = self.accounts.create_new_account(accType, accName, initDep)
+        self.accounts.create_new_account(accType, accName, initDep)
+        self.uid = self.accounts.accounts[-1]['uid']
         self.create_user_db()
         self.view.userCreationSuccess(self.uid)
         self.accounts.load_accounts()

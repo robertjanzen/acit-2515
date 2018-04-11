@@ -235,8 +235,11 @@ class View:
         Returns:
             None
         """
-        
-        self.display_info_page('ERROR', error_msg, 'Cancel', 'Back')
+        if error_msg == "Account Not Found":
+            self.display_info_page('ERROR', error_msg, 'Cancel')
+            
+        else:
+            self.display_info_page('ERROR', error_msg, 'Cancel', 'Back')
 
     def clear_screen(self):
         """

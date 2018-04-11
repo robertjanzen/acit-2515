@@ -65,9 +65,6 @@ class LoginController(Observer):
                 target_account = account
                 break
 
-        print(self.unrand(target_account["PIN"]))
-        print(partial_hash)
-
         if self.unrand(target_account["PIN"]) == partial_hash:
             self.state_db.state = "Selection"
 
