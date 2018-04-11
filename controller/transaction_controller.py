@@ -48,10 +48,9 @@ class TransactionController(Observer):
             if self.state_db.state in ['Deposit', 'Cash']:
                 new_digit = float(input_value) * 0.01
                 self.current_total *= 10.0
-                rounded = round((self.current_total + new_digit), 2)
-                self.current_total = rounded
+                self.current_total = round((self.current_total + new_digit), 2)
                 self.view.mid_title_input.delete(0, END)
-                self.view.mid_title_input.insert(END, '{0:.2f}'.format(rounded))
+                self.view.mid_title_input.insert(END, '{0:.2f}'.format(self.current_total))
 
         elif 'input' in updated_data:
             input_cmd = kwargs['input']
