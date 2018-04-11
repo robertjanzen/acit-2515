@@ -18,7 +18,7 @@ class View:
 
         # set main window attributes such as title, geometry etc
         self.master.title('ATM')
-        self.master.geometry('1005x520')
+        self.master.geometry('1015x500')
         self.master.configure(background='grey')
 
         # define frames if needed
