@@ -87,3 +87,9 @@ date,uid,account_type,account_number,transaction_type,amount
 2018-04-11 13:21:45.747034,1,Chequing,1075,Account closed
 2018-04-11 13:26:46.546963,1,Chequing,1074,Withdraw,333333.0
 2018-04-11 13:26:46.546963,1,Chequing,1074,Account closed
+2018-04-11 15:23:39.488675,1,Chequing,1050,Deposit,0.06
+2018-04-11 15:23:39.488675,1,Chequing,1050,Withdraw,25.55
+2018-04-11 15:26:08.105013,1,Chequing,1002,Withdraw,20.0
+2018-04-11 15:26:08.105013,1,Chequing,1002,Deposit,25.0
+2018-04-11 15:26:08.105013,1,Chequing,1002,Withdraw,20.0
+2018-04-11 15:26:08.105013,1,Chequing,1002,Deposit,2000000.0

@@ -176,7 +176,7 @@ class CLIController:
                 self.transaction_model.createNewEntry(self.uid, acc_type, self.account_number, 'Deposit', amount)
                 self.view.depositSuccess(str(round(float(amount), 2)))
             else:
-                self.view.depositFailure('Invalid value')
+                self.view.depositFailure('Invalid Input')
             self.manageAccount()
         elif user_input == '2':
             amount = self.view.getWithdraw()
