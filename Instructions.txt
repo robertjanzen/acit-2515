@@ -1,2 +1,2 @@
 To run the ATM GUI, type: python atm.py
-To run the CLI, type: python acc_mgnt.py
+To run the CLI, type: python cli.py

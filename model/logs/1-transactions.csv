@@ -91,3 +91,6 @@ date,uid,account_type,account_number,transaction_type,amount
 2018-04-11 14:25:05.491381,1,Savings,1036,Withdraw,500.0
 2018-04-11 14:25:05.491381,1,Savings,1036,Withdraw,100.0
 2018-04-11 14:25:05.491381,1,Savings,1036,Withdraw,100.0
+2018-04-11 14:48:17.536057,1,Chequing,1004,Deposit,0.5
+2018-04-11 14:48:17.536057,1,Chequing,1004,Withdraw,500.0
+2018-04-11 14:48:17.536057,1,Chequing,1004,Withdraw,20.0
