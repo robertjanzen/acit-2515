@@ -17,7 +17,8 @@ class LoginController(Observer):
         self.view = view
         self.state_db = state_model
         self.state_db.add_observer(self)
-        self.db = user_db.db_content
+        self._usr_db = user_db
+        self._db = self._usr_db.db_content
         
         self.msg = ''
 
@@ -88,6 +89,12 @@ class LoginController(Observer):
                 curr_num += character
         num_str += str(int(int(curr_num)/2))
         return num_str
+
+    @property
+    def db(self):
+        self._usr_db.open_db_file()
+        self._db = self._usr_db.db_content
+        return self._db
 
     def update(self, publisher, **kwargs):
         """
