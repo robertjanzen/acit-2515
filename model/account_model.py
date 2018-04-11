@@ -18,8 +18,16 @@ class AccountModel:
     _OVERDRAFT_LIMIT = -500
 
     def __init__(self):
-        self.accounts = None
+        self._accounts = None
         self.load_accounts()
+
+    @property
+    def accounts(self):
+        return self._accounts
+
+    @accounts.setter
+    def accounts(self, input_value):
+        self._accounts = input_value
 
     def load_accounts(self):
         """
@@ -115,16 +123,17 @@ class AccountModel:
             Returns True if the account was deleted successfully, and False otherwise
         """
 
-        with open('model/account_db.json', 'r+') as json_file:
+        with open('model/account_db.json', 'r') as json_file:
             data = json.load(json_file)
-            for index, account in enumerate(data):
-                if (account['uid'] == uid) and (account['acc_num'] == acc_num):
-                    if int(data[index]['acc_balance']) != 0:
-                        return False
-                    else:
-                        data.remove(account)
-            json_file.seek(0)
-            json.dump(data, json_file, indent=4)
+        for index, account in enumerate(data):
+            if (account['uid'] == uid) and (account['acc_num'] == acc_num):
+                if int(data[index]['acc_balance']) != 0:
+                    return False
+                else:
+                    data.remove(account)
+        with open('model/account_db.json', 'w') as json_file2:
+            json_file2.seek(0)
+            json.dump(data, json_file2, indent=4)
         return True
 
     # def interest_and_fee(self):
@@ -196,13 +205,13 @@ class AccountModel:
 
         """
         return_msg = ''
-        
+
         if self.check_float(amount):
-            
+
             with open('model/account_db.json') as json_file:
-                
+
                 data = json.load(json_file)
-                
+
             for index, account in enumerate(data):
                 
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):

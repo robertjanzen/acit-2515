@@ -108,6 +108,7 @@ class CLIController:
             5. Quit program
         :return:
         """
+        self.accounts.load_accounts()
         self.state = 1
         aInput = self.view.showAccMenu()
         if aInput == '1':
@@ -161,6 +162,7 @@ class CLIController:
             6. Back to previous menu
             7. Exit program
         """
+        self.accounts.load_accounts()
         maInput = self.view.showManAccMenu()
         if maInput == '1':
             amount = self.view.getDeposit()
@@ -191,7 +193,7 @@ class CLIController:
         elif maInput == '5':
             if self.accounts.delete_account(self.uid, self.accNum):
                 self.view.close_account_success()
-                self.cli_man_acc()
+                self.cli_acc_menu()
             else:
                 self.view.close_account_fail()
                 self.cli_man_acc()
