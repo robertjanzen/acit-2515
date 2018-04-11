@@ -8,7 +8,6 @@
 # Robert Janzen A01029341 2B
 # David Xiao A00725026 2B
 
-
 import datetime
 import os
 import locale

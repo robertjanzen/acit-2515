@@ -1,3 +1,13 @@
+# cli_controller.py
+#
+# ATM MVC program
+#
+# Team alroda
+#
+# Aldrich Huang A01026502 2B
+# Robert Janzen A01029341 2B
+# David Xiao A00725026 2B
+
 from model.account_model import AccountModel
 from view.cli_view import CLIView
 from model.cli_db import CLIDB
@@ -298,10 +308,6 @@ class CLIController:
     def get_report(self):
         report = self.trans.display_report(self.uid)
         self.view.printReport(report)
-
-    # def charge_fees(self):
-    #     self.accounts.interest_and_fee()
-    #     self.view.int_fee_complete()
 
 if __name__ == "__main__":
     controller = CLIController()
