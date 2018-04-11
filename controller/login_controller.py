@@ -55,27 +55,38 @@ class LoginController(Observer):
             None
         """
         target_account = {}
+
+        partial_hash = ''
+
+        for digit in input_PIN:
+            partial_hash += str(int(digit) * 2)
+
         for account in self.db:
             if account["uid"] == self.state_db.uid:
                 target_account = account
                 break
-        if self.unhash(target_account["PIN"]) == input_PIN:
+
+        print(self.unrand(target_account["PIN"]))
+        print(partial_hash)
+
+        if self.unrand(target_account["PIN"]) == partial_hash:
             self.state_db.state = "Selection"
+
         else:
             self.msg = 'Invalid PIN'
             self.state_db.state = "LoginError"
             
     @staticmethod
-    def unhash(input_hash):
+    def unrand(input_hash):
         """
-            Function for unhashing the hashed PIN
+            Function for removing randomized dummy values from the hashed PIN
             
         Args:
             input_hash:
                 Hashed PIN
                 
         Returns:
-            Unhashed PIN
+            Clean Hashed PIN
         """
         
         num_str = ''
@@ -83,11 +94,14 @@ class LoginController(Observer):
         for character in input_hash:
             if int(character) % 2 != 0 and int(character) != 1:
                 if curr_num != '':
-                    num_str += str(int(int(curr_num)/2))
+                    num_str += str(curr_num)
                     curr_num = ''
             else:
                 curr_num += character
-        num_str += str(int(int(curr_num)/2))
+
+        if curr_num != '':
+            num_str += str(curr_num)
+
         return num_str
 
     @property
