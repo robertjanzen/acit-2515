@@ -7,3 +7,7 @@
 account_db.json
 model/account_model.py
 model/account_db.json
+model/logs/45-transactions.csv
+model/logs/47-transactions.csv
+model/user_model.csv
+model/user_model.csv
