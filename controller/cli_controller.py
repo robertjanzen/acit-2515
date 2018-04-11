@@ -245,7 +245,7 @@ class CLIController:
         elif tInput == '2':
             accType = 'Savings'
         elif tInput == '3':
-            self.cli_new_uid()
+            self.uidMenu()
         else:
             self.cli_new_uid()
         accName = self.view.getAccName()
