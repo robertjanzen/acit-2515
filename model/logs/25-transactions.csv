@@ -1,3 +1,4 @@
 date,uid,account_type,account_number,transaction_type,amount
+2018-04-08 13:19:34.760372,25,Chequing,1040,Account created with balance of: $1000000
 2018-04-10 18:12:40.705668,25,Savings,1040,Deposit,3600.0
 2018-04-10 18:12:49.646769,25,Savings,1040,Withdraw,90.0

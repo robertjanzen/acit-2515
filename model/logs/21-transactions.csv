@@ -1,0 +1,3 @@
+date,uid,account_type,account_number,transaction_type,amount
+2018-04-07 09:10:34.760372,21,Savings,1032,Account created with balance of: $200
+2018-04-11 14:18:37.665936,21,Savings,1032,Withdraw,20.0
