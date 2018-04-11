@@ -193,7 +193,10 @@ class CLIController:
             self.view.showBalance(balance)
             self.cli_man_acc()
         elif maInput == '4':
+            selected_acc_type = self.accounts.getAccountType(self.uid, self.accNum)
             if self.accounts.delete_account(self.uid, self.accNum):
+                new_msg = 'Account closed'
+                self.trans.create_new_action_entry(self.uid, selected_acc_type, self.accNum, new_msg)
                 self.view.close_account_success()
                 self.uidMenu()
             else:
@@ -229,6 +232,8 @@ class CLIController:
         accName = self.view.getAccName()
         initDep = self.view.getDeposit()
         new_acc_num = self.accounts.create_new_account(accType, accName, initDep, self.uid)
+        new_msg = 'Account created with balance of: ${}'.format(str(round(float(initDep), 2)))
+        self.trans.create_new_action_entry(self.uid, accType, new_acc_num, new_msg)
         self.view.accountCreationSuccess(new_acc_num)
 
     def cli_new_uid(self):
@@ -320,6 +325,7 @@ class CLIController:
     def get_report(self):
         report = self.trans.display_report(self.uid)
         self.view.printReport(report)
+
 
 if __name__ == "__main__":
     controller = CLIController()

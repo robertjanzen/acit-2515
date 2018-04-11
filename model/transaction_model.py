@@ -79,6 +79,26 @@ class TransactionModel:
                 output = self._TRANSACTION_COLUMNS + '\n' + row
                 csv_file.write(output)
                 
+    def create_new_action_entry(self, uid, account_type, account_num, action_type, date=datetime.datetime.now()):
+        """
+            Creates a new account action entry in the transaction log
+        Args:
+            uid:
+                uid of the user who owns the accound
+            account_type:
+                type of the account
+            account_num:
+                account number of the account
+            action_type:
+                string describing the type of action done to the account
+            date:
+                current date
+        Returns:
+            None
+        """
+        row = '{0},{1},{2},{3},{4}'.format(str(date), uid, account_type, account_num, action_type)
+        self.save_transaction(uid, row)
+                
     def display_report(self, uid):
         """
             Displays a report of all recorded transactions for accounts owned by the User with the ID uid. The report
