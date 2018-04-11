@@ -332,6 +332,6 @@ class TransactionController(Observer):
                 self.transaction_model.createNewEntry(uid, account_type, account_num, 'Withdraw', input_value)
             
             return transaction_result
-    
+
 if __name__ == '__main__':
     print('Transaction Controller')

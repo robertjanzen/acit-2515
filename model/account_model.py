@@ -180,37 +180,28 @@ class AccountModel:
         return_msg = ''
 
         if self.checkFloat(amount):
-
             with open('model/account_model.json') as json_file:
-
                 data = json.load(json_file)
 
             for index, account in enumerate(data):
-                
                 if (account['uid'] == uid) and (account['acc_num'] == account_num):
-                    
                     new_amount = round(float(data[index]['acc_balance']) - float(amount), 2)
-                    
                     if account['acc_type'] == 'Chequing':
                         if new_amount >= self._OVERDRAFT_LIMIT:
                             data[index]['acc_balance'] = str(new_amount)
                             break
                         else:
                             return_msg = 'Exceeded Overdraft Limit'
-                            
                     elif account['acc_type'] == 'Savings':
                         if new_amount >= 0:
                             data[index]['acc_balance'] = str(new_amount)
                             break
                         else:
                             return_msg = 'Insufficient Funds'
-                    
                     else:
                         return_msg = 'Unknown Account Type'
-                        
             if return_msg == '':
                 with open('model/account_model.json', 'w') as json_file2:
-                    
                     json_file2.seek(0)
                     json.dump(data, json_file2, indent=4)
         else:
