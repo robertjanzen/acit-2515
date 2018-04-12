@@ -262,8 +262,8 @@ class CLIController:
         self.account_number = self.accounts.accounts[-1]['acc_num']
         new_msg = 'Account created with balance of: ${}'.format(str(round(float(deposit_amount), 2)))
         self.transaction_model.createNewActionEntry(self.uid, account_type, self.account_number, new_msg)
-        self.generateUser()
-        self.view.userCreationSuccess(self.uid)
+        card_num = self.generateUser()
+        self.view.userCreationSuccess(self.uid, card_num)
         self.accounts.loadAccount()
         self.mainMenu()
 
@@ -277,6 +277,7 @@ class CLIController:
         card_number = self.generateCardNum(self.uid)
         hashed_password = self.hashPassword()
         self.user_model.createNewEntry(self.uid, card_number, hashed_password)
+        return card_number
 
     def generateCardNum(self, uid):
         """

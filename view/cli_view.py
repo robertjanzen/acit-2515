@@ -322,7 +322,7 @@ class CLIView:
         """
         print('\nSuccessfully created account with number: {0}'.format(new_account_num))
 
-    def userCreationSuccess(self, new_uid):
+    def userCreationSuccess(self, new_uid, new_card):
         """
             Displays a success message for successful user creation attempt
         Args:
@@ -331,7 +331,7 @@ class CLIView:
         Returns:
             None
         """
-        print('\nSuccessfully created new user with UID: {0}'.format(new_uid))
+        print('\nSuccessfully created new user\n\tUID: {0}\n\tCard Num: {1}'.format(new_uid, new_card))
 
     def close_account_fail(self):
         """
